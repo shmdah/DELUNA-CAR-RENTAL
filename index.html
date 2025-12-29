@@ -348,12 +348,58 @@
             line-height: 1.4;
         }
 
+        /* Back Button Styling - Mobile First */
+        .back-btn-container {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: var(--white);
+            border: 2px solid var(--white);
+            border-radius: 8px;
+            font-family: 'Arial Black', 'Arial Bold', Gadget, sans-serif;
+            font-weight: 900;
+            font-style: italic;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .back-btn:hover {
+            background-color: var(--white);
+            color: var(--pitch-black);
+            transform: translateX(-5px);
+        }
+
+        .back-btn i {
+            font-size: 1rem;
+        }
+
+        /* Hide back button on home page */
+        #home-page .back-btn-container {
+            display: none;
+        }
+
         /* Fleet Page */
         #fleet-page {
             padding: 90px 20px 80px;
             background-color: var(--charcoal-grey);
             min-height: 100vh;
             box-sizing: border-box;
+            position: relative;
         }
 
         .section-header {
@@ -648,6 +694,7 @@
             background-color: var(--charcoal-grey);
             min-height: 100vh;
             box-sizing: border-box;
+            position: relative;
         }
 
         .booking-container {
@@ -765,6 +812,7 @@
             background-color: var(--pitch-black);
             min-height: 100vh;
             box-sizing: border-box;
+            position: relative;
         }
 
         .contact-container {
@@ -958,6 +1006,17 @@
             .category-menu a:hover {
                 padding-left: 25px;
                 border-left-color: transparent;
+            }
+            
+            /* Back Button Desktop Styles */
+            .back-btn-container {
+                top: 30px;
+                left: 30px;
+            }
+            
+            .back-btn {
+                padding: 12px 25px;
+                font-size: 1rem;
             }
             
             .hero-content {
@@ -1174,6 +1233,12 @@
 
     <!-- Fleet Page -->
     <section id="fleet-page" class="page">
+        <div class="back-btn-container">
+            <button class="back-btn" id="back-fleet-btn">
+                <i class="fas fa-arrow-left"></i> Back
+            </button>
+        </div>
+        
         <div class="section-header">
             <h2>Our Luxury Fleet</h2>
             <p>Select from our premium collection of high-performance vehicles</p>
@@ -1299,6 +1364,12 @@
 
     <!-- Booking Page -->
     <section id="booking-page" class="page">
+        <div class="back-btn-container">
+            <button class="back-btn" id="back-booking-btn">
+                <i class="fas fa-arrow-left"></i> Back
+            </button>
+        </div>
+        
         <div class="booking-container">
             <div class="booking-header">
                 <h2>Complete Your Reservation</h2>
@@ -1391,6 +1462,12 @@
 
     <!-- Contact Page -->
     <section id="contact-page" class="page">
+        <div class="back-btn-container">
+            <button class="back-btn" id="back-contact-btn">
+                <i class="fas fa-arrow-left"></i> Back
+            </button>
+        </div>
+        
         <div class="contact-container">
             <div class="section-header">
                 <h2>Contact Us</h2>
@@ -1447,6 +1524,11 @@
         const bookingForm = document.getElementById('booking-form');
         const rentalDaysSelect = document.getElementById('rental-days');
         const pickupDateInput = document.getElementById('pickup-date');
+
+        // New Back Buttons
+        const backFleetBtn = document.getElementById('back-fleet-btn');
+        const backBookingBtn = document.getElementById('back-booking-btn');
+        const backContactBtn = document.getElementById('back-contact-btn');
 
         // Booking elements
         const selectedCarName = document.getElementById('selected-car-name');
@@ -1550,6 +1632,30 @@
                     navLinks.classList.remove('active');
                     categoryDropdown.classList.remove('active');
                 }
+            }
+        }
+
+        // Go back to previous page
+        function goBack() {
+            const currentPage = document.querySelector('.page.active').id;
+            
+            // Determine where to go back to based on current page
+            switch(currentPage) {
+                case 'fleet-page':
+                    // From fleet, go to home
+                    navigateToPage('home-page');
+                    break;
+                case 'booking-page':
+                    // From booking, go to fleet
+                    navigateToPage('fleet-page');
+                    break;
+                case 'contact-page':
+                    // From contact, go to home
+                    navigateToPage('home-page');
+                    break;
+                default:
+                    // Default to home page
+                    navigateToPage('home-page');
             }
         }
 
@@ -1826,6 +1932,12 @@
             filterCars('all');
         });
 
+        // Back buttons
+        backFleetBtn.addEventListener('click', goBack);
+        backBookingBtn.addEventListener('click', goBack);
+        backContactBtn.addEventListener('click', goBack);
+        backToFleetBtn.addEventListener('click', goBack);
+
         // Category button click handlers
         categoryButtons.forEach(button => {
             button.addEventListener('click', () => {
@@ -1857,11 +1969,6 @@
                 const carCard = button.closest('.car-card');
                 handleCarSelection(carCard);
             });
-        });
-
-        // Back to fleet button
-        backToFleetBtn.addEventListener('click', () => {
-            navigateToPage('fleet-page');
         });
 
         // Update price when rental days change
