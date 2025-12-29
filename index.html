@@ -2,16 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>DELUNA LUXURY CAR RENTALS</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* CSS Reset */
+        /* CSS Reset with platform-specific fixes */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         :root {
@@ -27,16 +29,20 @@
             --modal-overlay: rgba(0, 0, 0, 0.95);
             --safe-area-top: env(safe-area-inset-top);
             --safe-area-bottom: env(safe-area-inset-bottom);
+            --safe-area-left: env(safe-area-inset-left);
+            --safe-area-right: env(safe-area-inset-right);
         }
 
         html {
             height: 100%;
             overflow-x: hidden;
             -webkit-text-size-adjust: 100%;
+            /* Prevent pull-to-refresh on Android Chrome */
+            overscroll-behavior: none;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
             background-color: var(--pitch-black);
             color: var(--light-grey);
             overflow-x: hidden;
@@ -46,7 +52,21 @@
             position: relative;
             padding-top: var(--safe-area-top);
             padding-bottom: var(--safe-area-bottom);
-            overscroll-behavior: none;
+            padding-left: var(--safe-area-left);
+            padding-right: var(--safe-area-right);
+            /* Prevent rubber band effect on iOS */
+            -webkit-overflow-scrolling: touch;
+            overflow-y: scroll;
+        }
+
+        /* iPhone X+ Notch Safe Areas */
+        @supports (padding: max(0px)) {
+            body {
+                padding-top: max(0px, env(safe-area-inset-top));
+                padding-bottom: max(0px, env(safe-area-inset-bottom));
+                padding-left: max(0px, env(safe-area-inset-left));
+                padding-right: max(0px, env(safe-area-inset-right));
+            }
         }
 
         /* Hide all pages initially */
@@ -69,9 +89,9 @@
             position: relative;
         }
 
-        /* Typography */
+        /* Typography optimized for mobile */
         h1, h2, h3, h4, .heading-font {
-            font-family: 'Arial Black', 'Arial Bold', Gadget, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             font-weight: 900;
             font-style: italic;
             text-transform: uppercase;
@@ -112,7 +132,7 @@
             line-height: 1.5;
         }
 
-        /* Navigation Menu - Mobile First */
+        /* Navigation Menu - Mobile Optimized */
         .navbar {
             position: fixed;
             top: 0;
@@ -129,6 +149,8 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             height: 70px;
             box-sizing: border-box;
+            /* iOS Safari fix for fixed position */
+            position: -webkit-sticky;
         }
 
         .navbar.scrolled {
@@ -147,7 +169,7 @@
             white-space: nowrap;
         }
 
-        /* Mobile Menu Toggle */
+        /* Mobile Menu Toggle - Platform specific */
         .menu-toggle {
             display: flex;
             flex-direction: column;
@@ -159,6 +181,8 @@
             border: none;
             padding: 0;
             z-index: 1001;
+            -webkit-appearance: none;
+            appearance: none;
         }
 
         .menu-toggle span {
@@ -226,6 +250,7 @@
             display: block;
             width: 100%;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            -webkit-tap-highlight-color: rgba(234, 88, 12, 0.3);
         }
 
         .nav-links a:last-child {
@@ -252,6 +277,29 @@
         .nav-links a:hover,
         .nav-links a.active {
             color: var(--electric-orange);
+        }
+
+        /* iOS Safari specific fixes */
+        @supports (-webkit-touch-callout: none) {
+            .nav-links {
+                height: -webkit-fill-available;
+                height: calc(100dvh - 70px);
+            }
+            
+            .nav-links a {
+                -webkit-tap-highlight-color: rgba(234, 88, 12, 0.3);
+            }
+        }
+
+        /* Android Chrome specific fixes */
+        @supports not (-webkit-touch-callout: none) {
+            .nav-links {
+                height: calc(100vh - 70px);
+            }
+            
+            .nav-links a {
+                -webkit-tap-highlight-color: rgba(234, 88, 12, 0.3);
+            }
         }
 
         /* Category Dropdown for Mobile */
@@ -283,6 +331,7 @@
             font-size: 1.1rem;
             border-bottom: none;
             border-left: 3px solid transparent;
+            -webkit-tap-highlight-color: rgba(234, 88, 12, 0.3);
         }
 
         .category-menu a:hover {
@@ -292,7 +341,7 @@
             padding-left: 30px;
         }
 
-        /* Home Page - Hero Section */
+        /* Home Page - Hero Section with platform-specific video */
         #home-page {
             position: relative;
             min-height: 100vh;
@@ -318,6 +367,9 @@
             height: 100%;
             object-fit: cover;
             filter: brightness(0.6);
+            /* iOS Safari video playback fix */
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
         }
 
         .video-overlay {
@@ -348,10 +400,10 @@
             line-height: 1.4;
         }
 
-        /* Back Button Styling - Mobile First */
+        /* Back Button Styling - Platform Optimized */
         .back-btn-container {
             position: absolute;
-            top: 20px;
+            top: max(20px, env(safe-area-inset-top));
             left: 20px;
             z-index: 100;
         }
@@ -365,7 +417,7 @@
             color: var(--white);
             border: 2px solid var(--white);
             border-radius: 8px;
-            font-family: 'Arial Black', 'Arial Bold', Gadget, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             font-weight: 900;
             font-style: italic;
             text-transform: uppercase;
@@ -376,6 +428,9 @@
             font-size: 0.9rem;
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
+            -webkit-tap-highlight-color: rgba(255, 255, 255, 0.3);
+            -webkit-appearance: none;
+            appearance: none;
         }
 
         .back-btn:hover {
@@ -395,7 +450,7 @@
 
         /* Fleet Page */
         #fleet-page {
-            padding: 90px 20px 80px;
+            padding: calc(70px + env(safe-area-inset-top)) 20px calc(80px + env(safe-area-inset-bottom));
             background-color: var(--charcoal-grey);
             min-height: 100vh;
             box-sizing: border-box;
@@ -427,7 +482,7 @@
             background-color: transparent;
             border: 2px solid var(--electric-orange);
             color: var(--electric-orange);
-            font-family: 'Arial Black', 'Arial Bold', Gadget, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             font-weight: 900;
             font-style: italic;
             text-transform: uppercase;
@@ -439,6 +494,9 @@
             min-width: 100px;
             flex: 1;
             max-width: 200px;
+            -webkit-tap-highlight-color: rgba(234, 88, 12, 0.3);
+            -webkit-appearance: none;
+            appearance: none;
         }
 
         .category-btn:hover,
@@ -455,7 +513,7 @@
             width: 100%;
         }
 
-        /* Car Cards with Image Carousel */
+        /* Car Cards with Image Carousel - Touch Optimized */
         .car-card {
             background-color: var(--card-bg);
             border: 1px solid #222;
@@ -490,7 +548,7 @@
             background-color: var(--electric-orange);
             color: var(--pitch-black);
             padding: 8px 40px;
-            font-family: 'Arial Black', 'Arial Bold', Gadget, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             font-weight: 900;
             font-style: italic;
             text-transform: uppercase;
@@ -500,20 +558,23 @@
             z-index: 10;
         }
 
-        /* Car Image Carousel - Mobile Optimized */
+        /* Car Image Carousel - Touch Optimized */
         .car-image-carousel {
             position: relative;
             width: 100%;
             height: 220px;
             overflow: hidden;
             touch-action: pan-y pinch-zoom;
+            /* iOS Safari performance optimization */
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
         }
 
         .carousel-track {
             display: flex;
             width: 100%;
             height: 100%;
-            transition: transform 0.5s ease;
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             will-change: transform;
         }
 
@@ -521,6 +582,8 @@
             min-width: 100%;
             height: 100%;
             flex-shrink: 0;
+            -webkit-user-select: none;
+            user-select: none;
         }
 
         .carousel-slide img {
@@ -528,6 +591,11 @@
             height: 100%;
             object-fit: cover;
             display: block;
+            /* Prevent iOS blue highlight on tap */
+            -webkit-touch-callout: none;
+            /* Prevent image dragging */
+            -webkit-user-drag: none;
+            user-drag: none;
         }
 
         .carousel-nav {
@@ -548,6 +616,9 @@
             transition: opacity 0.3s ease;
             z-index: 5;
             font-size: 1.2rem;
+            -webkit-tap-highlight-color: rgba(255, 255, 255, 0.3);
+            -webkit-appearance: none;
+            appearance: none;
         }
 
         .carousel-nav:hover {
@@ -583,6 +654,7 @@
             transition: all 0.3s ease;
             border: none;
             padding: 0;
+            -webkit-tap-highlight-color: rgba(234, 88, 12, 0.3);
         }
 
         .carousel-dot.active {
@@ -641,7 +713,7 @@
             background-color: #3498db;
         }
 
-        /* Buttons - Mobile Optimized */
+        /* Buttons - Touch Optimized */
         .btn {
             display: inline-block;
             padding: 16px 30px;
@@ -649,7 +721,7 @@
             color: var(--white);
             border: none;
             border-radius: 8px;
-            font-family: 'Arial Black', 'Arial Bold', Gadget, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             font-weight: 900;
             font-style: italic;
             text-transform: uppercase;
@@ -665,6 +737,9 @@
             margin-top: 15px;
             touch-action: manipulation;
             position: relative;
+            -webkit-tap-highlight-color: rgba(234, 88, 12, 0.3);
+            -webkit-appearance: none;
+            appearance: none;
         }
 
         .btn:hover {
@@ -690,7 +765,7 @@
 
         /* Booking Page - Mobile Optimized */
         #booking-page {
-            padding: 90px 20px 80px;
+            padding: calc(70px + env(safe-area-inset-top)) 20px calc(80px + env(safe-area-inset-bottom));
             background-color: var(--charcoal-grey);
             min-height: 100vh;
             box-sizing: border-box;
@@ -761,8 +836,16 @@
             transition: all 0.3s ease;
             box-sizing: border-box;
             -webkit-appearance: none;
-            -moz-appearance: none;
             appearance: none;
+        }
+
+        /* iOS Safari input zoom prevention */
+        @supports (-webkit-touch-callout: none) {
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                font-size: 16px !important;
+            }
         }
 
         .form-group input:focus,
@@ -808,7 +891,7 @@
 
         /* Contact Page - Mobile Optimized */
         #contact-page {
-            padding: 90px 20px 80px;
+            padding: calc(70px + env(safe-area-inset-top)) 20px calc(80px + env(safe-area-inset-bottom));
             background-color: var(--pitch-black);
             min-height: 100vh;
             box-sizing: border-box;
@@ -893,7 +976,7 @@
         }
 
         .spinner-text {
-            font-family: 'Arial Black', 'Arial Bold', Gadget, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             font-weight: 900;
             font-style: italic;
             text-transform: uppercase;
@@ -920,6 +1003,67 @@
 
         ::-webkit-scrollbar-thumb:hover {
             background: var(--electric-orange-light);
+        }
+
+        /* Platform-specific fixes */
+        
+        /* iOS Safari specific fixes */
+        @supports (-webkit-touch-callout: none) {
+            /* Fix for 100vh issue on iOS */
+            .page {
+                min-height: -webkit-fill-available;
+                min-height: 100dvh;
+            }
+            
+            /* Fix for fixed elements on iOS */
+            .navbar {
+                position: -webkit-sticky;
+            }
+            
+            /* Prevent bounce effect */
+            body {
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
+            
+            .page.active {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            /* Fix for input zoom */
+            input, select, textarea {
+                font-size: 16px !important;
+            }
+            
+            /* Fix for video autoplay */
+            video {
+                playsinline: true;
+                webkit-playsinline: true;
+            }
+        }
+
+        /* Android Chrome specific fixes */
+        @supports not (-webkit-touch-callout: none) {
+            /* Android-specific styles */
+            body {
+                overflow-y: auto;
+            }
+            
+            /* Fix for 100vh on Android */
+            .page {
+                min-height: 100vh;
+            }
+            
+            /* Better tap feedback for Android */
+            button, a {
+                -webkit-tap-highlight-color: rgba(234, 88, 12, 0.3);
+            }
         }
 
         /* Desktop Styles */
@@ -1142,9 +1286,15 @@
                 padding: 6px 35px;
             }
             
-            .form-group input,
-            .form-group select {
-                font-size: 16px; /* Prevents zoom on iOS */
+            /* iOS input zoom prevention */
+            input[type="text"],
+            input[type="tel"],
+            input[type="date"],
+            input[type="email"],
+            input[type="number"],
+            select,
+            textarea {
+                font-size: 16px !important;
             }
         }
 
@@ -1170,16 +1320,13 @@
             100% { transform: translateX(100%); }
         }
 
-        /* Safe area for iPhone X and newer */
-        @supports (padding: max(0px)) {
-            body {
-                padding-top: max(var(--safe-area-top), 0px);
-                padding-bottom: max(var(--safe-area-bottom), 0px);
-            }
-            
-            .navbar {
-                padding-top: max(15px, var(--safe-area-top));
-            }
+        /* Platform Detection Classes */
+        .ios-device {
+            /* iOS specific overrides */
+        }
+
+        .android-device {
+            /* Android specific overrides */
         }
     </style>
 </head>
@@ -1506,6 +1653,20 @@
     </section>
 
     <script>
+        // Platform Detection
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const isAndroid = /Android/.test(navigator.userAgent);
+        const isMobile = /Mobi|Android|iPhone|iPad|iPod/.test(navigator.userAgent);
+        
+        // Add platform-specific class to body
+        if (isIOS) {
+            document.body.classList.add('ios-device');
+            console.log('iOS device detected');
+        } else if (isAndroid) {
+            document.body.classList.add('android-device');
+            console.log('Android device detected');
+        }
+        
         // DOM Elements
         const spinner = document.getElementById('spinner');
         const pages = document.querySelectorAll('.page');
@@ -1589,6 +1750,119 @@
             defaultDate.setDate(defaultDate.getDate() + 2);
             const defaultFormattedDate = defaultDate.toISOString().split('T')[0];
             pickupDateInput.value = defaultFormattedDate;
+        }
+
+        // Fix iOS 100vh issue
+        function fixIOSHeight() {
+            if (isIOS) {
+                // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
+                let vh = window.innerHeight * 0.01;
+                // Then we set the value in the --vh custom property to the root of the document
+                document.documentElement.style.setProperty('--vh', `${vh}px`);
+                
+                // We listen to the resize event
+                window.addEventListener('resize', () => {
+                    // We execute the same script as before
+                    let vh = window.innerHeight * 0.01;
+                    document.documentElement.style.setProperty('--vh', `${vh}px`);
+                });
+            }
+        }
+
+        // Prevent iOS bounce/scroll effects
+        function preventIOSBounce() {
+            if (isIOS) {
+                document.body.addEventListener('touchmove', function(e) {
+                    // Allow scrolling in form elements
+                    if (e.target.tagName === 'INPUT' || 
+                        e.target.tagName === 'SELECT' || 
+                        e.target.tagName === 'TEXTAREA') {
+                        return;
+                    }
+                    
+                    // Prevent default on non-scrollable elements
+                    if (e.target.classList.contains('no-scroll') || 
+                        e.target.closest('.no-scroll')) {
+                        e.preventDefault();
+                    }
+                }, { passive: false });
+                
+                // Fix for iOS Safari 100vh issue
+                document.documentElement.style.height = '-webkit-fill-available';
+                document.body.style.height = '-webkit-fill-available';
+                
+                // Fix for fixed position elements on iOS
+                const navbar = document.querySelector('.navbar');
+                if (navbar) {
+                    navbar.style.position = '-webkit-sticky';
+                }
+            }
+        }
+
+        // Prevent Android pull-to-refresh
+        function preventAndroidPullToRefresh() {
+            if (isAndroid) {
+                // Prevent pull-to-refresh
+                document.addEventListener('touchstart', function(e) {
+                    if (window.scrollY === 0) {
+                        e.preventDefault();
+                    }
+                }, { passive: false });
+                
+                // Better touch feedback for Android
+                const buttons = document.querySelectorAll('button, a, .btn');
+                buttons.forEach(button => {
+                    button.style.webkitTapHighlightColor = 'rgba(234, 88, 12, 0.3)';
+                });
+            }
+        }
+
+        // Fix video autoplay for iOS
+        function fixIOSVideoAutoplay() {
+            if (isIOS && heroVideo) {
+                // iOS requires explicit user interaction to play video
+                heroVideo.playsInline = true;
+                heroVideo.muted = true;
+                heroVideo.setAttribute('playsinline', 'true');
+                heroVideo.setAttribute('muted', 'muted');
+                
+                // Try to play the video
+                const playPromise = heroVideo.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        // Auto-play was prevented
+                        console.log('iOS video autoplay prevented');
+                        
+                        // Play video on first user interaction
+                        const playVideo = () => {
+                            heroVideo.play();
+                            document.removeEventListener('touchstart', playVideo);
+                            document.removeEventListener('click', playVideo);
+                        };
+                        
+                        document.addEventListener('touchstart', playVideo, { once: true });
+                        document.addEventListener('click', playVideo, { once: true });
+                    });
+                }
+            }
+        }
+
+        // Prevent form zoom on iOS
+        function preventIOSFormZoom() {
+            if (isIOS) {
+                const inputs = document.querySelectorAll('input, select, textarea');
+                inputs.forEach(input => {
+                    // Set font size to 16px to prevent zoom
+                    input.addEventListener('focus', function() {
+                        this.style.fontSize = '16px';
+                    });
+                    
+                    input.addEventListener('blur', function() {
+                        this.style.fontSize = '';
+                    });
+                });
+            }
         }
 
         // Show spinner and switch pages
@@ -1743,8 +2017,8 @@
                     handleSwipe(carId);
                 }, { passive: true });
                 
-                // Auto-rotate carousel (only on desktop)
-                if (carouselData[carId] && window.innerWidth > 768) {
+                // Auto-rotate carousel (only on desktop and Android, not iOS)
+                if (carouselData[carId] && window.innerWidth > 768 && !isIOS) {
                     setInterval(() => {
                         const currentIndex = carouselData[carId].currentIndex;
                         const newIndex = currentIndex < carouselData[carId].images.length - 1 ? currentIndex + 1 : 0;
@@ -1839,28 +2113,37 @@
             // Initialize carousels
             initializeCarousels();
             
+            // Platform-specific fixes
+            fixIOSHeight();
+            preventIOSBounce();
+            preventAndroidPullToRefresh();
+            fixIOSVideoAutoplay();
+            preventIOSFormZoom();
+            
             // Ensure video plays correctly on mobile
             if (heroVideo) {
                 heroVideo.muted = true;
-                heroVideo.play().catch(e => {
-                    console.log('Video autoplay prevented');
-                    
-                    // Play on user interaction
-                    const playVideo = () => {
-                        heroVideo.play();
-                        document.removeEventListener('click', playVideo);
-                        document.removeEventListener('touchstart', playVideo);
-                    };
-                    
-                    document.addEventListener('click', playVideo);
-                    document.addEventListener('touchstart', playVideo);
-                });
+                heroVideo.setAttribute('playsinline', 'true');
+                
+                // Try to play the video
+                const playPromise = heroVideo.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        console.log('Video autoplay prevented:', error);
+                        
+                        // Play on user interaction
+                        const playVideo = () => {
+                            heroVideo.play();
+                            document.removeEventListener('click', playVideo);
+                            document.removeEventListener('touchstart', playVideo);
+                        };
+                        
+                        document.addEventListener('click', playVideo, { once: true });
+                        document.addEventListener('touchstart', playVideo, { once: true });
+                    });
+                }
             }
-            
-            // Prevent pull-to-refresh on mobile
-            document.addEventListener('touchmove', function(e) {
-                if (e.scale !== 1) { e.preventDefault(); }
-            }, { passive: false });
             
             // Handle iOS Safari 100vh issue
             function setVH() {
@@ -1871,6 +2154,20 @@
             setVH();
             window.addEventListener('resize', setVH);
             window.addEventListener('orientationchange', setVH);
+            
+            // Fix for iOS keyboard issues
+            if (isIOS) {
+                // Scroll to input when focused on iOS
+                const inputs = document.querySelectorAll('input, textarea, select');
+                inputs.forEach(input => {
+                    input.addEventListener('focus', function() {
+                        // Scroll the input into view
+                        setTimeout(() => {
+                            this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }, 300);
+                    });
+                });
+            }
         }
 
         // Event Listeners
@@ -2006,19 +2303,36 @@
                            `*Total Amount:* ${formData.total}%0A%0A` +
                            `Please confirm availability and provide payment details.`;
             
-            const whatsappUrl = `https://wa.me/254700000000?text=${message}`;
+            // Platform-specific WhatsApp handling
+            let whatsappUrl;
+            if (isIOS) {
+                // iOS uses different WhatsApp URL format
+                whatsappUrl = `whatsapp://send?phone=254700000000&text=${message}`;
+            } else {
+                // Android and others
+                whatsappUrl = `https://wa.me/254700000000?text=${message}`;
+            }
             
             // Open WhatsApp
-            window.open(whatsappUrl, '_blank');
+            const newWindow = window.open(whatsappUrl, '_blank');
+            
+            // Fallback for iOS if WhatsApp not installed
+            if (isIOS && !newWindow) {
+                setTimeout(() => {
+                    window.location.href = `https://api.whatsapp.com/send?phone=254700000000&text=${message}`;
+                }, 500);
+            }
             
             // Show confirmation
-            alert('Booking request sent! Please check WhatsApp to complete your reservation.');
-            
-            // Reset form and go back to fleet
-            bookingForm.reset();
-            setMinPickupDate();
-            updatePriceCalculation();
-            navigateToPage('fleet-page');
+            setTimeout(() => {
+                alert('Booking request sent! Please check WhatsApp to complete your reservation.');
+                
+                // Reset form and go back to fleet
+                bookingForm.reset();
+                setMinPickupDate();
+                updatePriceCalculation();
+                navigateToPage('fleet-page');
+            }, 1000);
         });
 
         // Close menu when clicking outside on mobile
@@ -2069,15 +2383,55 @@
             navigateToPage('home-page');
         });
 
-        // Prevent form zoom on iOS
-        document.addEventListener('touchstart', function(e) {
-            if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA') {
-                e.target.style.fontSize = '16px';
-            }
-        });
+        // Handle iOS virtual keyboard issues
+        if (isIOS) {
+            // Fix for input focus causing viewport issues
+            const inputs = document.querySelectorAll('input, textarea');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    // Add a small delay to ensure keyboard is up
+                    setTimeout(() => {
+                        document.body.style.height = '100vh';
+                        document.body.style.overflow = 'hidden';
+                    }, 100);
+                });
+                
+                input.addEventListener('blur', function() {
+                    // Reset after keyboard dismisses
+                    setTimeout(() => {
+                        document.body.style.height = '';
+                        document.body.style.overflow = '';
+                    }, 100);
+                });
+            });
+        }
+
+        // Handle Android back button
+        if (isAndroid) {
+            // Listen for Android back button
+            document.addEventListener('backbutton', goBack, false);
+            
+            // Also listen for popstate for browser back button
+            window.addEventListener('popstate', goBack);
+        }
 
         // Initialize the application
         document.addEventListener('DOMContentLoaded', init);
+        
+        // Handle page load for iOS
+        if (isIOS) {
+            window.addEventListener('load', function() {
+                // Fix for iOS Safari 100vh
+                document.documentElement.style.height = '100%';
+                document.body.style.height = '100%';
+                
+                // Force a reflow to fix rendering issues
+                document.body.style.display = 'none';
+                setTimeout(() => {
+                    document.body.style.display = 'block';
+                }, 50);
+            });
+        }
     </script>
 </body>
 </html>
