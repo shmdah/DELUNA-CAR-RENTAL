@@ -3,1031 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DELUNA LUXURY CAR RENTALS</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>DELUNA LUXURY CAR RENTALS | Thika Road</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* CSS Reset and Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --pitch-black: #000000;
-            --charcoal-grey: #0F0F0F;
-            --electric-orange: #EA580C;
-            --white: #FFFFFF;
-            --light-grey: #E5E5E5;
-            --dark-grey: #333333;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--pitch-black);
-            color: var(--light-grey);
-            overflow-x: hidden;
-            transition: opacity 0.5s ease;
-        }
-
-        /* Typography */
-        h1, h2, h3, h4, .heading-font {
-            font-family: 'Arial Black', 'Arial Bold', Gadget, sans-serif;
-            font-weight: 900;
-            font-style: italic;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-        }
-
-        h1 {
-            font-size: 4.5rem;
-            line-height: 1.1;
-            margin-bottom: 0.5rem;
-        }
-
-        h2 {
-            font-size: 2.8rem;
-            margin-bottom: 2rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background-color: var(--electric-orange);
-        }
-
-        h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-        }
-
-        p {
-            line-height: 1.6;
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-        }
-
-        /* Buttons */
-        .btn {
-            display: inline-block;
-            padding: 15px 35px;
-            background-color: var(--electric-orange);
-            color: var(--white);
-            border: none;
-            border-radius: 0;
-            font-family: 'Arial Black', 'Arial Bold', Gadget, sans-serif;
-            font-weight: 900;
-            font-style: italic;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            text-align: center;
-        }
-
-        .btn:hover {
-            background-color: var(--white);
-            color: var(--pitch-black);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(234, 88, 12, 0.3);
-        }
-
-        .btn-back {
-            background-color: transparent;
-            border: 2px solid var(--white);
-            color: var(--white);
-        }
-
-        .btn-back:hover {
-            background-color: var(--white);
-            color: var(--pitch-black);
-        }
-
-        /* Spinner */
-        #spinner {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--pitch-black);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
-
-        .spinner-circle {
-            width: 80px;
-            height: 80px;
-            border: 5px solid var(--charcoal-grey);
-            border-top: 5px solid var(--electric-orange);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 30px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .spinner-text {
-            font-family: 'Arial Black', 'Arial Bold', Gadget, sans-serif;
-            font-weight: 900;
-            font-style: italic;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--electric-orange);
-            font-size: 1.2rem;
-        }
-
-        /* Sections */
-        .section {
-            display: none;
-            position: relative;
-            min-height: 100vh;
-            width: 100%;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        .section.active {
-            display: block;
-            opacity: 1;
-        }
-
-        /* Hero Section */
-        #hero {
-            display: block;
-            opacity: 1;
-        }
-
-        .hero-parallax {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
-            background-size: cover;
-            background-position: center;
+        .parallax-hero {
+            background-image: url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80&w=1920');
             background-attachment: fixed;
-            z-index: -1;
+            background-position: center;
+            background-size: cover;
         }
-
-        .hero-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            width: 90%;
-            max-width: 1200px;
-        }
-
-        .hero-subtext {
-            font-size: 1.5rem;
-            margin-bottom: 3rem;
-            letter-spacing: 2px;
-            font-weight: 300;
-        }
-
-        .hero-cta {
-            margin-top: 3rem;
-        }
-
-        /* Fleet Section */
-        #fleet {
-            padding: 100px 5% 80px;
-            background-color: var(--charcoal-grey);
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .fleet-container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .cars-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-bottom: 60px;
-        }
-
-        .car-card {
-            background-color: var(--pitch-black);
-            border: 1px solid #222;
-            overflow: hidden;
-            transition: all 0.4s ease;
-        }
-
-        .car-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .car-card.featured {
-            border: 3px solid var(--electric-orange);
-            transform: scale(1.05);
-            position: relative;
-        }
-
-        .car-card.featured::before {
-            content: 'FEATURED';
-            position: absolute;
-            top: 15px;
-            right: -35px;
-            background-color: var(--electric-orange);
-            color: var(--pitch-black);
-            padding: 8px 40px;
-            font-family: 'Arial Black', 'Arial Bold', Gadget, sans-serif;
-            font-weight: 900;
-            font-style: italic;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            font-size: 0.9rem;
-            transform: rotate(45deg);
-            z-index: 10;
-        }
-
-        .car-image {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-        }
-
-        .car-info {
-            padding: 25px;
-        }
-
-        .car-price {
-            color: var(--electric-orange);
-            font-size: 1.8rem;
-            font-weight: bold;
-            margin: 15px 0 20px;
-        }
-
-        .car-features {
-            list-style: none;
-            margin-top: 20px;
-        }
-
-        .car-features li {
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-        }
-
-        .car-features li i {
-            color: var(--electric-orange);
-            margin-right: 10px;
-        }
-
-        .section-actions {
-            text-align: center;
-        }
-
-        /* Booking Modal */
-        #booking-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            padding: 20px;
-        }
-
-        #booking-modal.active {
-            display: flex;
-        }
-
-        .booking-container {
-            display: flex;
-            max-width: 1000px;
-            width: 100%;
-            height: 600px;
-            background-color: var(--white);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-        }
-
-        .booking-left {
-            flex: 1;
-            background-color: var(--pitch-black);
-            padding: 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .booking-logo {
-            font-size: 3.5rem;
-            color: var(--white);
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .booking-right {
-            flex: 1.2;
-            padding: 50px;
-            color: var(--pitch-black);
-            overflow-y: auto;
-        }
-
-        .booking-title {
-            color: var(--pitch-black);
-            margin-bottom: 30px;
-        }
-
-        .booking-form {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group label {
-            font-weight: bold;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-            color: var(--dark-grey);
-        }
-
-        .form-group input, .form-group select {
-            padding: 15px;
-            border: 2px solid #ddd;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus, .form-group select:focus {
-            outline: none;
-            border-color: var(--electric-orange);
-        }
-
-        .price-display {
-            background-color: rgba(234, 88, 12, 0.1);
-            border-left: 4px solid var(--electric-orange);
-            padding: 20px;
-            margin: 25px 0;
-        }
-
-        .price-display h4 {
-            color: var(--electric-orange);
-            margin-bottom: 10px;
-        }
-
-        .total-amount {
-            font-size: 2.2rem;
-            font-weight: bold;
-            color: var(--electric-orange);
-        }
-
-        /* Mobile Navigation */
-        .mobile-menu-btn {
-            position: fixed;
-            top: 25px;
-            right: 25px;
-            width: 50px;
-            height: 50px;
-            background-color: var(--electric-orange);
-            border: none;
-            border-radius: 0;
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 100;
-            cursor: pointer;
-        }
-
-        .mobile-menu-btn span {
-            display: block;
-            width: 25px;
-            height: 3px;
-            background-color: var(--white);
-            margin: 3px 0;
-            transition: all 0.3s ease;
-        }
-
-        .mobile-menu-btn.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-
-        .mobile-menu-btn.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .mobile-menu-btn.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -6px);
-        }
-
-        .mobile-nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--pitch-black);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 99;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .mobile-nav.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .mobile-nav a {
-            color: var(--white);
-            text-decoration: none;
-            font-size: 2rem;
-            margin: 20px 0;
-            font-family: 'Arial Black', 'Arial Bold', Gadget, sans-serif;
-            font-weight: 900;
-            font-style: italic;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: color 0.3s;
-        }
-
-        .mobile-nav a:hover {
-            color: var(--electric-orange);
-        }
-
-        /* Desktop Navigation */
-        .desktop-nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 30px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 90;
-            background-color: rgba(15, 15, 15, 0.8);
-            backdrop-filter: blur(10px);
-        }
-
-        .desktop-nav a {
-            color: var(--white);
-            text-decoration: none;
-            font-family: 'Arial Black', 'Arial Bold', Gadget, sans-serif;
-            font-weight: 900;
-            font-style: italic;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-left: 40px;
-            transition: color 0.3s;
-            font-size: 1.1rem;
-        }
-
-        .desktop-nav a:hover {
-            color: var(--electric-orange);
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--pitch-black);
-            padding: 40px 5%;
-            text-align: center;
-            border-top: 1px solid #222;
-        }
-
-        .footer-logo {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: var(--white);
-        }
-
-        .footer-info {
-            color: #999;
-            font-size: 1rem;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            .cars-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .car-card.featured {
-                transform: scale(1);
-                grid-column: span 2;
-            }
-            
-            h1 {
-                font-size: 3.5rem;
-            }
-            
-            .booking-container {
-                flex-direction: column;
-                height: 90vh;
-                overflow-y: auto;
-            }
-            
-            .booking-left, .booking-right {
-                flex: none;
-            }
-            
-            .booking-left {
-                padding: 30px;
-            }
-            
-            .booking-right {
-                padding: 30px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: flex;
-            }
-            
-            .desktop-nav {
-                display: none;
-            }
-            
-            h1 {
-                font-size: 2.8rem;
-            }
-            
-            .hero-subtext {
-                font-size: 1.2rem;
-            }
-            
-            .cars-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .car-card.featured {
-                grid-column: span 1;
-            }
-            
-            .booking-container {
-                height: 95vh;
-            }
-        }
-
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 2.2rem;
-            }
-            
-            h2 {
-                font-size: 2rem;
-            }
-            
-            .car-card.featured::before {
-                right: -30px;
-                padding: 6px 30px;
-                font-size: 0.7rem;
-            }
-            
-            .btn {
-                padding: 12px 25px;
-                font-size: 0.9rem;
-            }
-        }
+        #loader { display: none; position: fixed; inset: 0; background: #000; z-index: 1000; flex-direction: column; align-items: center; justify-content: center; }
+        .spinner { width: 60px; height: 60px; border: 4px solid #1a1a1a; border-top: 4px solid #ea580c; border-radius: 50%; animation: spin 0.8s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        /* HIDDEN BY DEFAULT */
+        .page-section { display: none; }
+        .active-page { display: block; }
     </style>
 </head>
-<body>
-    <!-- Spinner -->
-    <div id="spinner">
-        <div class="spinner-circle"></div>
-        <div class="spinner-text">Deluna Intelligence Syncing...</div>
+<body class="bg-gray-950 text-white font-sans overflow-x-hidden">
+
+    <div id="loader">
+        <div class="spinner mb-4"></div>
+        <p class="text-orange-500 font-black text-[10px] tracking-widest uppercase italic">Deluna Intelligence Syncing...</p>
     </div>
 
-    <!-- Mobile Navigation -->
-    <button class="mobile-menu-btn" id="mobile-menu-btn">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
-
-    <nav class="mobile-nav" id="mobile-nav">
-        <a href="#" data-section="hero">Home</a>
-        <a href="#" data-section="fleet">Fleet</a>
-        <a href="#" class="book-now-btn">Book Now</a>
+    <nav class="fixed top-0 left-0 w-full z-[300] bg-black/90 backdrop-blur-md border-b border-white/10 px-6 py-4 flex justify-between items-center">
+        <div class="text-2xl font-black text-orange-500 italic">DELUNA</div>
+        <button onclick="toggleMenu()" class="text-white text-3xl px-2 focus:outline-none"><i class="fas fa-bars"></i></button>
     </nav>
 
-    <!-- Desktop Navigation -->
-    <nav class="desktop-nav">
-        <div class="logo">DELUNA</div>
-        <div class="nav-links">
-            <a href="#" data-section="hero">Home</a>
-            <a href="#" data-section="fleet">Fleet</a>
-            <a href="#" class="book-now-btn btn">Book Now</a>
+    <div id="menuOverlay" class="fixed inset-0 bg-black z-[400] hidden flex-col items-center justify-center space-y-10">
+        <button onclick="toggleMenu()" class="absolute top-8 right-8 text-5xl text-white">&times;</button>
+        <button onclick="showPage('home')" class="text-4xl font-black uppercase italic tracking-widest text-white hover:text-orange-500">Home</button>
+        <button onclick="showPage('fleet')" class="text-4xl font-black uppercase italic tracking-widest text-white hover:text-orange-500">The Collection</button>
+    </div>
+
+    <section id="home" class="page-section active-page relative h-screen flex items-center justify-center parallax-hero">
+        <div class="absolute inset-0 bg-black/80"></div>
+        <div class="relative z-10 text-center px-6">
+            <h1 class="text-7xl md:text-9xl font-black italic mb-2 tracking-tighter uppercase text-white">DELUNA</h1>
+            <p class="text-orange-500 text-xs font-black tracking-[0.5em] uppercase mb-12 italic">Luxury Car Rentals • Lumumba Drive</p>
+            <button onclick="showPage('fleet')" class="bg-white text-black px-14 py-6 rounded-full font-black uppercase tracking-widest text-xs italic hover:bg-orange-600 hover:text-white transition duration-500">Explore Models</button>
         </div>
-    </nav>
+    </section>
 
-    <!-- Hero Section -->
-    <section id="hero" class="section active">
-        <div class="hero-parallax"></div>
-        <div class="hero-content">
-            <h1>DELUNA</h1>
-            <p class="hero-subtext">Luxury Car Rentals • Lumumba Drive</p>
-            <div class="hero-cta">
-                <a href="#" class="btn" id="explore-btn">Explore Models</a>
+    <section id="fleet" class="page-section pt-32 pb-20 px-6 container mx-auto">
+        <button onclick="showPage('home')" class="mb-10 text-orange-500 font-black uppercase text-[10px] tracking-widest italic hover:text-white transition"><i class="fas fa-arrow-left mr-2"></i> Go Back</button>
+        <h2 class="text-center text-4xl md:text-5xl font-black italic uppercase mb-20 tracking-tighter">Select Your Machine</h2>
+        
+        <div class="grid md:grid-cols-3 gap-12">
+            <div class="bg-gray-900 border border-gray-800 p-2 rounded-[2rem] transition hover:border-orange-500">
+                <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=800" class="h-64 w-full object-cover rounded-2xl">
+                <div class="p-8">
+                    <h3 class="font-black text-xl italic uppercase">Toyota Prado TX 2023</h3>
+                    <p class="text-orange-600 font-black mb-6 text-sm italic">KSH 15,000 / 24 HRS</p>
+                    <button onclick="goToBooking('Toyota Prado TX', 15000)" class="w-full bg-white text-black py-4 rounded-xl font-black uppercase text-[10px] italic hover:bg-orange-600 hover:text-white transition">Select Machine</button>
+                </div>
+            </div>
+
+            <div class="bg-gray-900 border-2 border-orange-600 p-2 rounded-[2.5rem] scale-105 shadow-2xl relative">
+                <img src="https://images.unsplash.com/photo-1520031441872-265e4ff70366?auto=format&fit=crop&q=80&w=800" class="h-64 w-full object-cover rounded-3xl">
+                <div class="p-8">
+                    <h3 class="font-black text-xl italic uppercase">Mercedes G-Wagon 2023</h3>
+                    <p class="text-orange-600 font-black mb-6 text-sm italic">KSH 40,000 / 24 HRS</p>
+                    <button onclick="goToBooking('Mercedes G-Wagon', 40000)" class="w-full bg-orange-600 text-white py-4 rounded-2xl font-black uppercase text-[10px] italic hover:bg-white hover:text-black transition shadow-xl">Select Machine</button>
+                </div>
+            </div>
+
+            <div class="bg-gray-900 border border-gray-800 p-2 rounded-[2rem] transition hover:border-orange-500">
+                <img src="https://images.unsplash.com/photo-1606148581066-628d42ec049a?auto=format&fit=crop&q=80&w=800" class="h-64 w-full object-cover rounded-2xl">
+                <div class="p-8">
+                    <h3 class="font-black text-xl italic uppercase">Audi A4 2018</h3>
+                    <p class="text-orange-600 font-black mb-6 text-sm italic">KSH 15,000 / 24 HRS</p>
+                    <button onclick="goToBooking('Audi A4', 15000)" class="w-full bg-white text-black py-4 rounded-xl font-black uppercase text-[10px] italic hover:bg-orange-600 hover:text-white transition">Select Machine</button>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Fleet Section -->
-    <section id="fleet" class="section">
-        <div class="section-header">
-            <h2>Our Luxury Fleet</h2>
-            <p>Select from our premium collection of high-performance vehicles</p>
-        </div>
-        
-        <div class="fleet-container">
-            <div class="cars-grid">
-                <!-- Car 1 -->
-                <div class="car-card">
-                    <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80" alt="Toyota Prado TX 2023" class="car-image">
-                    <div class="car-info">
-                        <h3>Toyota Prado TX 2023</h3>
-                        <div class="car-price">KSH 15,000 / day</div>
-                        <p>Experience luxury and capability with the 2023 Toyota Prado TX. Perfect for both city drives and off-road adventures.</p>
-                        <ul class="car-features">
-                            <li><i class="fas fa-check"></i> 7 Seater Luxury SUV</li>
-                            <li><i class="fas fa-check"></i> Full Leather Interior</li>
-                            <li><i class="fas fa-check"></i> Advanced Safety Features</li>
-                            <li><i class="fas fa-check"></i> Premium Sound System</li>
-                        </ul>
-                        <button class="btn select-car" data-car="Toyota Prado TX 2023" data-price="15000">Select This Car</button>
-                    </div>
+    <section id="booking" class="page-section min-h-screen flex items-center justify-center p-4 pt-24">
+        <div class="bg-white rounded-[3rem] shadow-2xl flex flex-col md:flex-row max-w-4xl w-full overflow-hidden">
+            <div class="bg-black p-12 text-white md:w-1/3 flex flex-col justify-between italic font-black uppercase">
+                <div>
+                    <button onclick="showPage('fleet')" class="text-orange-500 text-[10px] tracking-widest mb-10 block hover:text-white transition"><i class="fas fa-arrow-left mr-2"></i> Go Back</button>
+                    <h2 class="text-4xl">DELUNA</h2>
                 </div>
-                
-                <!-- Car 2 - Featured -->
-                <div class="car-card featured">
-                    <img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2025&q=80" alt="Mercedes G-Wagon 2023" class="car-image">
-                    <div class="car-info">
-                        <h3>Mercedes G-Wagon 2023</h3>
-                        <div class="car-price">KSH 40,000 / day</div>
-                        <p>The ultimate luxury SUV. The 2023 Mercedes G-Wagon combines military-grade construction with unparalleled luxury features.</p>
-                        <ul class="car-features">
-                            <li><i class="fas fa-check"></i> Handcrafted AMG Interior</li>
-                            <li><i class="fas fa-check"></i> 577 HP Biturbo V8</li>
-                            <li><i class="fas fa-check"></i> Triple-Lock Differential</li>
-                            <li><i class="fas fa-check"></i> Burmester® High-End 3D Sound</li>
-                        </ul>
-                        <button class="btn select-car" data-car="Mercedes G-Wagon 2023" data-price="40000">Select This Car</button>
-                    </div>
-                </div>
-                
-                <!-- Car 3 -->
-                <div class="car-card">
-                    <img src="https://images.unsplash.com/photo-1555212697-194d092e3b8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80" alt="Audi A4 2018" class="car-image">
-                    <div class="car-info">
-                        <h3>Audi A4 2018</h3>
-                        <div class="car-price">KSH 15,000 / day</div>
-                        <p>German engineering at its finest. The Audi A4 offers premium performance with sophisticated styling and advanced technology.</p>
-                        <ul class="car-features">
-                            <li><i class="fas fa-check"></i> Quattro All-Wheel Drive</li>
-                            <li><i class="fas fa-check"></i> Virtual Cockpit Digital Display</li>
-                            <li><i class="fas fa-check"></i> Premium Plus Package</li>
-                            <li><i class="fas fa-check"></i> Apple CarPlay & Android Auto</li>
-                        </ul>
-                        <button class="btn select-car" data-car="Audi A4 2018" data-price="15000">Select This Car</button>
-                    </div>
-                </div>
+                <p class="text-[10px] text-gray-500 tracking-widest italic">Lumumba Drive Office</p>
             </div>
             
-            <div class="section-actions">
-                <button class="btn-back" id="back-to-hero">Go Back to Home</button>
+            <div class="p-12 md:w-2/3 text-black">
+                <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Model Selection</label>
+                <p id="carDisplay" class="text-xl font-black uppercase mb-10 border-b border-gray-100 pb-2"></p>
+                
+                <div class="grid grid-cols-2 gap-10 mb-10">
+                    <div>
+                        <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Duration (Days)</label>
+                        <input type="number" id="days" value="2" min="2" class="w-full border-b-2 border-orange-500 py-2 font-bold outline-none text-black">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Pickup Date</label>
+                        <input type="date" id="date" class="w-full border-b-2 border-gray-200 py-2 font-bold outline-none text-black">
+                    </div>
+                </div>
+
+                <div class="bg-orange-50 p-10 rounded-[2rem] border-2 border-orange-100 mb-10 italic">
+                    <div class="flex justify-between items-center">
+                        <span class="font-black text-xs uppercase tracking-tighter text-black">Total Deposit Due:</span>
+                        <span id="totalDisplay" class="text-3xl font-black text-orange-600 italic">KSH 0</span>
+                    </div>
+                </div>
+
+                <button onclick="orderViaWhatsApp()" class="w-full bg-black text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-orange-600 transition italic shadow-xl">Confirm Reservation</button>
             </div>
         </div>
     </section>
-
-    <!-- Booking Modal -->
-    <div id="booking-modal">
-        <div class="booking-container">
-            <div class="booking-left">
-                <div>
-                    <div class="booking-logo">DELUNA</div>
-                    <p style="color: #aaa; text-align: center; font-size: 1.1rem;">Luxury Car Rentals • Lumumba Drive</p>
-                </div>
-                <button class="btn btn-back" id="close-booking">Go Back</button>
-            </div>
-            <div class="booking-right">
-                <h2 class="booking-title">Reserve Your Luxury Car</h2>
-                <form class="booking-form" id="booking-form">
-                    <div class="form-group">
-                        <label for="car-model">Selected Vehicle</label>
-                        <input type="text" id="car-model" readonly>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="pickup-date">Pickup Date</label>
-                        <input type="date" id="pickup-date" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="duration">Rental Duration (Days)</label>
-                        <input type="number" id="duration" min="1" max="30" value="1" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="customer-name">Your Name</label>
-                        <input type="text" id="customer-name" placeholder="Enter your full name" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="customer-phone">Phone Number</label>
-                        <input type="tel" id="customer-phone" placeholder="e.g. 0712345678" required>
-                    </div>
-                    
-                    <div class="price-display">
-                        <h4>Total Deposit Due</h4>
-                        <div class="total-amount" id="total-amount">KSH 0</div>
-                        <p>This amount will be required to secure your reservation</p>
-                    </div>
-                    
-                    <button type="submit" class="btn" id="confirm-reservation">Confirm Reservation</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-logo">DELUNA</div>
-        <p class="footer-info">Luxury Car Rentals • Thika Road / Lumumba Drive, Nairobi</p>
-        <p class="footer-info">Contact: +254 700 000 000 • Open 24/7</p>
-        <p class="footer-info">&copy; 2023 DELUNA LUXURY CAR RENTALS. All rights reserved.</p>
-    </footer>
 
     <script>
-        // DOM Elements
-        const spinner = document.getElementById('spinner');
-        const heroSection = document.getElementById('hero');
-        const fleetSection = document.getElementById('fleet');
-        const bookingModal = document.getElementById('booking-modal');
-        const exploreBtn = document.getElementById('explore-btn');
-        const backToHeroBtn = document.getElementById('back-to-hero');
-        const closeBookingBtn = document.getElementById('close-booking');
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileNav = document.getElementById('mobile-nav');
-        const selectCarButtons = document.querySelectorAll('.select-car');
-        const bookNowButtons = document.querySelectorAll('.book-now-btn');
-        const bookingForm = document.getElementById('booking-form');
-        const carModelInput = document.getElementById('car-model');
-        const pickupDateInput = document.getElementById('pickup-date');
-        const durationInput = document.getElementById('duration');
-        const totalAmountDisplay = document.getElementById('total-amount');
-        const confirmReservationBtn = document.getElementById('confirm-reservation');
-        
-        // Set minimum pickup date to today
-        const today = new Date().toISOString().split('T')[0];
-        pickupDateInput.min = today;
-        
-        // Variables to store booking data
-        let selectedCar = '';
-        let selectedCarPrice = 0;
-        
-        // Show spinner and switch sections
-        function switchSection(fromSection, toSection) {
-            // Show spinner
-            spinner.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
+        let currentCar = "";
+        let currentPrice = 0;
+
+        // Shared Navigation logic
+        function showPage(pageId) {
+            document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active-page'));
+            document.getElementById(pageId).classList.add('active-page');
+            window.scrollTo(0,0);
+            if(document.getElementById('menuOverlay').classList.contains('flex')) toggleMenu();
+        }
+
+        function toggleMenu() {
+            const m = document.getElementById('menuOverlay');
+            m.classList.toggle('hidden'); m.classList.toggle('flex');
+        }
+
+        function goToBooking(name, price) {
+            const loader = document.getElementById('loader');
+            loader.style.display = 'flex';
+            currentCar = name; currentPrice = price;
+            document.getElementById('carDisplay').innerText = name;
             
-            // Hide current section
-            document.querySelector(`#${fromSection}`).classList.remove('active');
+            // Auto-calculate for default 2 days
+            document.getElementById('totalDisplay').innerText = `KSH ${(price * 2).toLocaleString()}`;
+            document.getElementById('days').value = 2;
             
-            // After 3 seconds, hide spinner and show target section
-            setTimeout(() => {
-                spinner.style.display = 'none';
-                document.body.style.overflow = 'auto';
-                document.querySelector(`#${toSection}`).classList.add('active');
-                
-                // Scroll to top
-                window.scrollTo(0, 0);
+            // Set date to today
+            const dateInput = document.getElementById('date');
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.setAttribute('min', today); dateInput.value = today;
+
+            setTimeout(() => { 
+                loader.style.display = 'none'; 
+                showPage('booking'); 
             }, 3000);
         }
-        
-        // Calculate and update total price
-        function updateTotalPrice() {
-            const days = parseInt(durationInput.value) || 1;
-            const total = selectedCarPrice * days;
-            totalAmountDisplay.textContent = `KSH ${total.toLocaleString()}`;
+
+        document.getElementById('days').addEventListener('input', () => {
+            const days = parseInt(document.getElementById('days').value) || 2;
+            document.getElementById('totalDisplay').innerText = `KSH ${(currentPrice * days).toLocaleString()}`;
+        });
+
+        function orderViaWhatsApp() {
+            const days = document.getElementById('days').value;
+            const pickup = document.getElementById('date').value;
+            const total = document.getElementById('totalDisplay').innerText;
+            if(!pickup) return alert("Please select a pickup date.");
+
+            let msg = "🌙 *DELUNA LUXURY RENTALS - NEW RESERVATION*%0A%0A";
+            msg += `*MODEL:* ${currentCar}%0A`;
+            msg += `*DURATION:* ${days} Days%0A`;
+            msg += `*PICKUP DATE:* ${pickup}%0A`;
+            msg += `*ESTIMATED DEPOSIT:* ${total}%0A%0A`;
+            msg += `📍 *LOC:* Lumumba Drive, Thika Road%0A`;
+
+            window.open(`https://wa.me/254700000000?text=${msg}`, '_blank');
         }
-        
-        // Generate WhatsApp message
-        function generateWhatsAppMessage(carName, pickupDate, totalAmount, customerName, customerPhone) {
-            const formattedDate = new Date(pickupDate).toLocaleDateString('en-GB', {
-                day: 'numeric', month: 'long', year: 'numeric'
-            });
-            
-            const message = `*DELUNA LUXURY CAR RENTALS - RESERVATION REQUEST*%0A%0A` +
-                           `*Customer Name:* ${customerName}%0A` +
-                           `*Phone:* ${customerPhone}%0A` +
-                           `*Selected Car:* ${carName}%0A` +
-                           `*Pickup Date:* ${formattedDate}%0A` +
-                           `*Total Deposit Due:* KSH ${totalAmount.toLocaleString()}%0A%0A` +
-                           `This reservation request was submitted via the DELUNA website.`;
-            
-            return `https://wa.me/254700000000?text=${message}`;
-        }
-        
-        // Event Listeners
-        
-        // Explore Models button
-        exploreBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            switchSection('hero', 'fleet');
-        });
-        
-        // Back to Home button
-        backToHeroBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            switchSection('fleet', 'hero');
-        });
-        
-        // Mobile menu toggle
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenuBtn.classList.toggle('active');
-            mobileNav.classList.toggle('active');
-            document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : 'auto';
-        });
-        
-        // Mobile navigation links
-        document.querySelectorAll('.mobile-nav a').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                
-                // Close mobile menu
-                mobileMenuBtn.classList.remove('active');
-                mobileNav.classList.remove('active');
-                document.body.style.overflow = 'auto';
-                
-                // Handle section switching
-                const targetSection = link.getAttribute('data-section');
-                if (targetSection && targetSection !== 'hero') {
-                    switchSection('hero', targetSection);
-                } else if (targetSection === 'hero') {
-                    switchSection('fleet', 'hero');
-                }
-                
-                // Handle book now button in mobile nav
-                if (link.classList.contains('book-now-btn')) {
-                    // Show booking modal for the featured car by default
-                    selectedCar = 'Mercedes G-Wagon 2023';
-                    selectedCarPrice = 40000;
-                    carModelInput.value = selectedCar;
-                    updateTotalPrice();
-                    bookingModal.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                }
-            });
-        });
-        
-        // Desktop navigation links
-        document.querySelectorAll('.desktop-nav a').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                
-                const targetSection = link.getAttribute('data-section');
-                if (targetSection && targetSection !== 'hero') {
-                    switchSection('hero', targetSection);
-                } else if (targetSection === 'hero') {
-                    switchSection('fleet', 'hero');
-                }
-                
-                // Handle book now button in desktop nav
-                if (link.classList.contains('book-now-btn')) {
-                    // Show booking modal for the featured car by default
-                    selectedCar = 'Mercedes G-Wagon 2023';
-                    selectedCarPrice = 40000;
-                    carModelInput.value = selectedCar;
-                    updateTotalPrice();
-                    bookingModal.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                }
-            });
-        });
-        
-        // Select car buttons
-        selectCarButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                selectedCar = button.getAttribute('data-car');
-                selectedCarPrice = parseInt(button.getAttribute('data-price'));
-                
-                // Update booking form
-                carModelInput.value = selectedCar;
-                updateTotalPrice();
-                
-                // Show booking modal
-                bookingModal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
-        });
-        
-        // Book now buttons
-        bookNowButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                
-                // Show booking modal for the featured car by default
-                selectedCar = 'Mercedes G-Wagon 2023';
-                selectedCarPrice = 40000;
-                carModelInput.value = selectedCar;
-                updateTotalPrice();
-                bookingModal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
-        });
-        
-        // Close booking modal
-        closeBookingBtn.addEventListener('click', () => {
-            bookingModal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        });
-        
-        // Close modal when clicking outside
-        bookingModal.addEventListener('click', (e) => {
-            if (e.target === bookingModal) {
-                bookingModal.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-        });
-        
-        // Update total price when duration changes
-        durationInput.addEventListener('input', updateTotalPrice);
-        
-        // Handle form submission
-        bookingForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const carName = carModelInput.value;
-            const pickupDate = pickupDateInput.value;
-            const days = parseInt(durationInput.value);
-            const totalAmount = selectedCarPrice * days;
-            const customerName = document.getElementById('customer-name').value;
-            const customerPhone = document.getElementById('customer-phone').value;
-            
-            // Generate WhatsApp URL
-            const whatsappUrl = generateWhatsAppMessage(
-                carName, 
-                pickupDate, 
-                totalAmount,
-                customerName,
-                customerPhone
-            );
-            
-            // Open WhatsApp in a new tab
-            window.open(whatsappUrl, '_blank');
-            
-            // Close modal
-            bookingModal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-            
-            // Reset form
-            bookingForm.reset();
-            carModelInput.value = selectedCar;
-            updateTotalPrice();
-            
-            // Show confirmation message
-            alert('Thank you for your reservation! A WhatsApp message has been prepared with your booking details. Please send it to confirm your reservation.');
-        });
-        
-        // Initialize
-        window.addEventListener('load', () => {
-            // Hide spinner after page loads
-            setTimeout(() => {
-                spinner.style.display = 'none';
-            }, 500);
-        });
     </script>
 </body>
 </html>
