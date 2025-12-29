@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>DELUNA LUXURY CAR RENTALS</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* CSS Reset and Base Styles */
         * {
@@ -27,7 +26,7 @@
             --card-bg: #1A1A1A;
             --modal-overlay: rgba(0, 0, 0, 0.95);
             
-            /* Spacing variables for better control */
+            /* Spacing variables */
             --space-xs: 0.5rem;
             --space-sm: 1rem;
             --space-md: 1.5rem;
@@ -63,7 +62,7 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Typography - Optimized for both mobile and desktop */
+        /* Typography */
         h1, h2, h3, h4, .heading-font {
             font-family: 'Arial Black', 'Arial Bold', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             font-weight: 900;
@@ -76,6 +75,7 @@
             font-size: clamp(2.5rem, 8vw, 4.5rem);
             line-height: 1.1;
             margin-bottom: var(--space-sm);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
         }
 
         h2 {
@@ -108,13 +108,7 @@
             color: var(--medium-grey);
         }
 
-        /* Improved accessibility for text selection */
-        ::selection {
-            background-color: var(--electric-orange);
-            color: var(--white);
-        }
-
-        /* Buttons - Optimized for touch and click */
+        /* Buttons */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -138,35 +132,9 @@
             min-width: 140px;
             position: relative;
             overflow: hidden;
-        }
-
-        .btn::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 5px;
-            height: 5px;
-            background: rgba(255, 255, 255, 0.5);
-            opacity: 0;
-            border-radius: 100%;
-            transform: scale(1, 1) translate(-50%);
-            transform-origin: 50% 50%;
-        }
-
-        .btn:focus:not(:active)::after {
-            animation: ripple 1s ease-out;
-        }
-
-        @keyframes ripple {
-            0% {
-                transform: scale(0, 0);
-                opacity: 0.5;
-            }
-            100% {
-                transform: scale(40, 40);
-                opacity: 0;
-            }
+            z-index: 5;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
         .btn:hover, .btn:focus {
@@ -191,13 +159,6 @@
             background-color: var(--white);
             color: var(--pitch-black);
             border-color: var(--white);
-        }
-
-        .btn-small {
-            padding: 10px 20px;
-            min-height: 40px;
-            min-width: 120px;
-            font-size: 0.85rem;
         }
 
         /* Spinner */
@@ -251,7 +212,7 @@
             width: 100%;
             opacity: 0;
             transition: opacity var(--transition-slow);
-            padding-top: 80px; /* Account for fixed header */
+            padding-top: 80px;
         }
 
         .section.active {
@@ -259,35 +220,47 @@
             opacity: 1;
         }
 
-        /* Hero Section */
+        /* Hero Section with Video Background */
         #hero {
             display: block;
             opacity: 1;
             padding-top: 0;
             height: 100vh;
             position: relative;
+            overflow: hidden;
         }
 
-        .hero-parallax {
+        .video-background {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-            z-index: -1;
-            filter: brightness(0.7);
+            z-index: -2;
+            overflow: hidden;
         }
 
-        /* Fallback for mobile devices that don't support fixed background */
-        @media (max-width: 768px) {
-            .hero-parallax {
-                background-attachment: scroll;
-            }
+        .video-background video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: cover;
+        }
+
+        /* Video overlay for better text readability */
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.8) 100%);
+            z-index: -1;
         }
 
         .hero-content {
@@ -299,6 +272,7 @@
             width: 90%;
             max-width: 1200px;
             padding: var(--space-md);
+            z-index: 2;
         }
 
         .hero-subtext {
@@ -306,35 +280,73 @@
             margin-bottom: clamp(2rem, 6vw, 3rem);
             letter-spacing: 2px;
             font-weight: 300;
-            color: var(--light-grey);
+            color: var(--white);
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
         }
 
         .hero-cta {
             margin-top: clamp(2rem, 6vw, 3rem);
         }
 
-        /* Scroll indicator for desktop */
-        .scroll-indicator {
+        /* Video controls - Simplified */
+        .video-controls {
             position: absolute;
-            bottom: 40px;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 10;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px 15px;
+            border-radius: var(--radius-md);
+            backdrop-filter: blur(5px);
+        }
+
+        .video-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all var(--transition-normal);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .video-btn:hover {
+            color: var(--electric-orange);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Loading animation for video */
+        .video-loading {
+            position: absolute;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
-            color: var(--white);
-            font-size: 1.5rem;
-            animation: bounce 2s infinite;
-            display: none;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 1.2rem;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            opacity: 0;
+            transition: opacity var(--transition-normal);
         }
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);}
-            40% {transform: translateY(-20px) translateX(-50%);}
-            60% {transform: translateY(-10px) translateX(-50%);}
-        }
-
-        @media (min-width: 769px) {
-            .scroll-indicator {
-                display: block;
-            }
+        .video-loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid var(--electric-orange);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
         }
 
         /* Fleet Section */
@@ -410,6 +422,89 @@
             font-size: 0.9rem;
             transform: rotate(45deg);
             z-index: 10;
+        }
+
+        /* Image Carousel for G-Wagon */
+        .car-carousel {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .car-carousel-track {
+            display: flex;
+            width: 300%;
+            height: 100%;
+            transition: transform var(--transition-normal);
+        }
+
+        .car-carousel-slide {
+            width: 33.333%;
+            height: 100%;
+            flex-shrink: 0;
+        }
+
+        .car-carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .car-carousel-dots {
+            position: absolute;
+            bottom: 15px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            z-index: 5;
+        }
+
+        .car-carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+        }
+
+        .car-carousel-dot.active {
+            background-color: var(--electric-orange);
+            transform: scale(1.2);
+        }
+
+        .car-carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+            z-index: 5;
+        }
+
+        .car-carousel:hover .car-carousel-nav {
+            opacity: 1;
+        }
+
+        .car-carousel-prev {
+            left: 10px;
+        }
+
+        .car-carousel-next {
+            right: 10px;
         }
 
         .car-image-container {
@@ -577,16 +672,6 @@
             cursor: not-allowed;
         }
 
-        /* Improved date input for mobile */
-        input[type="date"] {
-            min-height: 50px;
-        }
-
-        /* Improved number input for mobile */
-        input[type="number"] {
-            min-height: 50px;
-        }
-
         .price-display {
             background-color: rgba(234, 88, 12, 0.1);
             border-left: 4px solid var(--electric-orange);
@@ -607,7 +692,6 @@
             margin: 10px 0;
         }
 
-        /* Navigation - Enhanced for mobile and desktop */
         /* Mobile Navigation */
         .mobile-menu-btn {
             position: fixed;
@@ -625,11 +709,6 @@
             z-index: 100;
             cursor: pointer;
             transition: all var(--transition-normal);
-        }
-
-        .mobile-menu-btn:hover, .mobile-menu-btn:focus {
-            background-color: var(--electric-orange-light);
-            outline: none;
         }
 
         .mobile-menu-btn span {
@@ -693,9 +772,8 @@
             width: 100%;
         }
 
-        .mobile-nav a:hover, .mobile-nav a:focus {
+        .mobile-nav a:hover {
             color: var(--electric-orange);
-            outline: none;
         }
 
         /* Desktop Navigation */
@@ -756,13 +834,12 @@
             transition: width var(--transition-normal);
         }
 
-        .desktop-nav a:hover::after, .desktop-nav a:focus::after {
+        .desktop-nav a:hover::after {
             width: 100%;
         }
 
-        .desktop-nav a:hover, .desktop-nav a:focus {
+        .desktop-nav a:hover {
             color: var(--electric-orange);
-            outline: none;
         }
 
         /* Show desktop nav on larger screens */
@@ -829,66 +906,6 @@
             color: var(--electric-orange);
         }
 
-        /* Utility Classes */
-        .text-center {
-            text-align: center;
-        }
-
-        .mt-1 { margin-top: var(--space-xs); }
-        .mt-2 { margin-top: var(--space-sm); }
-        .mt-3 { margin-top: var(--space-md); }
-        .mt-4 { margin-top: var(--space-lg); }
-        .mt-5 { margin-top: var(--space-xl); }
-
-        .mb-1 { margin-bottom: var(--space-xs); }
-        .mb-2 { margin-bottom: var(--space-sm); }
-        .mb-3 { margin-bottom: var(--space-md); }
-        .mb-4 { margin-bottom: var(--space-lg); }
-        .mb-5 { margin-bottom: var(--space-xl); }
-
-        /* Loading animation for better UX */
-        .loading-skeleton {
-            background: linear-gradient(90deg, #1a1a1a 25%, #222 50%, #1a1a1a 75%);
-            background-size: 200% 100%;
-            animation: loading 1.5s infinite;
-            border-radius: var(--radius-md);
-        }
-
-        @keyframes loading {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-
-        /* Swipe indicator for mobile */
-        .swipe-indicator {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(234, 88, 12, 0.9);
-            color: white;
-            padding: 10px 20px;
-            border-radius: var(--radius-xl);
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            z-index: 50;
-            animation: fadeInOut 3s ease-in-out;
-            display: none;
-        }
-
-        @keyframes fadeInOut {
-            0%, 100% { opacity: 0; }
-            20%, 80% { opacity: 1; }
-        }
-
-        @media (max-width: 768px) {
-            .swipe-indicator {
-                display: flex;
-            }
-        }
-
         /* Toast notification */
         .toast {
             position: fixed;
@@ -911,7 +928,7 @@
             opacity: 1;
         }
 
-        /* Touch-friendly carousel navigation for fleet */
+        /* Mobile fleet navigation */
         .fleet-nav {
             display: flex;
             justify-content: center;
@@ -942,52 +959,64 @@
             .cars-grid {
                 overflow-x: auto;
                 scroll-snap-type: x mandatory;
-                scrollbar-width: none; /* Firefox */
-                -ms-overflow-style: none; /* IE and Edge */
+                scrollbar-width: none;
+                -ms-overflow-style: none;
                 grid-auto-flow: column;
                 grid-auto-columns: 85%;
                 padding-bottom: 20px;
             }
             
             .cars-grid::-webkit-scrollbar {
-                display: none; /* Chrome, Safari, Opera */
+                display: none;
             }
             
             .car-card {
                 scroll-snap-align: start;
             }
-        }
-
-        /* Keyboard navigation focus styles */
-        *:focus {
-            outline: 2px solid var(--electric-orange);
-            outline-offset: 2px;
-        }
-
-        /* High contrast mode support */
-        @media (prefers-contrast: high) {
-            :root {
-                --electric-orange: #FF6600;
-                --charcoal-grey: #111111;
+            
+            .video-controls {
+                bottom: 20px;
+                right: 20px;
+                padding: 8px 12px;
             }
             
-            .car-card {
-                border: 2px solid #444;
+            .video-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
             }
+        }
+
+        /* Video fallback for slow connections */
+        .video-fallback {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('images/GWAGON 1 (1).jpeg');
+            background-size: cover;
+            background-position: center;
+            z-index: -3;
+            display: none;
         }
 
         /* Reduced motion preference */
         @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
+            .video-background video {
+                display: none;
             }
             
-            .hero-parallax {
-                background-attachment: scroll;
+            .video-fallback {
+                display: block;
+            }
+            
+            .car-carousel {
+                overflow: hidden;
+            }
+            
+            .car-carousel-track {
+                transition: none;
             }
         }
     </style>
@@ -999,23 +1028,17 @@
         <div class="spinner-text">Deluna Intelligence Syncing...</div>
     </div>
 
-    <!-- Swipe Indicator for Mobile -->
-    <div class="swipe-indicator">
-        <i class="fas fa-hand-point-up"></i>
-        <span>Swipe to see more cars</span>
-    </div>
-
     <!-- Toast Notification -->
     <div class="toast" id="toast"></div>
 
     <!-- Mobile Navigation -->
-    <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle navigation menu">
+    <button class="mobile-menu-btn" id="mobile-menu-btn">
         <span></span>
         <span></span>
         <span></span>
     </button>
 
-    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+    <nav class="mobile-nav" id="mobile-nav">
         <a href="#" data-section="hero">Home</a>
         <a href="#" data-section="fleet">Our Fleet</a>
         <a href="#" class="book-now-btn">Book Now</a>
@@ -1025,7 +1048,7 @@
     </nav>
 
     <!-- Desktop Navigation -->
-    <nav class="desktop-nav" aria-label="Desktop navigation">
+    <nav class="desktop-nav">
         <div class="logo">DELUNA</div>
         <div class="desktop-nav-links">
             <a href="#" data-section="hero">Home</a>
@@ -1034,18 +1057,38 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero Section with Video Background -->
     <section id="hero" class="section active">
-        <div class="hero-parallax" role="img" aria-label="Luxury sports car in low light"></div>
+        <div class="video-background">
+            <!-- Video with proper muted loop attributes -->
+            <video id="hero-video" preload="metadata" autoplay muted loop playsinline>
+                <source src="images/carbackground.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="video-loading" id="video-loading">
+                <div class="video-loading-spinner"></div>
+                <span>Loading luxury experience...</span>
+            </div>
+        </div>
+        <div class="video-overlay"></div>
+        <div class="video-fallback"></div>
+        
+        <!-- Simple Video Controls -->
+        <div class="video-controls">
+            <button class="video-btn" id="video-pause" aria-label="Pause video">
+                <i class="fas fa-pause"></i>
+            </button>
+            <button class="video-btn" id="video-replay" aria-label="Replay video">
+                <i class="fas fa-redo"></i>
+            </button>
+        </div>
+        
         <div class="hero-content">
             <h1>DELUNA</h1>
             <p class="hero-subtext">Luxury Car Rentals • Lumumba Drive</p>
             <div class="hero-cta">
                 <button class="btn" id="explore-btn">Explore Models</button>
             </div>
-        </div>
-        <div class="scroll-indicator" aria-hidden="true">
-            <i class="fas fa-chevron-down"></i>
         </div>
     </section>
 
@@ -1058,7 +1101,7 @@
         
         <div class="fleet-container">
             <div class="cars-grid" id="cars-grid">
-                <!-- Car 1 -->
+                <!-- Car 1: Toyota Prado -->
                 <div class="car-card">
                     <div class="car-image-container">
                         <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80" alt="Toyota Prado TX 2023" class="car-image" loading="lazy">
@@ -1077,10 +1120,27 @@
                     </div>
                 </div>
                 
-                <!-- Car 2 - Featured -->
+                <!-- Car 2: Mercedes G-Wagon (Featured with image carousel) -->
                 <div class="car-card featured">
-                    <div class="car-image-container">
-                        <img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2025&q=80" alt="Mercedes G-Wagon 2023" class="car-image" loading="lazy">
+                    <div class="car-carousel" id="gwagon-carousel">
+                        <div class="car-carousel-track">
+                            <div class="car-carousel-slide">
+                                <img src="images/GWAGON 1 (1).jpeg" alt="Mercedes G-Wagon Front View" loading="lazy">
+                            </div>
+                            <div class="car-carousel-slide">
+                                <img src="images/GWAGON 1 (2).jpeg" alt="Mercedes G-Wagon Side View" loading="lazy">
+                            </div>
+                            <div class="car-carousel-slide">
+                                <img src="images/GWAGON 1 (3).jpeg" alt="Mercedes G-Wagon Interior" loading="lazy">
+                            </div>
+                        </div>
+                        <button class="car-carousel-nav car-carousel-prev">‹</button>
+                        <button class="car-carousel-nav car-carousel-next">›</button>
+                        <div class="car-carousel-dots">
+                            <div class="car-carousel-dot active" data-index="0"></div>
+                            <div class="car-carousel-dot" data-index="1"></div>
+                            <div class="car-carousel-dot" data-index="2"></div>
+                        </div>
                     </div>
                     <div class="car-info">
                         <h3>Mercedes G-Wagon 2023</h3>
@@ -1096,7 +1156,7 @@
                     </div>
                 </div>
                 
-                <!-- Car 3 -->
+                <!-- Car 3: Audi A4 -->
                 <div class="car-card">
                     <div class="car-image-container">
                         <img src="https://images.unsplash.com/photo-1555212697-194d092e3b8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80" alt="Audi A4 2018" class="car-image" loading="lazy">
@@ -1123,14 +1183,14 @@
                 <div class="fleet-dot" data-index="2"></div>
             </div>
             
-            <div class="section-actions mt-4">
+            <div class="section-actions">
                 <button class="btn btn-back" id="back-to-hero">Go Back to Home</button>
             </div>
         </div>
     </section>
 
     <!-- Booking Modal -->
-    <div id="booking-modal" role="dialog" aria-labelledby="booking-title" aria-modal="true">
+    <div id="booking-modal">
         <div class="booking-container">
             <div class="booking-left">
                 <div>
@@ -1140,7 +1200,7 @@
                 <button class="btn btn-back" id="close-booking">Go Back</button>
             </div>
             <div class="booking-right">
-                <h2 class="booking-title" id="booking-title">Reserve Your Luxury Car</h2>
+                <h2 class="booking-title">Reserve Your Luxury Car</h2>
                 <form class="booking-form" id="booking-form">
                     <div class="form-group">
                         <label for="car-model">Selected Vehicle</label>
@@ -1164,7 +1224,7 @@
                     
                     <div class="form-group">
                         <label for="customer-phone">Phone Number</label>
-                        <input type="tel" id="customer-phone" placeholder="e.g. 0712 345 678" required pattern="[0-9]{10,12}">
+                        <input type="tel" id="customer-phone" placeholder="e.g. 0712 345 678" required>
                         <small style="color: #666; margin-top: 5px;">Enter your WhatsApp number for confirmation</small>
                     </div>
                     
@@ -1202,7 +1262,7 @@
             </div>
         </div>
         
-        <p class="footer-info mt-4">&copy; 2023 DELUNA LUXURY CAR RENTALS. All rights reserved.</p>
+        <p class="footer-info">&copy; 2023 DELUNA LUXURY CAR RENTALS. All rights reserved.</p>
     </footer>
 
     <script>
@@ -1229,17 +1289,32 @@
         const fleetNav = document.getElementById('fleet-nav');
         const fleetDots = document.querySelectorAll('.fleet-dot');
         
-        // Variables to store booking data
+        // Video Elements
+        const heroVideo = document.getElementById('hero-video');
+        const videoLoading = document.getElementById('video-loading');
+        const videoPauseBtn = document.getElementById('video-pause');
+        const videoReplayBtn = document.getElementById('video-replay');
+        
+        // G-Wagon Carousel Elements
+        const gwagonCarousel = document.getElementById('gwagon-carousel');
+        const carouselTrack = gwagonCarousel ? gwagonCarousel.querySelector('.car-carousel-track') : null;
+        const carouselDots = gwagonCarousel ? gwagonCarousel.querySelectorAll('.car-carousel-dot') : null;
+        const carouselPrev = gwagonCarousel ? gwagonCarousel.querySelector('.car-carousel-prev') : null;
+        const carouselNext = gwagonCarousel ? gwagonCarousel.querySelector('.car-carousel-next') : null;
+        
+        // Variables
         let selectedCar = '';
         let selectedCarPrice = 0;
         let currentCarIndex = 0;
+        let gwagonCarouselIndex = 0;
+        let gwagonCarouselInterval;
+        let isVideoPaused = false;
         
-        // Set minimum pickup date to today
+        // Set dates
         const today = new Date();
         const formattedToday = today.toISOString().split('T')[0];
         pickupDateInput.min = formattedToday;
         
-        // Set default pickup date to tomorrow
         const tomorrow = new Date(today);
         tomorrow.setDate(tomorrow.getDate() + 1);
         const formattedTomorrow = tomorrow.toISOString().split('T')[0];
@@ -1255,25 +1330,27 @@
             }, duration);
         }
         
-        // Show spinner and switch sections
+        // Switch sections with spinner
         function switchSection(fromSection, toSection) {
-            // Show spinner
+            // Pause video when leaving hero section
+            if (fromSection === 'hero' && heroVideo) {
+                heroVideo.pause();
+                isVideoPaused = true;
+                updateVideoPauseButton();
+            }
+            
             spinner.style.display = 'flex';
             document.body.style.overflow = 'hidden';
             
-            // Hide current section
             document.querySelector(`#${fromSection}`).classList.remove('active');
             
-            // After 3 seconds, hide spinner and show target section
             setTimeout(() => {
                 spinner.style.display = 'none';
                 document.body.style.overflow = 'auto';
                 document.querySelector(`#${toSection}`).classList.add('active');
                 
-                // Scroll to top
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 
-                // Show toast notification for mobile users
                 if (toSection === 'fleet' && window.innerWidth <= 768) {
                     setTimeout(() => {
                         showToast('Swipe left or right to browse cars');
@@ -1282,7 +1359,7 @@
             }, 3000);
         }
         
-        // Calculate and update total price
+        // Update total price
         function updateTotalPrice() {
             const days = parseInt(durationInput.value) || 1;
             const total = selectedCarPrice * days;
@@ -1307,17 +1384,91 @@
             return `https://wa.me/254700000000?text=${message}`;
         }
         
-        // Update fleet navigation dots
+        // Video Controls Functions
+        function toggleVideoPause() {
+            if (heroVideo) {
+                if (heroVideo.paused) {
+                    heroVideo.play();
+                    isVideoPaused = false;
+                } else {
+                    heroVideo.pause();
+                    isVideoPaused = true;
+                }
+                updateVideoPauseButton();
+                
+                showToast(isVideoPaused ? 'Video paused' : 'Video playing');
+            }
+        }
+        
+        function updateVideoPauseButton() {
+            if (videoPauseBtn) {
+                const icon = videoPauseBtn.querySelector('i');
+                icon.className = isVideoPaused ? 'fas fa-play' : 'fas fa-pause';
+            }
+        }
+        
+        function replayVideo() {
+            if (heroVideo) {
+                heroVideo.currentTime = 0;
+                heroVideo.play();
+                isVideoPaused = false;
+                updateVideoPauseButton();
+                showToast('Video restarted');
+            }
+        }
+        
+        // Ensure video is always muted and loops
+        function ensureVideoSettings() {
+            if (heroVideo) {
+                // Force mute and loop
+                heroVideo.muted = true;
+                heroVideo.loop = true;
+                
+                // Ensure video plays
+                if (heroVideo.paused && !isVideoPaused) {
+                    heroVideo.play().catch(e => {
+                        console.log('Video autoplay prevented, will play on user interaction');
+                    });
+                }
+            }
+        }
+        
+        // G-Wagon Carousel Functions
+        function updateGwagonCarousel(index) {
+            if (!carouselTrack) return;
+            
+            gwagonCarouselIndex = index;
+            const translateX = -index * 33.333;
+            carouselTrack.style.transform = `translateX(${translateX}%)`;
+            
+            // Update dots
+            carouselDots.forEach(dot => dot.classList.remove('active'));
+            carouselDots[index].classList.add('active');
+        }
+        
+        function startGwagonCarousel() {
+            if (!gwagonCarousel) return;
+            
+            clearInterval(gwagonCarouselInterval);
+            gwagonCarouselInterval = setInterval(() => {
+                let nextIndex = gwagonCarouselIndex + 1;
+                if (nextIndex >= carouselDots.length) nextIndex = 0;
+                updateGwagonCarousel(nextIndex);
+            }, 4000);
+        }
+        
+        function stopGwagonCarousel() {
+            clearInterval(gwagonCarouselInterval);
+        }
+        
+        // Update fleet navigation
         function updateFleetNav(index) {
-            fleetDots.forEach(dot => {
-                dot.classList.remove('active');
-            });
+            fleetDots.forEach(dot => dot.classList.remove('active'));
             
             if (fleetDots[index]) {
                 fleetDots[index].classList.add('active');
             }
             
-            // Scroll car into view on mobile
             if (window.innerWidth <= 768) {
                 const carCards = document.querySelectorAll('.car-card');
                 if (carCards[index]) {
@@ -1346,43 +1497,20 @@
             switchSection('fleet', 'hero');
         });
         
-        // Mobile menu toggle
+        // Mobile menu
         mobileMenuBtn.addEventListener('click', () => {
             mobileMenuBtn.classList.toggle('active');
             mobileNav.classList.toggle('active');
             document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : 'auto';
-            
-            // Close menu when clicking a link
-            if (mobileNav.classList.contains('active')) {
-                const mobileLinks = document.querySelectorAll('.mobile-nav a');
-                mobileLinks.forEach(link => {
-                    link.addEventListener('click', () => {
-                        mobileMenuBtn.classList.remove('active');
-                        mobileNav.classList.remove('active');
-                        document.body.style.overflow = 'auto';
-                    }, { once: true });
-                });
-            }
-        });
-        
-        // Close mobile menu with escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && mobileNav.classList.contains('active')) {
-                mobileMenuBtn.classList.remove('active');
-                mobileNav.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
         });
         
         // Mobile navigation links
         document.querySelectorAll('.mobile-nav a').forEach(link => {
             link.addEventListener('click', (e) => {
-                // Don't prevent default for phone link
                 if (link.classList.contains('contact-link')) return;
                 
                 e.preventDefault();
                 
-                // Handle section switching
                 const targetSection = link.getAttribute('data-section');
                 if (targetSection && targetSection !== 'hero') {
                     switchSection('hero', targetSection);
@@ -1390,9 +1518,7 @@
                     switchSection('fleet', 'hero');
                 }
                 
-                // Handle book now button in mobile nav
                 if (link.classList.contains('book-now-btn')) {
-                    // Show booking modal for the featured car by default
                     selectedCar = 'Mercedes G-Wagon 2023';
                     selectedCarPrice = 40000;
                     carModelInput.value = selectedCar;
@@ -1400,13 +1526,16 @@
                     bookingModal.classList.add('active');
                     document.body.style.overflow = 'hidden';
                 }
+                
+                mobileMenuBtn.classList.remove('active');
+                mobileNav.classList.remove('active');
+                document.body.style.overflow = 'auto';
             });
         });
         
         // Desktop navigation links
         document.querySelectorAll('.desktop-nav a').forEach(link => {
             link.addEventListener('click', (e) => {
-                // Don't prevent default for buttons
                 if (link.classList.contains('btn')) return;
                 
                 e.preventDefault();
@@ -1426,15 +1555,11 @@
                 selectedCar = button.getAttribute('data-car');
                 selectedCarPrice = parseInt(button.getAttribute('data-price'));
                 
-                // Update booking form
                 carModelInput.value = selectedCar;
                 updateTotalPrice();
-                
-                // Show booking modal
                 bookingModal.classList.add('active');
                 document.body.style.overflow = 'hidden';
                 
-                // Update fleet nav if on mobile
                 updateFleetNav(index);
             });
         });
@@ -1444,7 +1569,6 @@
             button.addEventListener('click', (e) => {
                 e.preventDefault();
                 
-                // Show booking modal for the featured car by default
                 selectedCar = 'Mercedes G-Wagon 2023';
                 selectedCarPrice = 40000;
                 carModelInput.value = selectedCar;
@@ -1452,7 +1576,6 @@
                 bookingModal.classList.add('active');
                 document.body.style.overflow = 'hidden';
                 
-                // Update fleet nav to show featured car
                 updateFleetNav(1);
             });
         });
@@ -1463,17 +1586,8 @@
             document.body.style.overflow = 'auto';
         });
         
-        // Close modal when clicking outside
         bookingModal.addEventListener('click', (e) => {
             if (e.target === bookingModal) {
-                bookingModal.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-        });
-        
-        // Close modal with escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && bookingModal.classList.contains('active')) {
                 bookingModal.classList.remove('active');
                 document.body.style.overflow = 'auto';
             }
@@ -1482,7 +1596,7 @@
         // Update total price when duration changes
         durationInput.addEventListener('input', updateTotalPrice);
         
-        // Handle form submission
+        // Form submission
         bookingForm.addEventListener('submit', (e) => {
             e.preventDefault();
             
@@ -1491,13 +1605,11 @@
             const days = parseInt(durationInput.value);
             const totalAmount = selectedCarPrice * days;
             const customerName = document.getElementById('customer-name').value.trim();
-            const customerPhone = document.getElementById('customer-phone').value.trim();
+            const customerPhone = document.getElementById('customer-phone').value.trim().replace(/\s+/g, '');
             
-            // Validate phone number
+            // Validate phone
             const phoneRegex = /^[0-9]{10,12}$/;
-            const cleanedPhone = customerPhone.replace(/\s+/g, '');
-            
-            if (!phoneRegex.test(cleanedPhone)) {
+            if (!phoneRegex.test(customerPhone)) {
                 showToast('Please enter a valid phone number (10-12 digits)');
                 document.getElementById('customer-phone').focus();
                 return;
@@ -1516,28 +1628,131 @@
                 pickupDate, 
                 totalAmount,
                 customerName,
-                cleanedPhone
+                customerPhone
             );
             
-            // Open WhatsApp in a new tab
             window.open(whatsappUrl, '_blank');
             
-            // Close modal
             bookingModal.classList.remove('active');
             document.body.style.overflow = 'auto';
             
-            // Reset form but keep selected car
             bookingForm.reset();
             carModelInput.value = selectedCar;
             pickupDateInput.value = formattedTomorrow;
             durationInput.value = 1;
             updateTotalPrice();
             
-            // Show confirmation message
             showToast('WhatsApp message prepared! Please send it to confirm your reservation.', 5000);
         });
         
-        // Fleet navigation dots for mobile
+        // Video Controls Event Listeners
+        if (videoPauseBtn) {
+            videoPauseBtn.addEventListener('click', toggleVideoPause);
+        }
+        
+        if (videoReplayBtn) {
+            videoReplayBtn.addEventListener('click', replayVideo);
+        }
+        
+        // Video loading events
+        if (heroVideo) {
+            heroVideo.addEventListener('loadeddata', () => {
+                if (videoLoading) {
+                    videoLoading.style.opacity = '0';
+                    setTimeout(() => {
+                        videoLoading.style.display = 'none';
+                    }, 300);
+                }
+                ensureVideoSettings();
+            });
+            
+            heroVideo.addEventListener('waiting', () => {
+                if (videoLoading) {
+                    videoLoading.style.display = 'flex';
+                    videoLoading.style.opacity = '1';
+                }
+            });
+            
+            heroVideo.addEventListener('playing', () => {
+                if (videoLoading) {
+                    videoLoading.style.opacity = '0';
+                    setTimeout(() => {
+                        videoLoading.style.display = 'none';
+                    }, 300);
+                }
+                ensureVideoSettings();
+            });
+            
+            heroVideo.addEventListener('pause', () => {
+                isVideoPaused = true;
+                updateVideoPauseButton();
+            });
+            
+            heroVideo.addEventListener('play', () => {
+                isVideoPaused = false;
+                updateVideoPauseButton();
+                ensureVideoSettings();
+            });
+            
+            // Ensure video loops properly
+            heroVideo.addEventListener('ended', () => {
+                heroVideo.currentTime = 0;
+                heroVideo.play();
+            });
+            
+            // Handle video errors
+            heroVideo.addEventListener('error', () => {
+                if (videoLoading) {
+                    videoLoading.innerHTML = '<span>Video failed to load. Showing image instead.</span>';
+                }
+                console.error('Video failed to load. Check the file path: images/carbackground.mp4');
+            });
+            
+            // Force video settings on time update (safety check)
+            heroVideo.addEventListener('timeupdate', ensureVideoSettings);
+        }
+        
+        // G-Wagon Carousel event listeners
+        if (carouselPrev && carouselNext) {
+            carouselPrev.addEventListener('click', () => {
+                stopGwagonCarousel();
+                let prevIndex = gwagonCarouselIndex - 1;
+                if (prevIndex < 0) prevIndex = carouselDots.length - 1;
+                updateGwagonCarousel(prevIndex);
+                startGwagonCarousel();
+            });
+            
+            carouselNext.addEventListener('click', () => {
+                stopGwagonCarousel();
+                let nextIndex = gwagonCarouselIndex + 1;
+                if (nextIndex >= carouselDots.length) nextIndex = 0;
+                updateGwagonCarousel(nextIndex);
+                startGwagonCarousel();
+            });
+            
+            carouselDots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    stopGwagonCarousel();
+                    const index = parseInt(dot.getAttribute('data-index'));
+                    updateGwagonCarousel(index);
+                    startGwagonCarousel();
+                });
+            });
+            
+            // Pause carousel on hover
+            if (gwagonCarousel) {
+                gwagonCarousel.addEventListener('mouseenter', stopGwagonCarousel);
+                gwagonCarousel.addEventListener('mouseleave', startGwagonCarousel);
+                
+                // Touch events for mobile
+                gwagonCarousel.addEventListener('touchstart', stopGwagonCarousel);
+                gwagonCarousel.addEventListener('touchend', () => {
+                    setTimeout(startGwagonCarousel, 5000);
+                });
+            }
+        }
+        
+        // Fleet navigation dots
         fleetDots.forEach(dot => {
             dot.addEventListener('click', () => {
                 const index = parseInt(dot.getAttribute('data-index'));
@@ -1545,73 +1760,71 @@
             });
         });
         
-        // Swipe detection for mobile fleet browsing
+        // Swipe detection for mobile
         let touchStartX = 0;
         let touchEndX = 0;
         
-        carsGrid.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        }, { passive: true });
-        
-        carsGrid.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        }, { passive: true });
+        if (carsGrid) {
+            carsGrid.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+            
+            carsGrid.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, { passive: true });
+        }
         
         function handleSwipe() {
             const swipeThreshold = 50;
             const diff = touchStartX - touchEndX;
             
-            // Left swipe
             if (diff > swipeThreshold && currentCarIndex < 2) {
                 updateFleetNav(currentCarIndex + 1);
-            }
-            // Right swipe
-            else if (diff < -swipeThreshold && currentCarIndex > 0) {
+            } else if (diff < -swipeThreshold && currentCarIndex > 0) {
                 updateFleetNav(currentCarIndex - 1);
             }
         }
         
-        // Keyboard navigation for car selection
-        document.addEventListener('keydown', (e) => {
-            // Only handle arrow keys when fleet section is active
-            if (!fleetSection.classList.contains('active')) return;
-            
-            if (e.key === 'ArrowRight' && currentCarIndex < 2) {
-                e.preventDefault();
-                updateFleetNav(currentCarIndex + 1);
-            } else if (e.key === 'ArrowLeft' && currentCarIndex > 0) {
-                e.preventDefault();
-                updateFleetNav(currentCarIndex - 1);
-            }
-        });
-        
         // Initialize
         window.addEventListener('load', () => {
-            // Hide spinner after page loads
             setTimeout(() => {
                 spinner.style.display = 'none';
                 document.body.style.overflow = 'auto';
                 
-                // Initialize total price
                 updateTotalPrice();
                 
-                // Show welcome message for first-time visitors
                 if (!sessionStorage.getItem('delunaVisited')) {
                     setTimeout(() => {
                         showToast('Welcome to DELUNA Luxury Car Rentals', 3000);
                     }, 1000);
                     sessionStorage.setItem('delunaVisited', 'true');
                 }
+                
+                // Start G-Wagon carousel
+                if (gwagonCarousel) {
+                    startGwagonCarousel();
+                }
+                
+                // Ensure video settings are applied
+                ensureVideoSettings();
+                
+                // Hide video loading after a timeout (fallback)
+                setTimeout(() => {
+                    if (videoLoading && videoLoading.style.display !== 'none') {
+                        videoLoading.style.opacity = '0';
+                        setTimeout(() => {
+                            videoLoading.style.display = 'none';
+                        }, 300);
+                    }
+                }, 5000);
             }, 1500);
             
-            // Update date input for mobile devices
+            // Mobile date picker fix
             if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-                // Set input type to text for better mobile UX, then back to date
                 pickupDateInput.type = 'text';
                 pickupDateInput.addEventListener('focus', () => {
                     pickupDateInput.type = 'date';
-                    // Trigger a click to open the date picker on mobile
                     setTimeout(() => {
                         pickupDateInput.click();
                     }, 100);
@@ -1621,13 +1834,40 @@
         
         // Handle window resize
         window.addEventListener('resize', () => {
-            // Update fleet display based on screen size
             if (window.innerWidth > 768) {
-                // Reset grid layout for desktop
                 carsGrid.style.gridAutoFlow = '';
                 carsGrid.style.gridAutoColumns = '';
             }
         });
+        
+        // Keyboard shortcuts for video
+        document.addEventListener('keydown', (e) => {
+            // Space bar toggles play/pause
+            if (e.code === 'Space' && heroSection.classList.contains('active')) {
+                e.preventDefault();
+                toggleVideoPause();
+            }
+            
+            // R replays video
+            if (e.code === 'KeyR' && heroSection.classList.contains('active')) {
+                e.preventDefault();
+                replayVideo();
+            }
+        });
+        
+        // User interaction to start video (for browsers that block autoplay)
+        document.addEventListener('click', () => {
+            if (heroVideo && heroVideo.paused && !isVideoPaused) {
+                heroVideo.play().then(() => {
+                    ensureVideoSettings();
+                }).catch(e => {
+                    console.log('Video play failed, will try again on user interaction');
+                });
+            }
+        }, { once: true });
+        
+        // Force video settings periodically (safety measure)
+        setInterval(ensureVideoSettings, 5000);
     </script>
 </body>
 </html>
