@@ -84,8 +84,9 @@ header {
   display: flex;
   align-items: center;
   gap: 15px;
-  /* Reversing order for mobile: button on left, icon on right */
-  flex-direction: row-reverse; 
+  /* Fixed order for mobile header components */
+  flex-direction: row; 
+  width: 100%;
 }
 
 .mobile-menu-btn {
@@ -96,7 +97,15 @@ header {
   font-size: 24px;
   cursor: pointer;
   padding: 5px;
-  order: 2; /* Forces it to the far left in row-reverse */
+  /* Explicitly positioned to top-left */
+  order: -1; 
+}
+
+.header-right-tools {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-left: auto;
 }
 
 nav {
@@ -150,7 +159,6 @@ nav a:hover, nav a.active {
   justify-content: center;
   width: 40px;
   height: 40px;
-  order: 1; /* Stays on the right side */
 }
 
 .cart-icon.glow {
@@ -287,13 +295,13 @@ section.active {
 }
 
 .back-btn {
-  position: absolute;
-  top: 90px;
-  left: 20px;
+  position: relative;
+  display: inline-block;
+  margin-bottom: 30px;
   padding: 10px 15px;
   font-size: 14px;
+  background: rgba(37, 211, 102, 0.1);
   z-index: 10;
-  background: rgba(0, 0, 0, 0.5);
 }
 
 /* ============ WHATSAPP BUTTON FIX ============ */
@@ -622,6 +630,7 @@ section.active {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .cart-header h3 {
@@ -733,7 +742,7 @@ section.active {
   background: #141414;
   border-radius: 12px;
   padding: 25px;
-  margin: 20px;
+  margin-bottom: 15px;
   border: 1px solid #252525;
 }
 
@@ -757,6 +766,9 @@ section.active {
   padding: 20px;
   background: #141414;
   border-top: 1px solid #222;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 10;
 }
 
 .cart-footer .btn {
@@ -843,28 +855,33 @@ footer {
   /* Mobile Header Adjustments */
   header {
     padding: 12px 15px;
-    justify-content: flex-start; /* Logo on left, nav-container on right */
+    justify-content: space-between;
     gap: 15px;
   }
   
   .logo {
     font-size: 16px;
-    flex-grow: 1;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
   
   .nav-container {
     display: flex;
-    flex-direction: row-reverse; /* Button far left, Icon on right */
+    flex-direction: row; 
+    justify-content: space-between;
+    width: 100%;
     gap: 15px;
   }
 
   .mobile-menu-btn {
     display: block;
-    order: 2; /* Far left */
+    order: -1; /* Far left */
   }
 
-  .cart-icon {
-    order: 1; /* Near right */
+  .header-right-tools {
+    display: flex;
+    margin-left: auto;
   }
   
   nav {
@@ -909,12 +926,14 @@ footer {
 <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
 
 <header>
-  <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
-  <div class="logo">DELUNA LUXURY CAR</div>
   <div class="nav-container">
-    <div class="cart-icon" onclick="toggleCart()">
-      🛒
-      <span id="count" class="cart-count">0</span>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+    <div class="logo">DELUNA LUXURY CAR</div>
+    <div class="header-right-tools">
+      <div class="cart-icon" onclick="toggleCart()">
+        🛒
+        <span id="count" class="cart-count">0</span>
+      </div>
     </div>
     <nav id="mobileNav">
       <div style="width: 100%; text-align: left; padding-bottom: 20px;">
@@ -1112,7 +1131,7 @@ footer {
   </div>
   
   <div class="cart-footer">
-    <button class="btn" onclick="order()">Order via WhatsApp</button>
+    <button class="btn" onclick="order()" style="background:#25d366; color:#000;">Order via WhatsApp</button>
   </div>
 </div>
 
