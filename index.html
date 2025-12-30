@@ -3,442 +3,995 @@
 <head>
 <meta charset="UTF-8">
 <title>DELUNA LUXURY CAR</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui}
-body{background:#0b0b0b;color:#f5f5f5;overflow-x:hidden}
-a{text-decoration:none;color:inherit}
-
-/* LOADER */
-#loader{
-  position:fixed;
-  inset:0;
-  background:#000;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:9999;
-  transition:opacity 0.3s;
-}
-#loader div{
-  width:60px;
-  height:60px;
-  border:4px solid #222;
-  border-top:4px solid #25d366;
-  border-radius:50%;
-  animation:spin 1s linear infinite
-}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-/* HEADER */
-header{
-  position:fixed;
-  top:0;
-  width:100%;
-  padding:20px 60px;
-  background:rgba(0,0,0,.85);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  z-index:100;
-}
-nav a{
-  margin-left:25px;
-  cursor:pointer;
-  opacity:.75;
-  transition:opacity 0.3s;
-}
-nav a:hover{opacity:1}
-.logo{letter-spacing:3px;font-weight:600}
-
-/* CART ICON */
-.cart-icon{
-  cursor:pointer;
-  position:relative;
-  transition:all 0.3s;
-  margin-left:25px;
-}
-.cart-icon.glow{
-  animation:glow 1.5s ease;
-}
-@keyframes glow{
-  0%{transform:scale(1);filter:drop-shadow(0 0 0px #25d366)}
-  50%{transform:scale(1.1);filter:drop-shadow(0 0 15px #25d366)}
-  100%{transform:scale(1);filter:drop-shadow(0 0 0px #25d366)}
-}
-.cart-count{
-  position:absolute;
-  top:-8px;
-  right:-10px;
-  background:#25d366;
-  color:#000;
-  font-size:12px;
-  padding:2px 6px;
-  border-radius:50%;
-  font-weight:bold;
+/* ============ RESET & BASE ============ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* SECTIONS */
-section{
-  display:none;
-  min-height:100vh;
-  padding:120px 60px;
-  position:relative;
-}
-section.active{display:block}
-
-/* HERO - KEEPING VIDEO WITH OPTIMIZATIONS */
-.hero{
-  position:relative;
-  overflow:hidden;
-}
-.hero video{
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  z-index:-2;
-  /* Optimizations for faster loading */
-  preload="metadata";
-  playsinline;
-  muted;
-}
-.hero::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,.6);
-  z-index:-1;
-}
-.hero-content{
-  max-width:800px;
-}
-.hero h1{
-  font-size:56px;
-  margin-bottom:20px;
-  line-height:1.2;
-}
-.hero p{
-  margin:20px 0;
-  opacity:.8;
-  font-size:20px;
-  margin-bottom:30px;
+html {
+  scroll-behavior: smooth;
 }
 
-/* BUTTON */
-.btn{
-  padding:12px 28px;
-  border:1px solid #25d366;
-  color:#25d366;
-  cursor:pointer;
-  background:none;
-  transition:all 0.3s;
-  font-weight:500;
-  border-radius:4px;
-  font-size:16px;
-}
-.btn:hover{
-  background:#25d366;
-  color:#000;
-}
-.back-btn{
-  position:absolute;
-  top:140px;
-  left:60px;
-  background:rgba(0,0,0,0.5);
-  border:1px solid #444;
-  color:#fff;
-}
-.back-btn:hover{
-  background:#25d366;
-  border-color:#25d366;
-  color:#000;
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  background: #0b0b0b;
+  color: #f5f5f5;
+  line-height: 1.6;
+  overflow-x: hidden;
+  font-size: 16px;
 }
 
-/* GRID */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-  gap:40px;
-  margin-top:40px;
+/* ============ LOADER ============ */
+#loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.3s;
 }
 
-/* CARD */
-.card{
-  background:#141414;
-  padding:25px;
-  border-radius:8px;
-  transition:transform 0.3s, box-shadow 0.3s;
-  position:relative;
-  border:1px solid #222;
-}
-.card:hover{
-  transform:translateY(-5px);
-  box-shadow:0 10px 25px rgba(37,211,102,0.1);
-  border-color:#25d366;
-}
-.card h3{
-  margin:15px 0 10px;
-  font-size:22px;
-}
-.card .price{
-  color:#25d366;
-  font-size:18px;
-  font-weight:600;
-  margin-bottom:10px;
-}
-.card .description{
-  opacity:0.8;
-  line-height:1.6;
-  margin-bottom:20px;
-  font-size:15px;
+.loader-ring {
+  width: 50px;
+  height: 50px;
+  border: 3px solid #222;
+  border-top: 3px solid #25d366;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
 }
 
-/* AVAILABILITY BADGE */
-.availability{
-  position:absolute;
-  top:20px;
-  right:20px;
-  padding:5px 12px;
-  border-radius:4px;
-  font-size:12px;
-  font-weight:600;
-}
-.available{
-  background:rgba(37,211,102,0.2);
-  color:#25d366;
-  border:1px solid #25d366;
-}
-.unavailable{
-  background:rgba(255,68,68,0.2);
-  color:#ff4444;
-  border:1px solid #ff4444;
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
-/* RENTAL DATES */
-.rental-dates{
-  margin:15px 0;
-  padding:15px;
-  background:#1a1a1a;
-  border-radius:6px;
-}
-.date-input{
-  display:flex;
-  gap:15px;
-  margin-bottom:10px;
-}
-.date-input input{
-  padding:10px;
-  background:#222;
-  border:1px solid #333;
-  color:#fff;
-  border-radius:4px;
-  width:100%;
-  font-size:14px;
-}
-.date-input input:focus{
-  outline:none;
-  border-color:#25d366;
-}
-.days-display{
-  margin-top:10px;
-  font-size:14px;
-  opacity:0.8;
-}
-.calculated-price{
-  color:#25d366;
-  font-weight:600;
-  font-size:16px;
-  margin-top:5px;
+/* ============ HEADER ============ */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  border-bottom: 1px solid #222;
 }
 
-/* IMAGE SLIDER */
-.slider{
-  position:relative;
-  border-radius:6px;
-  overflow:hidden;
-  background:#1a1a1a;
-  min-height:220px;
-}
-.slider img{
-  width:100%;
-  height:220px;
-  object-fit:cover;
-  display:none;
-}
-.slider img.active{
-  display:block;
-}
-.slider button{
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  background:rgba(0,0,0,0.7);
-  border:none;
-  color:#fff;
-  padding:10px 15px;
-  cursor:pointer;
-  font-size:18px;
-  transition:background 0.3s;
-  border-radius:50%;
-  width:40px;
-  height:40px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.slider button:hover{
-  background:rgba(37,211,102,0.8);
-}
-.prev{left:10px}
-.next{right:10px}
-.slider-indicators{
-  display:flex;
-  justify-content:center;
-  gap:8px;
-  margin-top:10px;
-}
-.slider-dot{
-  width:8px;
-  height:8px;
-  border-radius:50%;
-  background:#333;
-  cursor:pointer;
-  transition:background 0.3s;
-}
-.slider-dot.active{background:#25d366}
-.slider-dot:hover{background:#25d366}
-
-/* CART DRAWER */
-#cart{
-  position:fixed;
-  right:-450px;
-  top:0;
-  width:450px;
-  height:100vh;
-  background:#0f0f0f;
-  padding:30px;
-  transition:.4s;
-  z-index:200;
-  box-shadow:-5px 0 20px rgba(0,0,0,0.5);
-  overflow-y:auto;
-}
-#cart.active{right:0}
-.cart-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:20px;
-  padding-bottom:15px;
-  border-bottom:1px solid #25d366;
-}
-.close-cart{
-  background:none;
-  border:none;
-  color:#fff;
-  font-size:24px;
-  cursor:pointer;
-  padding:5px;
-  width:40px;
-  height:40px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:50%;
-  transition:background 0.3s;
-}
-.close-cart:hover{
-  background:#ff4444;
-}
-.cart-item{
-  border-bottom:1px solid #222;
-  padding:15px 0;
-}
-.cart-item button{
-  background:#ff4444;
-  border:none;
-  color:white;
-  padding:5px 10px;
-  border-radius:4px;
-  cursor:pointer;
-  font-size:12px;
-  margin-top:10px;
-}
-.cart-summary{
-  background:#1a1a1a;
-  padding:15px;
-  border-radius:6px;
-  margin-top:15px;
+.logo {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #25d366;
 }
 
-/* CART OVERLAY */
-.cart-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.7);
-  z-index:199;
-  display:none;
-}
-.cart-overlay.active{display:block}
-
-/* NOTIFICATION */
-.notification{
-  position:fixed;
-  top:100px;
-  right:30px;
-  background:#25d366;
-  color:#000;
-  padding:15px 25px;
-  border-radius:8px;
-  z-index:1000;
-  font-weight:600;
-  transform:translateX(150%);
-  transition:transform 0.4s;
-  box-shadow:0 5px 15px rgba(37,211,102,0.3);
-}
-.notification.show{transform:translateX(0)}
-
-/* WHATSAPP FLOAT */
-.whatsapp{
-  position:fixed;
-  bottom:25px;
-  right:25px;
-  background:#25d366;
-  color:#000;
-  padding:14px 20px;
-  border-radius:50px;
-  font-weight:600;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  gap:8px;
-  box-shadow:0 5px 20px rgba(37,211,102,0.4);
-  z-index:100;
-}
-.whatsapp svg{width:20px;height:20px}
-
-footer{
-  text-align:center;
-  padding:30px;
-  opacity:.6;
-  margin-top:50px;
+/* ============ MOBILE NAVIGATION ============ */
+.nav-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
-@media(max-width:768px){
-  header{padding:20px}
-  section{padding:110px 20px}
-  .hero h1{font-size:38px}
-  .hero p{font-size:18px}
-  #cart{width:100%;right:-100%}
-  .grid{grid-template-columns:1fr}
-  .date-input{flex-direction:column}
-  nav a{margin-left:15px}
-  .back-btn{
-    top:120px;
-    left:20px;
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 5px;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  opacity: 0.8;
+  transition: opacity 0.3s;
+  padding: 5px 0;
+}
+
+nav a:hover, nav a.active {
+  opacity: 1;
+  color: #25d366;
+}
+
+/* ============ CART ICON ============ */
+.cart-icon {
+  position: relative;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  background: rgba(37, 211, 102, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+.cart-icon.glow {
+  animation: glow 1.5s ease;
+}
+
+@keyframes glow {
+  0% { transform: scale(1); box-shadow: 0 0 0px #25d366; }
+  50% { transform: scale(1.1); box-shadow: 0 0 15px #25d366; }
+  100% { transform: scale(1); box-shadow: 0 0 0px #25d366; }
+}
+
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #25d366;
+  color: #000;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 10px;
+  min-width: 18px;
+  text-align: center;
+}
+
+/* ============ SECTIONS ============ */
+section {
+  display: none;
+  min-height: 100vh;
+  padding: 80px 20px 40px;
+  position: relative;
+}
+
+section.active {
+  display: block;
+}
+
+/* ============ HERO SECTION ============ */
+.hero {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 100px 20px 60px;
+  min-height: 100vh;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+}
+
+.hero video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  width: 100%;
+  padding: 0 20px;
+}
+
+.hero h1 {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero p {
+  font-size: 16px;
+  opacity: 0.9;
+  margin-bottom: 30px;
+  padding: 0 10px;
+}
+
+/* ============ BUTTONS ============ */
+.btn {
+  display: inline-block;
+  padding: 14px 28px;
+  background: transparent;
+  border: 2px solid #25d366;
+  color: #25d366;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.btn:hover, .btn:active {
+  background: #25d366;
+  color: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.3);
+}
+
+.back-btn {
+  position: absolute;
+  top: 90px;
+  left: 20px;
+  padding: 10px 15px;
+  font-size: 14px;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* ============ FLEET SECTION ============ */
+.section-title {
+  font-size: 28px;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.section-subtitle {
+  font-size: 16px;
+  opacity: 0.8;
+  margin-bottom: 30px;
+}
+
+/* ============ GRID LAYOUT ============ */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+
+/* ============ CAR CARD ============ */
+.card {
+  background: #141414;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #222;
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(37, 211, 102, 0.1);
+  border-color: #25d366;
+}
+
+/* ============ AVAILABILITY BADGE ============ */
+.availability {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  z-index: 2;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.available {
+  background: rgba(37, 211, 102, 0.2);
+  color: #25d366;
+  border: 1px solid #25d366;
+}
+
+.unavailable {
+  background: rgba(255, 68, 68, 0.2);
+  color: #ff4444;
+  border: 1px solid #ff4444;
+}
+
+/* ============ IMAGE SLIDER ============ */
+.slider {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  background: #1a1a1a;
+}
+
+.slider img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none;
+  transition: opacity 0.3s ease;
+}
+
+.slider img.active {
+  display: block;
+}
+
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  background: rgba(0, 0, 0, 0.7);
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: background 0.3s;
+}
+
+.slider-btn:active {
+  background: rgba(37, 211, 102, 0.8);
+  transform: translateY(-50%) scale(0.95);
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+
+.slider-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px;
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+}
+
+.slider-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.slider-dot.active {
+  background: #25d366;
+  transform: scale(1.2);
+}
+
+/* ============ CARD CONTENT ============ */
+.card-content {
+  padding: 20px;
+}
+
+.card h3 {
+  font-size: 20px;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.price {
+  color: #25d366;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.description {
+  font-size: 14px;
+  opacity: 0.8;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ============ RENTAL DATES ============ */
+.rental-dates {
+  background: #1a1a1a;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 15px 0;
+}
+
+.date-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.date-input {
+  flex: 1;
+}
+
+.date-input label {
+  display: block;
+  font-size: 12px;
+  opacity: 0.7;
+  margin-bottom: 5px;
+}
+
+.date-input input {
+  width: 100%;
+  padding: 12px;
+  background: #222;
+  border: 1px solid #333;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+.date-input input:focus {
+  outline: none;
+  border-color: #25d366;
+}
+
+.date-input input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.days-display {
+  font-size: 13px;
+  opacity: 0.8;
+  margin-bottom: 5px;
+}
+
+.calculated-price {
+  color: #25d366;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/* ============ CART DRAWER ============ */
+#cart {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 100%;
+  height: 100vh;
+  background: #0f0f0f;
+  z-index: 1001;
+  transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#cart.active {
+  right: 0;
+}
+
+.cart-header {
+  padding: 20px;
+  background: #141414;
+  border-bottom: 1px solid #222;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-header h3 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.close-cart {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 28px;
+  cursor: pointer;
+  padding: 5px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.3s;
+}
+
+.close-cart:active {
+  background: rgba(255, 68, 68, 0.2);
+}
+
+.cart-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.cart-empty {
+  text-align: center;
+  padding: 40px 20px;
+  opacity: 0.7;
+  font-size: 16px;
+}
+
+.cart-item {
+  background: #1a1a1a;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  border: 1px solid #222;
+}
+
+.cart-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.cart-item-name {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.cart-item-price {
+  color: #25d366;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.cart-item-dates {
+  font-size: 12px;
+  opacity: 0.7;
+  margin-bottom: 10px;
+}
+
+.cart-item-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-item-days {
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.remove-btn {
+  background: #ff4444;
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.remove-btn:active {
+  background: #ff2222;
+  transform: scale(0.95);
+}
+
+.cart-summary {
+  background: #141414;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px;
+  border: 1px solid #222;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.summary-total {
+  border-top: 1px solid #333;
+  padding-top: 15px;
+  margin-top: 15px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.cart-footer {
+  padding: 20px;
+  background: #141414;
+  border-top: 1px solid #222;
+}
+
+.cart-footer .btn {
+  width: 100%;
+}
+
+/* ============ CART OVERLAY ============ */
+.cart-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  display: none;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.cart-overlay.active {
+  display: block;
+}
+
+/* ============ NOTIFICATION ============ */
+.notification {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  left: 20px;
+  background: #25d366;
+  color: #000;
+  padding: 15px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  z-index: 1002;
+  transform: translateY(-100px);
+  opacity: 0;
+  transition: transform 0.4s, opacity 0.4s;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(37, 211, 102, 0.3);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.notification.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ============ WHATSAPP BUTTON ============ */
+.whatsapp-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #25d366;
+  color: #000;
+  padding: 15px;
+  border-radius: 50%;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.whatsapp-btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 3px 10px rgba(37, 211, 102, 0.4);
+}
+
+.whatsapp-btn svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* ============ FOOTER ============ */
+footer {
+  text-align: center;
+  padding: 30px 20px;
+  opacity: 0.6;
+  font-size: 14px;
+  background: #0a0a0a;
+  border-top: 1px solid #222;
+}
+
+/* ============ MEDIA QUERIES ============ */
+@media (max-width: 768px) {
+  /* Mobile Header */
+  header {
+    padding: 12px 15px;
+  }
+  
+  .logo {
+    font-size: 16px;
+  }
+  
+  .mobile-menu-btn {
+    display: block;
+  }
+  
+  nav {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 20px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: transform 0.3s, opacity 0.3s;
+    border-bottom: 1px solid #222;
+    z-index: 999;
+  }
+  
+  nav.active {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  
+  nav a {
+    padding: 12px 15px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    font-size: 15px;
+  }
+  
+  /* Hero Section */
+  .hero {
+    padding: 120px 15px 60px;
+  }
+  
+  .hero h1 {
+    font-size: 28px;
+    line-height: 1.3;
+  }
+  
+  .hero p {
+    font-size: 15px;
+    padding: 0;
+  }
+  
+  /* Sections */
+  section {
+    padding: 80px 15px 40px;
+  }
+  
+  .section-title {
+    font-size: 24px;
+  }
+  
+  /* Grid */
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  /* Card */
+  .card {
+    margin-bottom: 0;
+  }
+  
+  .slider {
+    height: 200px;
+  }
+  
+  .card-content {
+    padding: 15px;
+  }
+  
+  .card h3 {
+    font-size: 18px;
+  }
+  
+  .price {
+    font-size: 16px;
+  }
+  
+  /* Buttons */
+  .btn {
+    padding: 12px 24px;
+    font-size: 15px;
+    width: 100%;
+  }
+  
+  .back-btn {
+    top: 80px;
+    left: 15px;
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+  
+  /* Date Inputs */
+  .date-input input {
+    padding: 14px;
+    font-size: 16px; /* Better for mobile keyboards */
+  }
+  
+  /* Cart */
+  .cart-header {
+    padding: 15px;
+  }
+  
+  .cart-content {
+    padding: 15px;
+  }
+  
+  .cart-summary {
+    margin: 15px;
+    padding: 15px;
+  }
+  
+  .cart-footer {
+    padding: 15px;
+  }
+  
+  /* Notification */
+  .notification {
+    top: 70px;
+    right: 15px;
+    left: 15px;
+    padding: 12px 15px;
+    font-size: 14px;
+  }
+  
+  /* WhatsApp Button */
+  .whatsapp-btn {
+    bottom: 15px;
+    right: 15px;
+    width: 55px;
+    height: 55px;
+  }
+  
+  .whatsapp-btn svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 24px;
+  }
+  
+  .hero p {
+    font-size: 14px;
+  }
+  
+  .section-title {
+    font-size: 22px;
+  }
+  
+  .slider {
+    height: 180px;
+  }
+  
+  .card h3 {
+    font-size: 17px;
+  }
+  
+  .price {
+    font-size: 15px;
+  }
+  
+  .description {
+    font-size: 13px;
+    -webkit-line-clamp: 2;
+  }
+}
+
+/* Landscape Orientation */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero {
+    min-height: 150vh;
+  }
+  
+  .hero-content {
+    padding-top: 60px;
+  }
+  
+  section {
+    min-height: 150vh;
+  }
+  
+  .slider {
+    height: 160px;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #0a0a0a;
+  }
+  
+  .card, .cart-summary, .rental-dates {
+    background: #121212;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .btn:hover, .card:hover {
+    transform: none;
+  }
+  
+  .btn:active, .card:active {
+    transform: scale(0.98);
+  }
+  
+  .slider-btn:hover {
+    background: rgba(0, 0, 0, 0.7);
+  }
+  
+  .slider-btn:active {
+    background: rgba(37, 211, 102, 0.8);
+  }
+}
+
+/* High Resolution Screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .loader-ring {
+    border-width: 2px;
   }
 }
 </style>
@@ -446,7 +999,10 @@ footer{
 
 <body>
 
-<div id="loader"><div></div></div>
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-ring"></div>
+</div>
 
 <!-- NOTIFICATION -->
 <div id="notification" class="notification"></div>
@@ -454,22 +1010,27 @@ footer{
 <!-- CART OVERLAY -->
 <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
 
+<!-- HEADER -->
 <header>
   <div class="logo">DELUNA LUXURY CAR</div>
-  <nav>
-    <a onclick="showSection('home')">Home</a>
-    <a onclick="showSection('fleet')">Fleet</a>
-    <a onclick="showSection('about')">About</a>
-    <span class="cart-icon" onclick="toggleCart()">🛒 <span id="count" class="cart-count">0</span></span>
-  </nav>
+  <div class="nav-container">
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+    <nav id="mobileNav">
+      <a onclick="showSection('home'); toggleMobileMenu();">Home</a>
+      <a onclick="showSection('fleet'); toggleMobileMenu();">Fleet</a>
+      <a onclick="showSection('about'); toggleMobileMenu();">About</a>
+      <div class="cart-icon" onclick="toggleCart()">
+        🛒
+        <span id="count" class="cart-count">0</span>
+      </div>
+    </nav>
+  </div>
 </header>
 
-<!-- HOME -->
+<!-- HOME SECTION -->
 <section id="home" class="hero active">
-  <video autoplay muted loop playsinline preload="metadata">
+  <video autoplay muted loop playsinline preload="metadata" poster="images/carbackground.jpg">
     <source src="images/carbackground.mp4" type="video/mp4">
-    <!-- Fallback image if video doesn't load -->
-    <img src="images/carbackground.jpg" alt="Luxury Car" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;">
   </video>
   <div class="hero-content">
     <h1>Luxury Cars for People Who Don't Negotiate Energy</h1>
@@ -478,221 +1039,268 @@ footer{
   </div>
 </section>
 
-<!-- FLEET -->
+<!-- FLEET SECTION -->
 <section id="fleet">
   <button class="btn back-btn" onclick="showSection('home')">← Back</button>
-  <h2>Fleet</h2>
-  <p style="opacity:0.8;margin-bottom:20px">Select your preferred luxury vehicle</p>
+  <h2 class="section-title">Fleet</h2>
+  <p class="section-subtitle">Select your preferred luxury vehicle</p>
   
   <div class="grid">
-
+    
     <!-- PRADO -->
     <div class="card">
-      <div class="availability available" id="prado-status">Available</div>
-      <div class="slider" data-car="prado">
-        <img src="images/PRADO1 (1).jpeg" class="active" alt="Toyota Prado TX" onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIyMjAiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBmaWxsPSIjMjIyIj48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzQ0NCIgZm9udC1zaXplPSIxNHB4Ij5Ub3lvdGEgUHJhZG8gVFg8L3RleHQ+PC9zdmc+'">
-        <img src="images/PRADO1 (2).jpeg" alt="Toyota Prado TX Side View" onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIyMjAiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBmaWxsPSIjMjIyIj48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzQ0NCIgZm9udC1zaXplPSIxNHB4Ij5Ub3lvdGEgUHJhZG8gVFg8L3RleHQ+PC9zdmc+'">
-        <img src="images/PRADO1 (3).jpeg" alt="Toyota Prado TX Interior" onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIyMjAiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBmaWxsPSIjMjIyIj48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZHRsZSIgdGV4dC1hbmNob3I9Im1pZHRsZSIgZmlsbD0iIzQ0NCIgZm9udC1zaXplPSIxNHB4Ij5Ub3lvdGEgUHJhZG8gVFg8L3RleHQ+PC9zdmc+'">
-        <button class="prev" onclick="slide('prado',-1)">‹</button>
-        <button class="next" onclick="slide('prado',1)">›</button>
+      <div class="availability available">Available</div>
+      <div class="slider">
+        <img src="images/PRADO1 (1).jpeg" class="active" alt="Toyota Prado TX">
+        <img src="images/PRADO1 (2).jpeg" alt="Toyota Prado TX Side View">
+        <img src="images/PRADO1 (3).jpeg" alt="Toyota Prado TX Interior">
+        <button class="slider-btn prev" onclick="slide('prado', -1)">‹</button>
+        <button class="slider-btn next" onclick="slide('prado', 1)">›</button>
+        <div class="slider-indicators" id="prado-indicators"></div>
       </div>
-      <div class="slider-indicators" id="prado-indicators"></div>
-      
-      <h3>Toyota Prado TX</h3>
-      <div class="price">KES 20,000 / day</div>
-      <div class="description">
-        Premium SUV with advanced off-road capabilities, leather interior, 
-        and cutting-edge technology. Perfect for both city drives and adventures.
-      </div>
-      
-      <div class="rental-dates">
-        <div class="date-input">
-          <div style="flex:1">
-            <label style="font-size:12px;opacity:0.7">Pick-up Date</label>
-            <input type="date" id="prado-pickup" onchange="calculatePrice('prado', 20000)">
-          </div>
-          <div style="flex:1">
-            <label style="font-size:12px;opacity:0.7">Return Date</label>
-            <input type="date" id="prado-return" onchange="calculatePrice('prado', 20000)">
-          </div>
+      <div class="card-content">
+        <h3>Toyota Prado TX</h3>
+        <div class="price">KES 20,000 / day</div>
+        <div class="description">
+          Premium SUV with advanced off-road capabilities, leather interior, 
+          and cutting-edge technology. Perfect for both city drives and adventures.
         </div>
-        <div class="days-display" id="prado-days">Select dates to calculate</div>
-        <div class="calculated-price" id="prado-total"></div>
+        
+        <div class="rental-dates">
+          <div class="date-input-group">
+            <div class="date-input">
+              <label>Pick-up Date</label>
+              <input type="date" id="prado-pickup" onchange="calculatePrice('prado', 20000)">
+            </div>
+            <div class="date-input">
+              <label>Return Date</label>
+              <input type="date" id="prado-return" onchange="calculatePrice('prado', 20000)">
+            </div>
+          </div>
+          <div class="days-display" id="prado-days">Select dates to calculate</div>
+          <div class="calculated-price" id="prado-total"></div>
+        </div>
+        
+        <button class="btn" onclick="addToCart('Toyota Prado TX', 20000, 'prado')">Add to Cart</button>
       </div>
-      
-      <button class="btn" onclick="addToCart('Toyota Prado TX', 20000, 'prado')">Add to Cart</button>
     </div>
 
     <!-- GWAGON -->
     <div class="card">
-      <div class="availability unavailable" id="gwagon-status">Unavailable</div>
-      <div class="slider" data-car="gwagon">
-        <img src="images/GWAGON 1 (1).jpeg" class="active" alt="Mercedes G-Wagon" onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIyMjAiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBmaWxsPSIjMjIyIj48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzQ0NCIgZm9udC1zaXplPSIxNHB4Ij5NZXJjZWRlcyBHLVdhZ29uPC90ZXh0Pjwvc3ZnPg=='">
-        <img src="images/GWAGON 1 (2).jpeg" alt="Mercedes G-Wagon Side View" onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIyMjAiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBmaWxsPSIjMjIyIj48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzQ0NCIgZm9udC1zaXplPSIxNHB4Ij5NZXJjZWRlcyBHLVdhZ29uPC90ZXh0Pjwvc3ZnPg=='">
-        <img src="images/GWAGON 1 (3).jpeg" alt="Mercedes G-Wagon Interior" onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIyMjAiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBmaWxsPSIjMjIyIj48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzQ0NCIgZm9udC1zaXplPSIxNHB4Ij5NZXJjZWRlcyBHLVdhZ29uPC90ZXh0Pjwvc3ZnPg=='">
-        <button class="prev" onclick="slide('gwagon',-1)">‹</button>
-        <button class="next" onclick="slide('gwagon',1)">›</button>
+      <div class="availability unavailable">Unavailable</div>
+      <div class="slider">
+        <img src="images/GWAGON 1 (1).jpeg" class="active" alt="Mercedes G-Wagon">
+        <img src="images/GWAGON 1 (2).jpeg" alt="Mercedes G-Wagon Side View">
+        <img src="images/GWAGON 1 (3).jpeg" alt="Mercedes G-Wagon Interior">
+        <button class="slider-btn prev" onclick="slide('gwagon', -1)">‹</button>
+        <button class="slider-btn next" onclick="slide('gwagon', 1)">›</button>
+        <div class="slider-indicators" id="gwagon-indicators"></div>
       </div>
-      <div class="slider-indicators" id="gwagon-indicators"></div>
-      
-      <h3>Mercedes G-Wagon</h3>
-      <div class="price">KES 40,000 / day</div>
-      <div class="description">
-        Iconic luxury SUV with unparalleled presence. Features handcrafted interiors, 
-        premium sound system, and superior performance for the ultimate driving experience.
-      </div>
-      
-      <div class="rental-dates">
-        <div class="date-input">
-          <div style="flex:1">
-            <label style="font-size:12px;opacity:0.7">Pick-up Date</label>
-            <input type="date" id="gwagon-pickup" onchange="calculatePrice('gwagon', 40000)" disabled>
-          </div>
-          <div style="flex:1">
-            <label style="font-size:12px;opacity:0.7">Return Date</label>
-            <input type="date" id="gwagon-return" onchange="calculatePrice('gwagon', 40000)" disabled>
-          </div>
+      <div class="card-content">
+        <h3>Mercedes G-Wagon</h3>
+        <div class="price">KES 40,000 / day</div>
+        <div class="description">
+          Iconic luxury SUV with unparalleled presence. Features handcrafted interiors, 
+          premium sound system, and superior performance.
         </div>
-        <div class="days-display" id="gwagon-days">Currently unavailable</div>
-        <div class="calculated-price" id="gwagon-total"></div>
+        
+        <div class="rental-dates">
+          <div class="date-input-group">
+            <div class="date-input">
+              <label>Pick-up Date</label>
+              <input type="date" id="gwagon-pickup" disabled>
+            </div>
+            <div class="date-input">
+              <label>Return Date</label>
+              <input type="date" id="gwagon-return" disabled>
+            </div>
+          </div>
+          <div class="days-display" id="gwagon-days">Currently unavailable</div>
+          <div class="calculated-price" id="gwagon-total"></div>
+        </div>
+        
+        <button class="btn" disabled onclick="addToCart('Mercedes G-Wagon', 40000, 'gwagon')">Unavailable</button>
       </div>
-      
-      <button class="btn" onclick="addToCart('Mercedes G-Wagon', 40000, 'gwagon')" disabled>Add to Cart</button>
     </div>
 
     <!-- AUDI -->
     <div class="card">
-      <div class="availability available" id="audi-status">Available</div>
-      <div class="slider" data-car="audi">
-        <img src="images/Audi 1 (1).jpg" class="active" alt="Audi A4" onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIyMjAiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBmaWxsPSIjMjIyIj48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzQ0NCIgZm9udC1zaXplPSIxNHB4Ij5BdWRpIEE0PC90ZXh0Pjwvc3ZnPg=='">
-        <img src="images/Audi 1 (2).jpg" alt="Audi A4 Side View" onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIyMjAiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBmaWxsPSIjMjIyIj48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzQ0NCIgZm9udC1zaXplPSIxNHB4Ij5BdWRpIEE0PC90ZXh0Pjwvc3ZnPg=='">
-        <button class="prev" onclick="slide('audi',-1)">‹</button>
-        <button class="next" onclick="slide('audi',1)">›</button>
+      <div class="availability available">Available</div>
+      <div class="slider">
+        <img src="images/Audi 1 (1).jpg" class="active" alt="Audi A4">
+        <img src="images/Audi 1 (2).jpg" alt="Audi A4 Side View">
+        <button class="slider-btn prev" onclick="slide('audi', -1)">‹</button>
+        <button class="slider-btn next" onclick="slide('audi', 1)">›</button>
+        <div class="slider-indicators" id="audi-indicators"></div>
       </div>
-      <div class="slider-indicators" id="audi-indicators"></div>
-      
-      <h3>Audi A4</h3>
-      <div class="price">KES 12,000 / day</div>
-      <div class="description">
-        Elegant sedan with sporty performance, luxurious interiors, 
-        and advanced driver assistance systems. Ideal for business and leisure.
-      </div>
-      
-      <div class="rental-dates">
-        <div class="date-input">
-          <div style="flex:1">
-            <label style="font-size:12px;opacity:0.7">Pick-up Date</label>
-            <input type="date" id="audi-pickup" onchange="calculatePrice('audi', 12000)">
-          </div>
-          <div style="flex:1">
-            <label style="font-size:12px;opacity:0.7">Return Date</label>
-            <input type="date" id="audi-return" onchange="calculatePrice('audi', 12000)">
-          </div>
+      <div class="card-content">
+        <h3>Audi A4</h3>
+        <div class="price">KES 12,000 / day</div>
+        <div class="description">
+          Elegant sedan with sporty performance, luxurious interiors, 
+          and advanced driver assistance systems. Ideal for business and leisure.
         </div>
-        <div class="days-display" id="audi-days">Select dates to calculate</div>
-        <div class="calculated-price" id="audi-total"></div>
+        
+        <div class="rental-dates">
+          <div class="date-input-group">
+            <div class="date-input">
+              <label>Pick-up Date</label>
+              <input type="date" id="audi-pickup" onchange="calculatePrice('audi', 12000)">
+            </div>
+            <div class="date-input">
+              <label>Return Date</label>
+              <input type="date" id="audi-return" onchange="calculatePrice('audi', 12000)">
+            </div>
+          </div>
+          <div class="days-display" id="audi-days">Select dates to calculate</div>
+          <div class="calculated-price" id="audi-total"></div>
+        </div>
+        
+        <button class="btn" onclick="addToCart('Audi A4', 12000, 'audi')">Add to Cart</button>
       </div>
-      
-      <button class="btn" onclick="addToCart('Audi A4', 12000, 'audi')">Add to Cart</button>
     </div>
-
+    
   </div>
 </section>
 
-<!-- ABOUT -->
+<!-- ABOUT SECTION -->
 <section id="about">
   <button class="btn back-btn" onclick="showSection('home')">← Back</button>
-  <h2>About DELUNA</h2>
-  <p style="max-width:700px;opacity:.8;line-height:1.8;font-size:18px">
-    DELUNA Luxury Car is for discerning individuals who value comfort, presence, 
-    and zero stress. We don't oversell - we deliver excellence. Each vehicle in 
-    our fleet is meticulously maintained to ensure the highest standards of luxury 
-    and reliability.
-  </p>
-  <br>
-  <p style="max-width:700px;opacity:.8;line-height:1.8;font-size:18px">
-    Our mission is simple: provide premium vehicles with seamless service. 
-    From selection to delivery, we handle everything so you can focus on what matters.
-  </p>
+  <h2 class="section-title">About DELUNA</h2>
+  <div style="max-width: 700px; margin: 0 auto;">
+    <p style="opacity: 0.8; line-height: 1.8; margin-bottom: 20px; font-size: 16px;">
+      DELUNA Luxury Car is for discerning individuals who value comfort, presence, 
+      and zero stress. We don't oversell - we deliver excellence. Each vehicle in 
+      our fleet is meticulously maintained to ensure the highest standards of luxury 
+      and reliability.
+    </p>
+    <p style="opacity: 0.8; line-height: 1.8; font-size: 16px;">
+      Our mission is simple: provide premium vehicles with seamless service. 
+      From selection to delivery, we handle everything so you can focus on what matters.
+    </p>
+  </div>
 </section>
 
-<!-- CART -->
+<!-- CART DRAWER -->
 <div id="cart">
   <div class="cart-header">
     <h3>Your Cart 🛒</h3>
     <button class="close-cart" onclick="toggleCart()">×</button>
   </div>
   
-  <div style="margin-bottom:20px;padding:15px;background:#1a1a1a;border-radius:6px">
-    <strong>Rental Period:</strong>
-    <div id="cartDates">Select dates to see total</div>
+  <div class="cart-content">
+    <div class="cart-item" id="cartDatesSection" style="background: #1a1a1a; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+      <div style="font-weight: 600; margin-bottom: 5px;">Rental Period</div>
+      <div id="cartDates" style="font-size: 14px; opacity: 0.8;">Select dates to see total</div>
+    </div>
+    
+    <div id="items"></div>
+    
+    <div class="cart-summary">
+      <div class="summary-row">
+        <span>Subtotal:</span>
+        <span id="cartSubtotal">KES 0</span>
+      </div>
+      <div class="summary-row">
+        <span>Rental Days:</span>
+        <span id="cartDays">0 days</span>
+      </div>
+      <div class="summary-row">
+        <span>Insurance (5%):</span>
+        <span id="cartInsurance">KES 0</span>
+      </div>
+      <div class="summary-row summary-total">
+        <span>Total Amount:</span>
+        <span id="cartTotal">KES 0</span>
+      </div>
+    </div>
   </div>
   
-  <div id="items" style="margin-top:20px"></div>
-  
-  <div id="cartSummary" class="cart-summary">
-    <div style="display:flex;justify-content:space-between;margin-bottom:10px">
-      <span>Subtotal:</span>
-      <span id="cartSubtotal">KES 0</span>
-    </div>
-    <div style="display:flex;justify-content:space-between;margin-bottom:10px">
-      <span>Rental Days:</span>
-      <span id="cartDays">0 days</span>
-    </div>
-    <div style="display:flex;justify-content:space-between;margin-bottom:10px">
-      <span>Insurance (5%):</span>
-      <span id="cartInsurance">KES 0</span>
-    </div>
-    <div style="border-top:1px solid #333;padding-top:10px;display:flex;justify-content:space-between;font-weight:600;font-size:18px">
-      <span>Total:</span>
-      <span id="cartTotal">KES 0</span>
-    </div>
+  <div class="cart-footer">
+    <button class="btn" onclick="order()">Order via WhatsApp</button>
   </div>
-  
-  <br>
-  <button class="btn" onclick="order()" style="width:100%;padding:15px;font-size:16px">Order via WhatsApp</button>
 </div>
 
-<div class="whatsapp" onclick="order()">
+<!-- WHATSAPP BUTTON -->
+<div class="whatsapp-btn" onclick="order()">
   <svg viewBox="0 0 24 24" fill="currentColor">
     <path d="M17.507 14.307l-.009.075c-.266 1.193-.839 3.264-1.524 3.264-.487 0-.814-.303-1.175-.607-1.098-.723-2.106-1.566-2.834-2.54-.91-1.2-1.639-2.708-1.639-3.393 0-.319.183-.638.455-.638.134 0 .318.075.471.319.488.638.781 1.027 1.239 1.632.134.224.269.303.134.606-.154.303-.154.303-.318.454-.154.15-.303.301-.472.15-.134-.075-.471-.224-.914-.606-.488-.454-.839-1.04-1.098-1.566-.133-.319.066-.638.399-.638.134 0 .318.076.471.076.154 0 .244-.076.377-.076.488-.075.814-.527 1.098-.527.266 0 .839.303 1.175.454.224.076.318 0 .471-.15.154-.15.711-.688.914-.914.224-.224.134-.376 0-.454-.066-.076-.183-.076-.318-.151-.184-.076-.471-.224-.914-.224-.488 0-1.098.15-1.524.15-.839 0-1.239-.15-1.715-.15-1.098 0-2.106.607-2.834 1.566-.487.607-.914 1.566-1.098 2.525-.134 1.566.839 4.029 2.106 5.155.815.839 1.89 1.566 3.24 1.566.839 0 1.098-.15 1.715-.15.839 0 1.239.15 1.715.15 1.353 0 2.428-.726 3.243-1.565.839-.839 1.098-1.791 1.098-2.004 0-.15-.134-.224-.318-.224zM12 0C5.373 0 0 5.373 0 12c0 2.126.66 4.1 1.789 5.729L.057 23.106c-.134.454.066.914.488 1.098.134.075.318.075.471.075.318 0 .638-.15.839-.454l4.382-5.729C7.775 19.087 9.812 20 12 20c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
   </svg>
-  WhatsApp Order
 </div>
 
 <footer>© 2025 DELUNA LUXURY CAR — Premium Mobility Solutions</footer>
 
 <script>
-// Initialize cart as EMPTY - FIXED THE ISSUE
+// ============ MOBILE MENU ============
+function toggleMobileMenu() {
+  const nav = document.getElementById('mobileNav');
+  nav.classList.toggle('active');
+}
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', function(event) {
+  const nav = document.getElementById('mobileNav');
+  const menuBtn = document.querySelector('.mobile-menu-btn');
+  
+  if (nav.classList.contains('active') && 
+      !nav.contains(event.target) && 
+      !menuBtn.contains(event.target)) {
+    nav.classList.remove('active');
+  }
+});
+
+// ============ GLOBAL VARIABLES ============
 let cart = [];
 
-function showSection(id){
-  document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
-  window.scrollTo(0,0);
+// ============ SECTION NAVIGATION ============
+function showSection(id) {
+  // Hide all sections
+  document.querySelectorAll('section').forEach(section => {
+    section.classList.remove('active');
+  });
+  
+  // Show selected section
+  document.getElementById(id).classList.add('active');
+  
+  // Scroll to top
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  
+  // Close mobile menu if open
+  document.getElementById('mobileNav').classList.remove('active');
 }
 
-function toggleCart(){
-  const cartElement = document.getElementById("cart");
-  const overlay = document.getElementById("cartOverlay");
+// ============ CART FUNCTIONS ============
+function toggleCart() {
+  const cart = document.getElementById('cart');
+  const overlay = document.getElementById('cartOverlay');
+  const body = document.body;
   
-  cartElement.classList.toggle("active");
-  overlay.classList.toggle("active");
+  cart.classList.toggle('active');
+  overlay.classList.toggle('active');
   
   // Prevent body scrolling when cart is open
-  if(cartElement.classList.contains("active")){
-    document.body.style.overflow = "hidden";
+  if (cart.classList.contains('active')) {
+    body.style.overflow = 'hidden';
     updateCartCalculations();
   } else {
-    document.body.style.overflow = "auto";
+    body.style.overflow = 'auto';
   }
+  
+  // Close mobile menu if open
+  document.getElementById('mobileNav').classList.remove('active');
 }
 
-function calculatePrice(carId, dailyPrice){
-  const pickup = document.getElementById(`${carId}-pickup`).value;
-  const returnDate = document.getElementById(`${carId}-return`).value;
+// ============ PRICE CALCULATION ============
+function calculatePrice(carId, dailyPrice) {
+  const pickupInput = document.getElementById(`${carId}-pickup`);
+  const returnInput = document.getElementById(`${carId}-return`);
   
-  if(!pickup || !returnDate){
+  if (!pickupInput || !returnInput) return null;
+  
+  const pickup = pickupInput.value;
+  const returnDate = returnInput.value;
+  
+  if (!pickup || !returnDate) {
     document.getElementById(`${carId}-days`).textContent = 'Select dates to calculate';
     document.getElementById(`${carId}-total`).textContent = '';
     return null;
@@ -701,7 +1309,7 @@ function calculatePrice(carId, dailyPrice){
   const pickupDate = new Date(pickup);
   const returnDateObj = new Date(returnDate);
   
-  if(returnDateObj <= pickupDate){
+  if (returnDateObj <= pickupDate) {
     document.getElementById(`${carId}-days`).textContent = 'Return must be after pickup';
     document.getElementById(`${carId}-total`).textContent = '';
     return null;
@@ -715,13 +1323,19 @@ function calculatePrice(carId, dailyPrice){
   document.getElementById(`${carId}-days`).textContent = `${daysDiff} day${daysDiff !== 1 ? 's' : ''}`;
   document.getElementById(`${carId}-total`).textContent = `KES ${totalPrice.toLocaleString()}`;
   
-  return {days: daysDiff, total: totalPrice, pickup, returnDate};
+  return {
+    days: daysDiff,
+    total: totalPrice,
+    pickup: pickup,
+    returnDate: returnDate
+  };
 }
 
-function addToCart(carName, dailyPrice, carId){
+// ============ ADD TO CART ============
+function addToCart(carName, dailyPrice, carId) {
   const priceData = calculatePrice(carId, dailyPrice);
   
-  if(!priceData || priceData.days === 0){
+  if (!priceData) {
     showNotification('Please select valid rental dates first');
     return;
   }
@@ -729,9 +1343,9 @@ function addToCart(carName, dailyPrice, carId){
   // Check if dates are in the future
   const pickupDate = new Date(priceData.pickup);
   const today = new Date();
-  today.setHours(0,0,0,0);
+  today.setHours(0, 0, 0, 0);
   
-  if(pickupDate < today){
+  if (pickupDate < today) {
     showNotification('Pickup date must be today or in the future');
     return;
   }
@@ -748,7 +1362,7 @@ function addToCart(carName, dailyPrice, carId){
   });
   
   // Show notification
-  showNotification(`Added ${carName} for ${priceData.days} days`);
+  showNotification(`✓ Added ${carName} for ${priceData.days} days`);
   
   // Glow effect on cart icon
   const cartIcon = document.querySelector('.cart-icon');
@@ -758,24 +1372,31 @@ function addToCart(carName, dailyPrice, carId){
   // Update cart display
   renderCart();
   updateCartCalculations();
+  
+  // Auto-open cart on mobile
+  if (window.innerWidth <= 768) {
+    setTimeout(() => toggleCart(), 500);
+  }
 }
 
-function removeItem(index){
+// ============ REMOVE FROM CART ============
+function removeItem(index) {
   const itemName = cart[index].name;
   cart.splice(index, 1);
-  showNotification(`Removed ${itemName} from cart`);
+  showNotification(`✗ Removed ${itemName} from cart`);
   renderCart();
   updateCartCalculations();
 }
 
-function renderCart(){
+// ============ RENDER CART ============
+function renderCart() {
   // Update cart count
-  document.getElementById("count").innerText = cart.length;
+  document.getElementById('count').textContent = cart.length;
   
-  const itemsDiv = document.getElementById("items");
+  const itemsDiv = document.getElementById('items');
   
-  if(cart.length === 0){
-    itemsDiv.innerHTML = '<p style="opacity:0.7;text-align:center;padding:20px;">Your cart is empty</p>';
+  if (cart.length === 0) {
+    itemsDiv.innerHTML = '<div class="cart-empty">Your cart is empty</div>';
     return;
   }
   
@@ -783,17 +1404,15 @@ function renderCart(){
   cart.forEach((item, index) => {
     html += `
       <div class="cart-item">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-          <div>
-            <div><strong>${item.name}</strong></div>
-            <div style="font-size:12px;opacity:0.8">${formatDate(item.pickup)} to ${formatDate(item.returnDate)}</div>
-          </div>
-          <div style="text-align:right">
-            <div style="font-weight:600">KES ${item.total.toLocaleString()}</div>
-            <div style="font-size:12px;opacity:0.8">${item.days} day${item.days !== 1 ? 's' : ''}</div>
-          </div>
+        <div class="cart-item-header">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-price">KES ${item.total.toLocaleString()}</div>
         </div>
-        <button onclick="removeItem(${index})">Remove</button>
+        <div class="cart-item-dates">${formatDate(item.pickup)} → ${formatDate(item.returnDate)}</div>
+        <div class="cart-item-actions">
+          <div class="cart-item-days">${item.days} day${item.days !== 1 ? 's' : ''}</div>
+          <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+        </div>
       </div>
     `;
   });
@@ -801,13 +1420,14 @@ function renderCart(){
   itemsDiv.innerHTML = html;
 }
 
-function updateCartCalculations(){
+// ============ UPDATE CART CALCULATIONS ============
+function updateCartCalculations() {
   let subtotal = 0;
   let totalDays = 0;
   
   cart.forEach(item => {
     subtotal += item.total;
-    if(item.days > totalDays) totalDays = item.days;
+    if (item.days > totalDays) totalDays = item.days;
   });
   
   const insurance = Math.round(subtotal * 0.05);
@@ -819,7 +1439,7 @@ function updateCartCalculations(){
   document.getElementById('cartTotal').textContent = `KES ${total.toLocaleString()}`;
   
   // Update rental period display
-  if(cart.length > 0){
+  if (cart.length > 0) {
     const firstItem = cart[0];
     document.getElementById('cartDates').innerHTML = `
       ${formatDate(firstItem.pickup)} to ${formatDate(firstItem.returnDate)}<br>
@@ -830,34 +1450,39 @@ function updateCartCalculations(){
   }
 }
 
-function formatDate(dateString){
+// ============ FORMAT DATE ============
+function formatDate(dateString) {
   const date = new Date(dateString);
-  return date.toLocaleDateString('en-US', { 
-    month: 'short', 
-    day: 'numeric', 
-    year: 'numeric' 
+  return date.toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric'
   });
 }
 
-function showNotification(message){
-  const notification = document.getElementById("notification");
+// ============ NOTIFICATION ============
+function showNotification(message) {
+  const notification = document.getElementById('notification');
   notification.textContent = message;
-  notification.classList.add("show");
+  notification.classList.add('show');
   
   setTimeout(() => {
-    notification.classList.remove("show");
+    notification.classList.remove('show');
   }, 3000);
 }
 
-function order(){
-  if(!cart.length){
-    showNotification("Cart is empty!");
-    toggleCart();
+// ============ ORDER VIA WHATSAPP ============
+function order() {
+  if (!cart.length) {
+    showNotification('Cart is empty!');
+    if (window.innerWidth <= 768) {
+      setTimeout(() => toggleCart(), 300);
+    }
     return;
   }
   
   // REPLACE WITH YOUR WHATSAPP NUMBER
-  const phoneNumber = "254712345678";
+  const phoneNumber = '254712345678';
   
   let message = `Hello DELUNA Luxury Car,%0A%0AI want to rent:%0A%0A`;
   
@@ -881,44 +1506,50 @@ function order(){
   window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
 }
 
-function slide(carId, direction){
-  const imgs = document.querySelectorAll(`.slider[data-car='${carId}'] img`);
-  if(imgs.length === 0) return;
+// ============ IMAGE SLIDER ============
+function slide(carId, direction) {
+  const slider = document.querySelector(`.card:has(#${carId}-pickup) .slider`);
+  if (!slider) return;
+  
+  const imgs = slider.querySelectorAll('img');
+  if (imgs.length === 0) return;
   
   let activeIndex = 0;
   imgs.forEach((img, index) => {
-    if(img.classList.contains('active')) activeIndex = index;
+    if (img.classList.contains('active')) activeIndex = index;
   });
   
   imgs[activeIndex].classList.remove('active');
   
   let newIndex = activeIndex + direction;
-  if(newIndex < 0) newIndex = imgs.length - 1;
-  if(newIndex >= imgs.length) newIndex = 0;
+  if (newIndex < 0) newIndex = imgs.length - 1;
+  if (newIndex >= imgs.length) newIndex = 0;
   
   imgs[newIndex].classList.add('active');
   updateIndicators(carId, imgs.length, newIndex);
 }
 
-function updateIndicators(carId, total, activeIndex){
+function updateIndicators(carId, total, activeIndex) {
   const indicators = document.getElementById(`${carId}-indicators`);
-  if(!indicators) return;
+  if (!indicators) return;
   
   indicators.innerHTML = '';
-  for(let i = 0; i < total; i++){
+  for (let i = 0; i < total; i++) {
     const dot = document.createElement('div');
     dot.className = `slider-dot ${i === activeIndex ? 'active' : ''}`;
     dot.onclick = () => {
-      const imgs = document.querySelectorAll(`.slider[data-car='${carId}'] img`);
-      imgs.forEach(img => img.classList.remove("active"));
-      imgs[i].classList.add("active");
+      const slider = document.querySelector(`.card:has(#${carId}-pickup) .slider`);
+      const imgs = slider.querySelectorAll('img');
+      imgs.forEach(img => img.classList.remove('active'));
+      imgs[i].classList.add('active');
       updateIndicators(carId, total, i);
     };
     indicators.appendChild(dot);
   }
 }
 
-function setMinDates(){
+// ============ SET MINIMUM DATES ============
+function setMinDates() {
   const today = new Date();
   const todayStr = today.toISOString().split('T')[0];
   
@@ -930,34 +1561,31 @@ function setMinDates(){
   dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 2);
   const dayAfterTomorrowStr = dayAfterTomorrow.toISOString().split('T')[0];
   
-  // Set min dates for pickup inputs
+  // Set min dates for all date inputs
   document.querySelectorAll('input[type="date"]').forEach(input => {
-    if(input.id.includes('pickup') && !input.disabled){
+    if (input.id.includes('pickup') && !input.disabled) {
       input.min = todayStr;
-      // Set default to tomorrow
-      if(!input.value) input.value = tomorrowStr;
+      if (!input.value) input.value = tomorrowStr;
     }
-    if(input.id.includes('return') && !input.disabled){
+    if (input.id.includes('return') && !input.disabled) {
       input.min = tomorrowStr;
-      // Set default to day after tomorrow
-      if(!input.value){
-        input.value = dayAfterTomorrowStr;
-      }
+      if (!input.value) input.value = dayAfterTomorrowStr;
     }
   });
 }
 
-// Initialize everything when page loads
+// ============ INITIALIZE ON LOAD ============
 document.addEventListener('DOMContentLoaded', function() {
-  // Hide loader quickly
+  // Hide loader
   setTimeout(() => {
     document.getElementById('loader').style.display = 'none';
-  }, 800);
+  }, 500);
   
   // Initialize slider indicators
   ['prado', 'gwagon', 'audi'].forEach(carId => {
-    const imgs = document.querySelectorAll(`.slider[data-car='${carId}'] img`);
-    if(imgs.length > 0){
+    const slider = document.querySelector(`.card:has(#${carId}-pickup) .slider`);
+    if (slider) {
+      const imgs = slider.querySelectorAll('img');
       const activeIndex = Array.from(imgs).findIndex(img => img.classList.contains('active'));
       updateIndicators(carId, imgs.length, activeIndex);
     }
@@ -966,25 +1594,68 @@ document.addEventListener('DOMContentLoaded', function() {
   // Set minimum dates
   setMinDates();
   
-  // Render empty cart initially
+  // Render empty cart
   renderCart();
   updateCartCalculations();
   
-  // Auto-calculate prices for available cars with default dates
+  // Auto-calculate prices for available cars
   setTimeout(() => {
     calculatePrice('prado', 20000);
     calculatePrice('audi', 12000);
   }, 100);
+  
+  // Handle Escape key to close cart
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      const cart = document.getElementById('cart');
+      if (cart.classList.contains('active')) {
+        toggleCart();
+      }
+    }
+  });
+  
+  // Handle back button (Android)
+  window.addEventListener('popstate', function() {
+    const cart = document.getElementById('cart');
+    if (cart.classList.contains('active')) {
+      toggleCart();
+    }
+  });
 });
 
-// Handle Escape key to close cart
-document.addEventListener('keydown', function(e) {
-  if(e.key === 'Escape'){
-    const cartElement = document.getElementById("cart");
-    if(cartElement.classList.contains("active")){
+// ============ TOUCH EVENTS FOR MOBILE ============
+let touchStartX = 0;
+let touchEndX = 0;
+
+document.addEventListener('touchstart', function(e) {
+  touchStartX = e.changedTouches[0].screenX;
+});
+
+document.addEventListener('touchend', function(e) {
+  touchEndX = e.changedTouches[0].screenX;
+  handleSwipe();
+});
+
+function handleSwipe() {
+  const swipeThreshold = 50;
+  const diff = touchStartX - touchEndX;
+  
+  // Swipe right to close cart
+  if (diff > swipeThreshold) {
+    const cart = document.getElementById('cart');
+    if (cart.classList.contains('active')) {
       toggleCart();
     }
   }
+}
+
+// ============ ORIENTATION CHANGE HANDLER ============
+window.addEventListener('orientationchange', function() {
+  // Force redraw to fix any layout issues
+  document.body.style.display = 'none';
+  setTimeout(() => {
+    document.body.style.display = 'block';
+  }, 10);
 });
 </script>
 
