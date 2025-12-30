@@ -79,36 +79,57 @@ header {
   color: #25d366;
 }
 
-/* ============ MOBILE NAVIGATION ============ */
+/* ============ MOBILE NAVIGATION (HALF SCREEN LEFT) ============ */
 .nav-container {
   display: flex;
   align-items: center;
   gap: 15px;
+  /* Reversing order for mobile: button on left, icon on right */
+  flex-direction: row-reverse; 
 }
 
 .mobile-menu-btn {
-  display: none;
+  display: block;
   background: none;
   border: none;
   color: #fff;
   font-size: 24px;
   cursor: pointer;
   padding: 5px;
+  order: 2; /* Forces it to the far left in row-reverse */
 }
 
 nav {
+  position: fixed;
+  top: 0;
+  left: -100%; /* Slide from left */
+  width: 50%;  /* Half screen width */
+  height: 100vh;
+  background: #111;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 80px 20px;
   gap: 20px;
+  transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 2000;
+  border-right: 1px solid #222;
+}
+
+nav.active {
+  left: 0;
 }
 
 nav a {
   color: #fff;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: 600;
   opacity: 0.8;
   transition: opacity 0.3s;
-  padding: 5px 0;
+  padding: 10px 0;
+  width: 100%;
+  border-bottom: 1px solid #222;
   cursor: pointer;
 }
 
@@ -129,6 +150,7 @@ nav a:hover, nav a.active {
   justify-content: center;
   width: 40px;
   height: 40px;
+  order: 1; /* Stays on the right side */
 }
 
 .cart-icon.glow {
@@ -582,7 +604,7 @@ section.active {
   width: 100%;
   height: 100vh;
   background: #0f0f0f;
-  z-index: 1001;
+  z-index: 3001; /* Higher than nav */
   transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
@@ -818,72 +840,43 @@ footer {
 
 /* ============ MEDIA QUERIES ============ */
 @media (max-width: 768px) {
-  /* Mobile Header */
+  /* Mobile Header Adjustments */
   header {
     padding: 12px 15px;
+    justify-content: flex-start; /* Logo on left, nav-container on right */
+    gap: 15px;
   }
   
   .logo {
     font-size: 16px;
+    flex-grow: 1;
   }
   
+  .nav-container {
+    display: flex;
+    flex-direction: row-reverse; /* Button far left, Icon on right */
+    gap: 15px;
+  }
+
   .mobile-menu-btn {
     display: block;
+    order: 2; /* Far left */
+  }
+
+  .cart-icon {
+    order: 1; /* Near right */
   }
   
   nav {
-    position: fixed;
-    top: 60px;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    padding: 20px;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 15px;
-    transform: translateY(-100%);
-    opacity: 0;
-    transition: transform 0.3s, opacity 0.3s;
-    border-bottom: 1px solid #222;
-    z-index: 999;
+    width: 50%; /* Half screen */
+    left: -100%;
+    right: auto;
+    box-shadow: 10px 0 30px rgba(0,0,0,0.5);
   }
   
   nav.active {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  
-  nav a {
-    padding: 12px 15px;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.05);
-    font-size: 15px;
-  }
-  
-  /* Hero Section */
-  .hero {
-    padding: 120px 15px 60px;
-  }
-  
-  .hero h1 {
-    font-size: 32px;
-    line-height: 1.3;
-  }
-  
-  .hero-tagline {
-    font-size: 16px;
-    padding: 0;
-  }
-  
-  /* Fleet Section */
-  .fleet-header h2 {
-    font-size: 28px;
-  }
-  
-  .fleet-subtitle {
-    font-size: 16px;
+    left: 0;
+    right: auto;
   }
   
   /* Sections */
@@ -897,80 +890,9 @@ footer {
     gap: 25px;
   }
   
-  /* Card */
-  .card {
-    margin-bottom: 0;
-  }
-  
-  .slider {
-    height: 220px;
-  }
-  
-  .slider-btn {
-    opacity: 1;
-  }
-  
-  .card-content {
-    padding: 20px;
-  }
-  
-  .card h3 {
-    font-size: 20px;
-  }
-  
-  .price {
-    font-size: 18px;
-  }
-  
-  /* Buttons */
-  .btn {
-    padding: 12px 24px;
-    font-size: 15px;
-    width: 100%;
-  }
-  
-  .back-btn {
-    top: 80px;
-    left: 15px;
-    font-size: 13px;
-    padding: 8px 12px;
-  }
-  
-  /* Date Inputs */
-  .date-input input {
-    padding: 14px;
-    font-size: 16px;
-  }
-  
   /* Cart Drawer for Mobile */
   #cart {
     width: 100%;
-  }
-  
-  .cart-header {
-    padding: 15px;
-  }
-  
-  .cart-content {
-    padding: 15px;
-  }
-  
-  .cart-summary {
-    margin: 15px;
-    padding: 20px;
-  }
-  
-  .cart-footer {
-    padding: 15px;
-  }
-  
-  /* Notification */
-  .notification {
-    top: 70px;
-    right: 15px;
-    left: 15px;
-    padding: 12px 15px;
-    font-size: 14px;
   }
 }
 </style>
@@ -987,14 +909,17 @@ footer {
 <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
 
 <header>
+  <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
   <div class="logo">DELUNA LUXURY CAR</div>
   <div class="nav-container">
-    <div class="cart-icon" onclick="toggleCart()" style="display: flex;">
+    <div class="cart-icon" onclick="toggleCart()">
       🛒
       <span id="count" class="cart-count">0</span>
     </div>
-    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
     <nav id="mobileNav">
+      <div style="width: 100%; text-align: left; padding-bottom: 20px;">
+          <button style="background:none; border:none; color:#fff; font-size:30px;" onclick="toggleMobileMenu()">&times;</button>
+      </div>
       <a onclick="showSection('home'); toggleMobileMenu();">Home</a>
       <a onclick="showSection('fleet'); toggleMobileMenu();">Fleet</a>
       <a onclick="showSection('about'); toggleMobileMenu();">About</a>
@@ -1199,10 +1124,8 @@ let cart = [];
 
 // ============ MOBILE MENU ============
 function toggleMobileMenu() {
-  if (window.innerWidth <= 768) {
     const nav = document.getElementById('mobileNav');
     nav.classList.toggle('active');
-  }
 }
 
 // ============ SECTION NAVIGATION ============
