@@ -1,1326 +1,992 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>DELUNA LUXURY CAR RENTALS</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* MOBILE-FIRST CSS - SIMPLIFIED */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        html, body {
-            width: 100%;
-            height: 100%;
-            overflow-x: hidden;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
-
-        body {
-            background: #000;
-            color: #fff;
-            line-height: 1.4;
-        }
-
-        /* SAFE AREAS FOR MOBILE */
-        @supports (padding: max(0px)) {
-            body, .navbar {
-                padding-left: max(0px, env(safe-area-inset-left));
-                padding-right: max(0px, env(safe-area-inset-right));
-            }
-        }
-
-        /* PAGE SYSTEM */
-        .page {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-            background: #000;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        /* NAVBAR */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            border-bottom: 1px solid #333;
-            backdrop-filter: blur(10px);
-            height: 60px;
-        }
-
-        .logo {
-            color: #fff;
-            font-size: 24px;
-            font-weight: 900;
-            font-style: italic;
-            text-decoration: none;
-        }
-
-        /* SIMPLE MENU TOGGLE */
-        .menu-toggle {
-            width: 30px;
-            height: 24px;
-            background: none;
-            border: none;
-            position: relative;
-            cursor: pointer;
-        }
-
-        .menu-toggle span {
-            display: block;
-            width: 100%;
-            height: 3px;
-            background: #fff;
-            margin: 5px 0;
-            transition: 0.3s;
-        }
-
-        /* MOBILE MENU */
-        .mobile-menu {
-            position: fixed;
-            top: 60px;
-            left: 0;
-            width: 100%;
-            background: #000;
-            display: none;
-            z-index: 999;
-            border-top: 1px solid #333;
-        }
-
-        .mobile-menu.active {
-            display: block;
-        }
-
-        .mobile-menu a {
-            display: block;
-            padding: 20px;
-            color: #fff;
-            text-decoration: none;
-            border-bottom: 1px solid #222;
-            font-size: 18px;
-        }
-
-        .mobile-menu a.active {
-            color: #ff6b1a;
-            border-left: 4px solid #ff6b1a;
-        }
-
-        /* HOME PAGE WITH BACKGROUND */
-        #home-page {
-            position: relative;
-            min-height: 100vh;
-            background: #000;
-        }
-
-        .hero {
-            position: relative;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 20px;
-            overflow: hidden;
-        }
-
-        /* VIDEO BACKGROUND */
-        .video-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-
-        .video-background video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: brightness(0.6);
-        }
-
-        .video-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0.9) 100%);
-            z-index: 2;
-        }
-
-        /* FALLBACK IMAGE BACKGROUND */
-        .image-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9)), 
-                        url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') 
-                        center/cover no-repeat;
-            z-index: 1;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 3;
-            max-width: 500px;
-            padding-top: 60px;
-        }
-
-        .hero h1 {
-            font-size: 48px;
-            font-weight: 900;
-            font-style: italic;
-            margin-bottom: 10px;
-            color: #fff;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-        }
-
-        .hero p {
-            font-size: 18px;
-            color: #fff;
-            margin-bottom: 30px;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.8);
-        }
-
-        /* BUTTONS */
-        .btn {
-            display: inline-block;
-            padding: 16px 32px;
-            background: #ff6b1a;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 18px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s;
-            width: 100%;
-            max-width: 300px;
-            margin: 10px auto;
-        }
-
-        .btn:hover {
-            background: #ff8533;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 107, 26, 0.3);
-        }
-
-        .btn-back {
-            position: fixed;
-            top: 70px;
-            left: 15px;
-            z-index: 100;
-            background: rgba(0,0,0,0.8);
-            color: white;
-            border: 2px solid white;
-            padding: 10px 15px;
-            border-radius: 5px;
-            font-size: 14px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        /* FLEET PAGE */
-        #fleet-page {
-            padding-top: 80px;
-            padding-bottom: 80px;
-            background: #111;
-        }
-
-        .section-title {
-            text-align: center;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .section-title h2 {
-            font-size: 32px;
-            margin-bottom: 10px;
-            color: #fff;
-        }
-
-        .section-title p {
-            color: #888;
-        }
-
-        /* CATEGORY FILTERS */
-        .category-filters {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            padding: 0 20px 20px;
-            flex-wrap: wrap;
-        }
-
-        .category-btn {
-            padding: 10px 20px;
-            background: transparent;
-            border: 2px solid #ff6b1a;
-            color: #ff6b1a;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 14px;
-            transition: all 0.3s;
-        }
-
-        .category-btn.active {
-            background: #ff6b1a;
-            color: #000;
-        }
-
-        .category-btn:hover:not(.active) {
-            background: rgba(255, 107, 26, 0.1);
-        }
-
-        /* CAR CARDS - SIMPLIFIED */
-        .cars-grid {
-            padding: 0 20px;
-        }
-
-        .car-card {
-            background: #1a1a1a;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 20px;
-            border: 1px solid #333;
-            transition: all 0.3s;
-        }
-
-        .car-card:hover {
-            transform: translateY(-5px);
-            border-color: #ff6b1a;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
-
-        .car-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .car-info {
-            padding: 20px;
-        }
-
-        .car-title {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #fff;
-        }
-
-        .car-price {
-            font-size: 24px;
-            color: #ff6b1a;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-
-        .car-features {
-            list-style: none;
-            margin-bottom: 20px;
-        }
-
-        .car-features li {
-            margin-bottom: 5px;
-            color: #ccc;
-            font-size: 14px;
-        }
-
-        .car-features i {
-            color: #ff6b1a;
-            margin-right: 8px;
-        }
-
-        /* BOOKING PAGE */
-        #booking-page {
-            padding-top: 80px;
-            padding-bottom: 40px;
-            background: #111;
-        }
-
-        .booking-container {
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .selected-car {
-            background: rgba(255, 107, 26, 0.1);
-            border-left: 4px solid #ff6b1a;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-
-        .selected-car h3 {
-            color: #ff6b1a;
-            margin-bottom: 5px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #fff;
-            font-weight: 500;
-        }
-
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 15px;
-            background: #000;
-            border: 1px solid #333;
-            border-radius: 5px;
-            color: #fff;
-            font-size: 16px;
-        }
-
-        /* ENHANCED PRICE CALCULATOR */
-        .price-calculator {
-            background: rgba(255, 107, 26, 0.1);
-            padding: 20px;
-            border-radius: 5px;
-            margin: 20px 0;
-            border-left: 4px solid #ff6b1a;
-        }
-
-        .price-calculator h3 {
-            color: #ff6b1a;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .price-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .price-row.total {
-            border-bottom: none;
-            font-size: 20px;
-            font-weight: bold;
-            color: #ff6b1a;
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 2px solid rgba(255,255,255,0.1);
-        }
-
-        /* CURRENCY CONVERTER */
-        .currency-converter {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 15px;
-            border: 1px solid #333;
-        }
-
-        .currency-converter h4 {
-            margin-bottom: 10px;
-            color: #fff;
-            text-align: center;
-        }
-
-        .currency-options {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .currency-option {
-            background: #1a1a1a;
-            padding: 10px;
-            border-radius: 5px;
-            text-align: center;
-            cursor: pointer;
-            border: 1px solid #333;
-            transition: all 0.3s;
-        }
-
-        .currency-option.active {
-            background: rgba(255, 107, 26, 0.2);
-            border-color: #ff6b1a;
-            color: #ff6b1a;
-        }
-
-        .currency-option:hover {
-            border-color: #ff6b1a;
-        }
-
-        .currency-display {
-            font-size: 16px;
-            color: #fff;
-            text-align: center;
-            margin-top: 10px;
-            padding: 10px;
-            background: rgba(0,0,0,0.5);
-            border-radius: 5px;
-        }
-
-        /* CONTACT PAGE */
-        #contact-page {
-            padding-top: 80px;
-            padding-bottom: 40px;
-            background: #000;
-        }
-
-        .contact-container {
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .contact-items {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .contact-item {
-            background: #1a1a1a;
-            padding: 30px 20px;
-            border-radius: 10px;
-            text-align: center;
-            border: 1px solid #333;
-        }
-
-        .contact-icon {
-            width: 60px;
-            height: 60px;
-            background: #ff6b1a;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 24px;
-        }
-
-        .contact-item h3 {
-            margin-bottom: 10px;
-            color: #fff;
-        }
-
-        .contact-item p {
-            color: #ccc;
-            line-height: 1.6;
-        }
-
-        /* LOADING SPINNER */
-        .loading {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            flex-direction: column;
-        }
-
-        .loading.active {
-            display: flex;
-        }
-
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid #333;
-            border-top: 4px solid #ff6b1a;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* MOBILE-ONLY STYLES */
-        @media (min-width: 768px) {
-            .mobile-menu {
-                display: none !important;
-            }
-            
-            .menu-toggle {
-                display: none;
-            }
-            
-            .navbar {
-                padding: 20px 40px;
-                height: 80px;
-            }
-            
-            .logo {
-                font-size: 28px;
-            }
-            
-            .hero h1 {
-                font-size: 64px;
-            }
-            
-            .hero p {
-                font-size: 22px;
-            }
-            
-            .cars-grid {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 20px;
-            }
-            
-            .contact-items {
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .contact-item {
-                flex: 1;
-                min-width: 200px;
-            }
-            
-            .btn-back {
-                top: 90px;
-                left: 30px;
-                padding: 12px 20px;
-                font-size: 16px;
-            }
-        }
-
-        /* FIX FOR MOBILE INPUTS */
-        input, select, textarea {
-            font-size: 16px !important;
-        }
-
-        /* PREVENT BLUE HIGHLIGHT ON TAP */
-        * {
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        /* HIDE BACK BUTTON ON HOME */
-        #home-page .btn-back {
-            display: none;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>DELUNA LUXURY CAR</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui}
+body{background:#0b0b0b;color:#f5f5f5;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+
+/* LOADER */
+#loader{
+  position:fixed;
+  inset:0;
+  background:#000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+  transition:opacity 0.3s;
+}
+#loader div{
+  width:60px;
+  height:60px;
+  border:4px solid #222;
+  border-top:4px solid #25d366;
+  border-radius:50%;
+  animation:spin 1s linear infinite
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* HEADER */
+header{
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:20px 60px;
+  background:rgba(0,0,0,.85);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:100;
+}
+nav a{
+  margin-left:25px;
+  cursor:pointer;
+  opacity:.75;
+  transition:opacity 0.3s;
+}
+nav a:hover{opacity:1}
+.logo{letter-spacing:3px;font-weight:600}
+
+/* CART ICON */
+.cart-icon{
+  cursor:pointer;
+  position:relative;
+  transition:all 0.3s;
+  margin-left:25px;
+}
+.cart-icon.glow{
+  animation:glow 1.5s ease;
+}
+@keyframes glow{
+  0%{transform:scale(1);filter:drop-shadow(0 0 0px #25d366)}
+  50%{transform:scale(1.1);filter:drop-shadow(0 0 15px #25d366)}
+  100%{transform:scale(1);filter:drop-shadow(0 0 0px #25d366)}
+}
+.cart-count{
+  position:absolute;
+  top:-8px;
+  right:-10px;
+  background:#25d366;
+  color:#000;
+  font-size:12px;
+  padding:2px 6px;
+  border-radius:50%;
+  font-weight:bold;
+}
+
+/* SECTIONS */
+section{
+  display:none;
+  min-height:100vh;
+  padding:120px 60px;
+  position:relative;
+}
+section.active{display:block}
+
+/* HERO - KEEPING VIDEO WITH OPTIMIZATIONS */
+.hero{
+  position:relative;
+  overflow:hidden;
+}
+.hero video{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:-2;
+  /* Optimizations for faster loading */
+  preload="metadata";
+  playsinline;
+  muted;
+}
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  z-index:-1;
+}
+.hero-content{
+  max-width:800px;
+}
+.hero h1{
+  font-size:56px;
+  margin-bottom:20px;
+  line-height:1.2;
+}
+.hero p{
+  margin:20px 0;
+  opacity:.8;
+  font-size:20px;
+  margin-bottom:30px;
+}
+
+/* BUTTON */
+.btn{
+  padding:12px 28px;
+  border:1px solid #25d366;
+  color:#25d366;
+  cursor:pointer;
+  background:none;
+  transition:all 0.3s;
+  font-weight:500;
+  border-radius:4px;
+  font-size:16px;
+}
+.btn:hover{
+  background:#25d366;
+  color:#000;
+}
+.back-btn{
+  position:absolute;
+  top:140px;
+  left:60px;
+  background:rgba(0,0,0,0.5);
+  border:1px solid #444;
+  color:#fff;
+}
+.back-btn:hover{
+  background:#25d366;
+  border-color:#25d366;
+  color:#000;
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:40px;
+  margin-top:40px;
+}
+
+/* CARD */
+.card{
+  background:#141414;
+  padding:25px;
+  border-radius:8px;
+  transition:transform 0.3s, box-shadow 0.3s;
+  position:relative;
+  border:1px solid #222;
+}
+.card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 10px 25px rgba(37,211,102,0.1);
+  border-color:#25d366;
+}
+.card h3{
+  margin:15px 0 10px;
+  font-size:22px;
+}
+.card .price{
+  color:#25d366;
+  font-size:18px;
+  font-weight:600;
+  margin-bottom:10px;
+}
+.card .description{
+  opacity:0.8;
+  line-height:1.6;
+  margin-bottom:20px;
+  font-size:15px;
+}
+
+/* AVAILABILITY BADGE */
+.availability{
+  position:absolute;
+  top:20px;
+  right:20px;
+  padding:5px 12px;
+  border-radius:4px;
+  font-size:12px;
+  font-weight:600;
+}
+.available{
+  background:rgba(37,211,102,0.2);
+  color:#25d366;
+  border:1px solid #25d366;
+}
+.unavailable{
+  background:rgba(255,68,68,0.2);
+  color:#ff4444;
+  border:1px solid #ff4444;
+}
+
+/* RENTAL DATES */
+.rental-dates{
+  margin:15px 0;
+  padding:15px;
+  background:#1a1a1a;
+  border-radius:6px;
+}
+.date-input{
+  display:flex;
+  gap:15px;
+  margin-bottom:10px;
+}
+.date-input input{
+  padding:10px;
+  background:#222;
+  border:1px solid #333;
+  color:#fff;
+  border-radius:4px;
+  width:100%;
+  font-size:14px;
+}
+.date-input input:focus{
+  outline:none;
+  border-color:#25d366;
+}
+.days-display{
+  margin-top:10px;
+  font-size:14px;
+  opacity:0.8;
+}
+.calculated-price{
+  color:#25d366;
+  font-weight:600;
+  font-size:16px;
+  margin-top:5px;
+}
+
+/* IMAGE SLIDER */
+.slider{
+  position:relative;
+  border-radius:6px;
+  overflow:hidden;
+  background:#1a1a1a;
+  min-height:220px;
+}
+.slider img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  display:none;
+}
+.slider img.active{
+  display:block;
+}
+.slider button{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:rgba(0,0,0,0.7);
+  border:none;
+  color:#fff;
+  padding:10px 15px;
+  cursor:pointer;
+  font-size:18px;
+  transition:background 0.3s;
+  border-radius:50%;
+  width:40px;
+  height:40px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.slider button:hover{
+  background:rgba(37,211,102,0.8);
+}
+.prev{left:10px}
+.next{right:10px}
+.slider-indicators{
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  margin-top:10px;
+}
+.slider-dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#333;
+  cursor:pointer;
+  transition:background 0.3s;
+}
+.slider-dot.active{background:#25d366}
+.slider-dot:hover{background:#25d366}
+
+/* CART DRAWER */
+#cart{
+  position:fixed;
+  right:-450px;
+  top:0;
+  width:450px;
+  height:100vh;
+  background:#0f0f0f;
+  padding:30px;
+  transition:.4s;
+  z-index:200;
+  box-shadow:-5px 0 20px rgba(0,0,0,0.5);
+  overflow-y:auto;
+}
+#cart.active{right:0}
+.cart-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+  padding-bottom:15px;
+  border-bottom:1px solid #25d366;
+}
+.close-cart{
+  background:none;
+  border:none;
+  color:#fff;
+  font-size:24px;
+  cursor:pointer;
+  padding:5px;
+  width:40px;
+  height:40px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  transition:background 0.3s;
+}
+.close-cart:hover{
+  background:#ff4444;
+}
+.cart-item{
+  border-bottom:1px solid #222;
+  padding:15px 0;
+}
+.cart-item button{
+  background:#ff4444;
+  border:none;
+  color:white;
+  padding:5px 10px;
+  border-radius:4px;
+  cursor:pointer;
+  font-size:12px;
+  margin-top:10px;
+}
+.cart-summary{
+  background:#1a1a1a;
+  padding:15px;
+  border-radius:6px;
+  margin-top:15px;
+}
+
+/* CART OVERLAY */
+.cart-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.7);
+  z-index:199;
+  display:none;
+}
+.cart-overlay.active{display:block}
+
+/* NOTIFICATION */
+.notification{
+  position:fixed;
+  top:100px;
+  right:30px;
+  background:#25d366;
+  color:#000;
+  padding:15px 25px;
+  border-radius:8px;
+  z-index:1000;
+  font-weight:600;
+  transform:translateX(150%);
+  transition:transform 0.4s;
+  box-shadow:0 5px 15px rgba(37,211,102,0.3);
+}
+.notification.show{transform:translateX(0)}
+
+/* WHATSAPP FLOAT */
+.whatsapp{
+  position:fixed;
+  bottom:25px;
+  right:25px;
+  background:#25d366;
+  color:#000;
+  padding:14px 20px;
+  border-radius:50px;
+  font-weight:600;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  box-shadow:0 5px 20px rgba(37,211,102,0.4);
+  z-index:100;
+}
+.whatsapp svg{width:20px;height:20px}
+
+footer{
+  text-align:center;
+  padding:30px;
+  opacity:.6;
+  margin-top:50px;
+}
+
+@media(max-width:768px){
+  header{padding:20px}
+  section{padding:110px 20px}
+  .hero h1{font-size:38px}
+  .hero p{font-size:18px}
+  #cart{width:100%;right:-100%}
+  .grid{grid-template-columns:1fr}
+  .date-input{flex-direction:column}
+  nav a{margin-left:15px}
+  .back-btn{
+    top:120px;
+    left:20px;
+  }
+}
+</style>
 </head>
+
 <body>
-    <!-- LOADING SPINNER -->
-    <div class="loading" id="loading">
-        <div class="spinner"></div>
-        <div>Loading...</div>
+
+<div id="loader"><div></div></div>
+
+<!-- NOTIFICATION -->
+<div id="notification" class="notification"></div>
+
+<!-- CART OVERLAY -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+<header>
+  <div class="logo">DELUNA LUXURY CAR</div>
+  <nav>
+    <a onclick="showSection('home')">Home</a>
+    <a onclick="showSection('fleet')">Fleet</a>
+    <a onclick="showSection('about')">About</a>
+    <span class="cart-icon" onclick="toggleCart()">🛒 <span id="count" class="cart-count">0</span></span>
+  </nav>
+</header>
+
+<!-- HOME -->
+<section id="home" class="hero active">
+  <video autoplay muted loop playsinline preload="metadata">
+    <source src="images/carbackground.mp4" type="video/mp4">
+    <!-- Fallback image if video doesn't load -->
+    <img src="images/carbackground.jpg" alt="Luxury Car" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;">
+  </video>
+  <div class="hero-content">
+    <h1>Luxury Cars for People Who Don't Negotiate Energy</h1>
+    <p>Add to cart. Order on WhatsApp. Done.</p>
+    <button class="btn" onclick="showSection('fleet')">View Fleet</button>
+  </div>
+</section>
+
+<!-- FLEET -->
+<section id="fleet">
+  <button class="btn back-btn" onclick="showSection('home')">← Back</button>
+  <h2>Fleet</h2>
+  <p style="opacity:0.8;margin-bottom:20px">Select your preferred luxury vehicle</p>
+  
+  <div class="grid">
+
+    <!-- PRADO -->
+    <div class="card">
+      <div class="availability available" id="prado-status">Available</div>
+      <div class="slider" data-car="prado">
+        <img src="images/PRADO1 (1).jpeg" class="active" alt="Toyota Prado TX" onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIyMjAiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBmaWxsPSIjMjIyIj48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzQ0NCIgZm9udC1zaXplPSIxNHB4Ij5Ub3lvdGEgUHJhZG8gVFg8L3RleHQ+PC9zdmc+'">
+        <img src="images/PRADO1 (2).jpeg" alt="Toyota Prado TX Side View" onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIyMjAiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBmaWxsPSIjMjIyIj48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzQ0NCIgZm9udC1zaXplPSIxNHB4Ij5Ub3lvdGEgUHJhZG8gVFg8L3RleHQ+PC9zdmc+'">
+        <img src="images/PRADO1 (3).jpeg" alt="Toyota Prado TX Interior" onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIyMjAiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBmaWxsPSIjMjIyIj48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZHRsZSIgdGV4dC1hbmNob3I9Im1pZHRsZSIgZmlsbD0iIzQ0NCIgZm9udC1zaXplPSIxNHB4Ij5Ub3lvdGEgUHJhZG8gVFg8L3RleHQ+PC9zdmc+'">
+        <button class="prev" onclick="slide('prado',-1)">‹</button>
+        <button class="next" onclick="slide('prado',1)">›</button>
+      </div>
+      <div class="slider-indicators" id="prado-indicators"></div>
+      
+      <h3>Toyota Prado TX</h3>
+      <div class="price">KES 20,000 / day</div>
+      <div class="description">
+        Premium SUV with advanced off-road capabilities, leather interior, 
+        and cutting-edge technology. Perfect for both city drives and adventures.
+      </div>
+      
+      <div class="rental-dates">
+        <div class="date-input">
+          <div style="flex:1">
+            <label style="font-size:12px;opacity:0.7">Pick-up Date</label>
+            <input type="date" id="prado-pickup" onchange="calculatePrice('prado', 20000)">
+          </div>
+          <div style="flex:1">
+            <label style="font-size:12px;opacity:0.7">Return Date</label>
+            <input type="date" id="prado-return" onchange="calculatePrice('prado', 20000)">
+          </div>
+        </div>
+        <div class="days-display" id="prado-days">Select dates to calculate</div>
+        <div class="calculated-price" id="prado-total"></div>
+      </div>
+      
+      <button class="btn" onclick="addToCart('Toyota Prado TX', 20000, 'prado')">Add to Cart</button>
     </div>
 
-    <!-- NAVBAR -->
-    <nav class="navbar">
-        <div class="logo">DELUNA</div>
-        <button class="menu-toggle" id="menuToggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    </nav>
-
-    <!-- MOBILE MENU -->
-    <div class="mobile-menu" id="mobileMenu">
-        <a href="#" class="nav-link active" data-page="home">Home</a>
-        <a href="#" class="nav-link" data-page="fleet">Our Fleet</a>
-        <a href="#" class="nav-link" data-page="contact">Contact</a>
+    <!-- GWAGON -->
+    <div class="card">
+      <div class="availability unavailable" id="gwagon-status">Unavailable</div>
+      <div class="slider" data-car="gwagon">
+        <img src="images/GWAGON 1 (1).jpeg" class="active" alt="Mercedes G-Wagon" onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIyMjAiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBmaWxsPSIjMjIyIj48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzQ0NCIgZm9udC1zaXplPSIxNHB4Ij5NZXJjZWRlcyBHLVdhZ29uPC90ZXh0Pjwvc3ZnPg=='">
+        <img src="images/GWAGON 1 (2).jpeg" alt="Mercedes G-Wagon Side View" onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIyMjAiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBmaWxsPSIjMjIyIj48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzQ0NCIgZm9udC1zaXplPSIxNHB4Ij5NZXJjZWRlcyBHLVdhZ29uPC90ZXh0Pjwvc3ZnPg=='">
+        <img src="images/GWAGON 1 (3).jpeg" alt="Mercedes G-Wagon Interior" onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIyMjAiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBmaWxsPSIjMjIyIj48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzQ0NCIgZm9udC1zaXplPSIxNHB4Ij5NZXJjZWRlcyBHLVdhZ29uPC90ZXh0Pjwvc3ZnPg=='">
+        <button class="prev" onclick="slide('gwagon',-1)">‹</button>
+        <button class="next" onclick="slide('gwagon',1)">›</button>
+      </div>
+      <div class="slider-indicators" id="gwagon-indicators"></div>
+      
+      <h3>Mercedes G-Wagon</h3>
+      <div class="price">KES 40,000 / day</div>
+      <div class="description">
+        Iconic luxury SUV with unparalleled presence. Features handcrafted interiors, 
+        premium sound system, and superior performance for the ultimate driving experience.
+      </div>
+      
+      <div class="rental-dates">
+        <div class="date-input">
+          <div style="flex:1">
+            <label style="font-size:12px;opacity:0.7">Pick-up Date</label>
+            <input type="date" id="gwagon-pickup" onchange="calculatePrice('gwagon', 40000)" disabled>
+          </div>
+          <div style="flex:1">
+            <label style="font-size:12px;opacity:0.7">Return Date</label>
+            <input type="date" id="gwagon-return" onchange="calculatePrice('gwagon', 40000)" disabled>
+          </div>
+        </div>
+        <div class="days-display" id="gwagon-days">Currently unavailable</div>
+        <div class="calculated-price" id="gwagon-total"></div>
+      </div>
+      
+      <button class="btn" onclick="addToCart('Mercedes G-Wagon', 40000, 'gwagon')" disabled>Add to Cart</button>
     </div>
 
-    <!-- PAGES -->
-    <!-- HOME PAGE -->
-    <div id="home-page" class="page active">
-        <button class="btn-back" id="backBtn">
-            <i class="fas fa-arrow-left"></i> Back
-        </button>
-        
-        <div class="hero">
-            <!-- Video Background -->
-            <div class="video-background">
-                <video autoplay muted loop playsinline id="heroVideo">
-                    <source src="images/carbackground.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-overlay"></div>
-            </div>
-            
-            <!-- Fallback Image Background (shows if video fails) -->
-            <div class="image-background" id="fallbackBackground"></div>
-            
-            <div class="hero-content">
-                <h1>DELUNA</h1>
-                <p>Luxury Car Rentals • Lumumba Drive</p>
-                <button class="btn" id="exploreBtn">Explore Models</button>
-            </div>
+    <!-- AUDI -->
+    <div class="card">
+      <div class="availability available" id="audi-status">Available</div>
+      <div class="slider" data-car="audi">
+        <img src="images/Audi 1 (1).jpg" class="active" alt="Audi A4" onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIyMjAiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBmaWxsPSIjMjIyIj48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzQ0NCIgZm9udC1zaXplPSIxNHB4Ij5BdWRpIEE0PC90ZXh0Pjwvc3ZnPg=='">
+        <img src="images/Audi 1 (2).jpg" alt="Audi A4 Side View" onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIyMjAiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBmaWxsPSIjMjIyIj48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzQ0NCIgZm9udC1zaXplPSIxNHB4Ij5BdWRpIEE0PC90ZXh0Pjwvc3ZnPg=='">
+        <button class="prev" onclick="slide('audi',-1)">‹</button>
+        <button class="next" onclick="slide('audi',1)">›</button>
+      </div>
+      <div class="slider-indicators" id="audi-indicators"></div>
+      
+      <h3>Audi A4</h3>
+      <div class="price">KES 12,000 / day</div>
+      <div class="description">
+        Elegant sedan with sporty performance, luxurious interiors, 
+        and advanced driver assistance systems. Ideal for business and leisure.
+      </div>
+      
+      <div class="rental-dates">
+        <div class="date-input">
+          <div style="flex:1">
+            <label style="font-size:12px;opacity:0.7">Pick-up Date</label>
+            <input type="date" id="audi-pickup" onchange="calculatePrice('audi', 12000)">
+          </div>
+          <div style="flex:1">
+            <label style="font-size:12px;opacity:0.7">Return Date</label>
+            <input type="date" id="audi-return" onchange="calculatePrice('audi', 12000)">
+          </div>
         </div>
+        <div class="days-display" id="audi-days">Select dates to calculate</div>
+        <div class="calculated-price" id="audi-total"></div>
+      </div>
+      
+      <button class="btn" onclick="addToCart('Audi A4', 12000, 'audi')">Add to Cart</button>
     </div>
 
-    <!-- FLEET PAGE -->
-    <div id="fleet-page" class="page">
-        <button class="btn-back" id="backBtnFleet">
-            <i class="fas fa-arrow-left"></i> Back
-        </button>
-        
-        <div class="section-title">
-            <h2>Our Luxury Fleet</h2>
-            <p>Select from our premium collection</p>
-        </div>
+  </div>
+</section>
 
-        <div class="category-filters">
-            <button class="category-btn active" data-category="all">All Cars</button>
-            <button class="category-btn" data-category="suv">SUV</button>
-            <button class="category-btn" data-category="sedan">Sedan</button>
-        </div>
+<!-- ABOUT -->
+<section id="about">
+  <button class="btn back-btn" onclick="showSection('home')">← Back</button>
+  <h2>About DELUNA</h2>
+  <p style="max-width:700px;opacity:.8;line-height:1.8;font-size:18px">
+    DELUNA Luxury Car is for discerning individuals who value comfort, presence, 
+    and zero stress. We don't oversell - we deliver excellence. Each vehicle in 
+    our fleet is meticulously maintained to ensure the highest standards of luxury 
+    and reliability.
+  </p>
+  <br>
+  <p style="max-width:700px;opacity:.8;line-height:1.8;font-size:18px">
+    Our mission is simple: provide premium vehicles with seamless service. 
+    From selection to delivery, we handle everything so you can focus on what matters.
+  </p>
+</section>
 
-        <div class="cars-grid">
-            <!-- Car 1 -->
-            <div class="car-card" data-category="suv">
-                <img src="images/GWAGON 1 (1).jpeg" alt="Mercedes G-Wagon" class="car-image">
-                <div class="car-info">
-                    <h3 class="car-title">Mercedes G-Wagon 2023</h3>
-                    <div class="car-price">KSH 40,000 / day</div>
-                    <ul class="car-features">
-                        <li><i class="fas fa-check"></i> Handcrafted AMG Interior</li>
-                        <li><i class="fas fa-check"></i> 577 HP Biturbo V8</li>
-                        <li><i class="fas fa-check"></i> Triple-Lock Differential</li>
-                        <li><i class="fas fa-check"></i> Premium Sound System</li>
-                    </ul>
-                    <button class="btn select-car" data-car="Mercedes G-Wagon 2023" data-price="40000">Select This Car</button>
-                </div>
-            </div>
-
-            <!-- Car 2 -->
-            <div class="car-card" data-category="suv">
-                <img src="images/PRADO1 (1).jpeg" alt="Toyota Prado" class="car-image">
-                <div class="car-info">
-                    <h3 class="car-title">Toyota Land Cruiser Prado 2023</h3>
-                    <div class="car-price">KSH 15,000 / day</div>
-                    <ul class="car-features">
-                        <li><i class="fas fa-check"></i> 7 Seater Luxury SUV</li>
-                        <li><i class="fas fa-check"></i> Full Leather Interior</li>
-                        <li><i class="fas fa-check"></i> Advanced Safety Features</li>
-                        <li><i class="fas fa-check"></i> Premium Sound System</li>
-                    </ul>
-                    <button class="btn select-car" data-car="Toyota Land Cruiser Prado 2023" data-price="15000">Select This Car</button>
-                </div>
-            </div>
-
-            <!-- Car 3 -->
-            <div class="car-card" data-category="sedan">
-                <img src="images/Audi 1 (1).jpg" alt="Audi A4" class="car-image">
-                <div class="car-info">
-                    <h3 class="car-title">Audi A4 2018</h3>
-                    <div class="car-price">KSH 15,000 / day</div>
-                    <ul class="car-features">
-                        <li><i class="fas fa-check"></i> Quattro All-Wheel Drive</li>
-                        <li><i class="fas fa-check"></i> Virtual Cockpit Display</li>
-                        <li><i class="fas fa-check"></i> Premium Plus Package</li>
-                        <li><i class="fas fa-check"></i> Apple CarPlay & Android Auto</li>
-                    </ul>
-                    <button class="btn select-car" data-car="Audi A4 2018" data-price="15000">Select This Car</button>
-                </div>
-            </div>
-        </div>
+<!-- CART -->
+<div id="cart">
+  <div class="cart-header">
+    <h3>Your Cart 🛒</h3>
+    <button class="close-cart" onclick="toggleCart()">×</button>
+  </div>
+  
+  <div style="margin-bottom:20px;padding:15px;background:#1a1a1a;border-radius:6px">
+    <strong>Rental Period:</strong>
+    <div id="cartDates">Select dates to see total</div>
+  </div>
+  
+  <div id="items" style="margin-top:20px"></div>
+  
+  <div id="cartSummary" class="cart-summary">
+    <div style="display:flex;justify-content:space-between;margin-bottom:10px">
+      <span>Subtotal:</span>
+      <span id="cartSubtotal">KES 0</span>
     </div>
-
-    <!-- BOOKING PAGE -->
-    <div id="booking-page" class="page">
-        <button class="btn-back" id="backBtnBooking">
-            <i class="fas fa-arrow-left"></i> Back
-        </button>
-        
-        <div class="booking-container">
-            <div class="section-title">
-                <h2>Complete Your Reservation</h2>
-                <p>Fill in your details to book</p>
-            </div>
-
-            <div class="selected-car" id="selectedCarInfo">
-                <h3 id="selectedCarName">Mercedes G-Wagon 2023</h3>
-                <p id="selectedCarPrice">KSH 40,000 / day</p>
-            </div>
-
-            <form id="bookingForm">
-                <div class="form-group">
-                    <label for="fullName">Full Name *</label>
-                    <input type="text" id="fullName" placeholder="Enter your full name" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="phone">Phone Number *</label>
-                    <input type="tel" id="phone" placeholder="e.g. 0712 345 678" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="pickupDate">Pickup Date *</label>
-                    <input type="date" id="pickupDate" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="rentalDays">Rental Duration *</label>
-                    <select id="rentalDays" required>
-                        <option value="1">1 Day</option>
-                        <option value="2">2 Days</option>
-                        <option value="3">3 Days</option>
-                        <option value="4">4 Days</option>
-                        <option value="5">5 Days</option>
-                        <option value="7">7 Days</option>
-                        <option value="14">14 Days</option>
-                        <option value="30">30 Days</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="pickupTime">Pickup Time *</label>
-                    <select id="pickupTime" required>
-                        <option value="08:00">08:00 AM</option>
-                        <option value="09:00">09:00 AM</option>
-                        <option value="10:00">10:00 AM</option>
-                        <option value="11:00">11:00 AM</option>
-                        <option value="12:00">12:00 PM</option>
-                        <option value="13:00">01:00 PM</option>
-                        <option value="14:00">02:00 PM</option>
-                        <option value="15:00">03:00 PM</option>
-                    </select>
-                </div>
-
-                <!-- ENHANCED PRICE CALCULATOR -->
-                <div class="price-calculator">
-                    <h3>Price Calculator</h3>
-                    
-                    <div class="price-row">
-                        <span>Daily Rate:</span>
-                        <span id="dailyRate">KSH 40,000</span>
-                    </div>
-                    <div class="price-row">
-                        <span>Number of Days:</span>
-                        <span id="daysCount">1</span>
-                    </div>
-                    <div class="price-row">
-                        <span>Car Rental:</span>
-                        <span id="carRental">KSH 40,000</span>
-                    </div>
-                    <div class="price-row">
-                        <span>Insurance:</span>
-                        <span id="insurance">KSH 3,000</span>
-                    </div>
-                    <div class="price-row">
-                        <span>Service Fee:</span>
-                        <span id="serviceFee">KSH 2,000</span>
-                    </div>
-                    <div class="price-row total">
-                        <span>Total Amount:</span>
-                        <span id="totalAmount">KSH 45,000</span>
-                    </div>
-
-                    <!-- CURRENCY CONVERTER -->
-                    <div class="currency-converter">
-                        <h4>Convert to Other Currencies</h4>
-                        <div class="currency-options">
-                            <div class="currency-option active" data-currency="KES">Kenyan Shilling (KES)</div>
-                            <div class="currency-option" data-currency="USD">US Dollar (USD)</div>
-                            <div class="currency-option" data-currency="EUR">Euro (EUR)</div>
-                            <div class="currency-option" data-currency="GBP">British Pound (GBP)</div>
-                        </div>
-                        <div class="currency-display" id="currencyDisplay">
-                            Total: <strong>KSH 45,000</strong>
-                        </div>
-                    </div>
-                </div>
-
-                <button type="button" class="btn" id="backToFleet">Back to Fleet</button>
-                <button type="submit" class="btn" id="confirmBooking">Confirm Booking</button>
-            </form>
-        </div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:10px">
+      <span>Rental Days:</span>
+      <span id="cartDays">0 days</span>
     </div>
-
-    <!-- CONTACT PAGE -->
-    <div id="contact-page" class="page">
-        <button class="btn-back" id="backBtnContact">
-            <i class="fas fa-arrow-left"></i> Back
-        </button>
-        
-        <div class="contact-container">
-            <div class="section-title">
-                <h2>Contact Us</h2>
-                <p>Get in touch with DELUNA</p>
-            </div>
-
-            <div class="contact-items">
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <h3>Location</h3>
-                    <p>Thika Road / Lumumba Drive<br>Nairobi, Kenya</p>
-                </div>
-
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-phone"></i>
-                    </div>
-                    <h3>Phone</h3>
-                    <p>+254 700 000 000<br>24/7 Service</p>
-                </div>
-
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <h3>Hours</h3>
-                    <p>Monday - Sunday<br>24 Hours</p>
-                </div>
-            </div>
-        </div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:10px">
+      <span>Insurance (5%):</span>
+      <span id="cartInsurance">KES 0</span>
     </div>
+    <div style="border-top:1px solid #333;padding-top:10px;display:flex;justify-content:space-between;font-weight:600;font-size:18px">
+      <span>Total:</span>
+      <span id="cartTotal">KES 0</span>
+    </div>
+  </div>
+  
+  <br>
+  <button class="btn" onclick="order()" style="width:100%;padding:15px;font-size:16px">Order via WhatsApp</button>
+</div>
 
-    <script>
-        // SIMPLE MOBILE APP
-        document.addEventListener('DOMContentLoaded', function() {
-            // ELEMENTS
-            const loading = document.getElementById('loading');
-            const menuToggle = document.getElementById('menuToggle');
-            const mobileMenu = document.getElementById('mobileMenu');
-            const navLinks = document.querySelectorAll('.nav-link');
-            const pages = document.querySelectorAll('.page');
-            const exploreBtn = document.getElementById('exploreBtn');
-            const backBtns = document.querySelectorAll('.btn-back');
-            const categoryBtns = document.querySelectorAll('.category-btn');
-            const carCards = document.querySelectorAll('.car-card');
-            const selectCarBtns = document.querySelectorAll('.select-car');
-            const backToFleetBtn = document.getElementById('backToFleet');
-            const bookingForm = document.getElementById('bookingForm');
-            const rentalDays = document.getElementById('rentalDays');
-            const heroVideo = document.getElementById('heroVideo');
-            const fallbackBackground = document.getElementById('fallbackBackground');
-            
-            // CURRENCY ELEMENTS
-            const currencyOptions = document.querySelectorAll('.currency-option');
-            const currencyDisplay = document.getElementById('currencyDisplay');
-            
-            // EXCHANGE RATES (as of current date - approximate values)
-            const exchangeRates = {
-                KES: 1,        // Base currency
-                USD: 0.0077,   // 1 KES = 0.0077 USD
-                EUR: 0.0071,   // 1 KES = 0.0071 EUR
-                GBP: 0.0061    // 1 KES = 0.0061 GBP
-            };
-            
-            // CURRENCY SYMBOLS
-            const currencySymbols = {
-                KES: 'KSH',
-                USD: '$',
-                EUR: '€',
-                GBP: '£'
-            };
-            
-            // SELECTED CAR INFO
-            let selectedCar = {
-                name: 'Mercedes G-Wagon 2023',
-                price: 40000,
-                insurance: 3000,
-                serviceFee: 2000
-            };
-            
-            // CURRENT CURRENCY
-            let currentCurrency = 'KES';
-            
-            // INITIALIZE DATE INPUT
-            function initDateInput() {
-                const today = new Date();
-                const tomorrow = new Date(today);
-                tomorrow.setDate(tomorrow.getDate() + 1);
-                
-                // Format date as YYYY-MM-DD
-                const formatDate = (date) => {
-                    return date.toISOString().split('T')[0];
-                };
-                
-                document.getElementById('pickupDate').min = formatDate(tomorrow);
-                
-                // Set default to 2 days from now
-                const defaultDate = new Date(today);
-                defaultDate.setDate(defaultDate.getDate() + 2);
-                document.getElementById('pickupDate').value = formatDate(defaultDate);
-            }
-            
-            // LOADING FUNCTION
-            function showLoading() {
-                loading.classList.add('active');
-                setTimeout(() => {
-                    loading.classList.remove('active');
-                }, 800);
-            }
-            
-            // PAGE NAVIGATION
-            function goToPage(pageId) {
-                showLoading();
-                setTimeout(() => {
-                    // Hide all pages
-                    pages.forEach(page => {
-                        page.classList.remove('active');
-                    });
-                    
-                    // Show target page
-                    document.getElementById(pageId + '-page').classList.add('active');
-                    
-                    // Update mobile menu
-                    navLinks.forEach(link => {
-                        link.classList.remove('active');
-                        if (link.dataset.page === pageId) {
-                            link.classList.add('active');
-                        }
-                    });
-                    
-                    // Close mobile menu
-                    mobileMenu.classList.remove('active');
-                    menuToggle.classList.remove('active');
-                    
-                    // Scroll to top
-                    window.scrollTo(0, 0);
-                    
-                    // Update price when going to booking page
-                    if (pageId === 'booking') {
-                        updatePrice();
-                    }
-                }, 300);
-            }
-            
-            // BACK FUNCTION
-            function goBack() {
-                const currentPage = document.querySelector('.page.active').id;
-                
-                if (currentPage === 'fleet-page') {
-                    goToPage('home');
-                } else if (currentPage === 'booking-page') {
-                    goToPage('fleet');
-                } else if (currentPage === 'contact-page') {
-                    goToPage('home');
-                } else {
-                    goToPage('home');
-                }
-            }
-            
-            // CAR FILTERING
-            function filterCars(category) {
-                // Update active button
-                categoryBtns.forEach(btn => {
-                    btn.classList.remove('active');
-                    if (btn.dataset.category === category) {
-                        btn.classList.add('active');
-                    }
-                });
-                
-                // Show/hide cars
-                carCards.forEach(card => {
-                    if (category === 'all' || card.dataset.category === category) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            }
-            
-            // UPDATE PRICE CALCULATION
-            function updatePrice() {
-                const days = parseInt(rentalDays.value);
-                const dailyRate = selectedCar.price;
-                const carRental = dailyRate * days;
-                const insurance = selectedCar.insurance * days;
-                const serviceFee = selectedCar.serviceFee;
-                const totalKES = carRental + insurance + serviceFee;
-                
-                // Convert to current currency
-                const rate = exchangeRates[currentCurrency];
-                const symbol = currencySymbols[currentCurrency];
-                const totalConverted = totalKES * rate;
-                
-                // Format numbers with commas
-                const formatNumber = (num) => {
-                    return num.toLocaleString();
-                };
-                
-                // Update UI in selected currency
-                document.getElementById('selectedCarName').textContent = selectedCar.name;
-                document.getElementById('selectedCarPrice').textContent = 
-                    `${symbol} ${(dailyRate * rate).toLocaleString(undefined, {minimumFractionDigits: 2})} / day`;
-                
-                document.getElementById('dailyRate').textContent = 
-                    `${symbol} ${(dailyRate * rate).toLocaleString(undefined, {minimumFractionDigits: 2})}`;
-                
-                document.getElementById('daysCount').textContent = days;
-                document.getElementById('carRental').textContent = 
-                    `${symbol} ${(carRental * rate).toLocaleString(undefined, {minimumFractionDigits: 2})}`;
-                
-                document.getElementById('insurance').textContent = 
-                    `${symbol} ${(insurance * rate).toLocaleString(undefined, {minimumFractionDigits: 2})}`;
-                
-                document.getElementById('serviceFee').textContent = 
-                    `${symbol} ${(serviceFee * rate).toLocaleString(undefined, {minimumFractionDigits: 2})}`;
-                
-                document.getElementById('totalAmount').textContent = 
-                    `${symbol} ${totalConverted.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
-                
-                // Update currency display
-                currencyDisplay.innerHTML = `Total: <strong>${symbol} ${totalConverted.toLocaleString(undefined, {minimumFractionDigits: 2})}</strong>`;
-            }
-            
-            // CONVERT CURRENCY
-            function convertCurrency(currency) {
-                // Update active currency button
-                currencyOptions.forEach(option => {
-                    option.classList.remove('active');
-                    if (option.dataset.currency === currency) {
-                        option.classList.add('active');
-                    }
-                });
-                
-                // Update current currency and recalculate
-                currentCurrency = currency;
-                updatePrice();
-            }
-            
-            // EVENT LISTENERS
-            
-            // Mobile Menu Toggle
-            menuToggle.addEventListener('click', function() {
-                mobileMenu.classList.toggle('active');
-                this.classList.toggle('active');
-            });
-            
-            // Navigation Links
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const page = this.dataset.page;
-                    goToPage(page);
-                });
-            });
-            
-            // Logo click
-            document.querySelector('.logo').addEventListener('click', function(e) {
-                e.preventDefault();
-                goToPage('home');
-            });
-            
-            // Explore Button
-            exploreBtn.addEventListener('click', function() {
-                goToPage('fleet');
-            });
-            
-            // Back Buttons
-            backBtns.forEach(btn => {
-                btn.addEventListener('click', goBack);
-            });
-            
-            // Category Filters
-            categoryBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    filterCars(this.dataset.category);
-                });
-            });
-            
-            // Select Car Buttons
-            selectCarBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    selectedCar = {
-                        name: this.dataset.car,
-                        price: parseInt(this.dataset.price),
-                        insurance: 3000, // Fixed insurance per day
-                        serviceFee: 2000 // Fixed service fee
-                    };
-                    updatePrice();
-                    goToPage('booking');
-                });
-            });
-            
-            // Currency Options
-            currencyOptions.forEach(option => {
-                option.addEventListener('click', function() {
-                    convertCurrency(this.dataset.currency);
-                });
-            });
-            
-            // Back to Fleet from Booking
-            backToFleetBtn.addEventListener('click', function() {
-                goToPage('fleet');
-            });
-            
-            // Update price when days change
-            rentalDays.addEventListener('change', updatePrice);
-            
-            // Form Submission
-            bookingForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Get form data
-                const name = document.getElementById('fullName').value;
-                const phone = document.getElementById('phone').value;
-                const date = document.getElementById('pickupDate').value;
-                const days = document.getElementById('rentalDays').value;
-                const time = document.getElementById('pickupTime').value;
-                const total = document.getElementById('totalAmount').textContent;
-                
-                // Basic validation
-                if (!name || !phone) {
-                    alert('Please fill in all required fields.');
-                    return;
-                }
-                
-                // Create WhatsApp message
-                const message = `*DELUNA LUXURY CAR RENTALS - BOOKING REQUEST*%0A%0A` +
-                               `*Name:* ${name}%0A` +
-                               `*Phone:* ${phone}%0A` +
-                               `*Car:* ${selectedCar.name}%0A` +
-                               `*Pickup Date:* ${date}%0A` +
-                               `*Pickup Time:* ${time}%0A` +
-                               `*Duration:* ${days} day(s)%0A` +
-                               `*Total Amount:* ${total}%0A%0A` +
-                               `Please confirm availability.`;
-                
-                // Open WhatsApp
-                window.open(`https://wa.me/254700000000?text=${message}`, '_blank');
-                
-                // Show confirmation
-                alert('Booking request sent! Please check WhatsApp to complete your reservation.');
-                
-                // Reset and go back to fleet
-                bookingForm.reset();
-                initDateInput(); // Reset date to default
-                updatePrice();
-                goToPage('fleet');
-            });
-            
-            // Close menu when clicking outside
-            document.addEventListener('click', function(e) {
-                if (!menuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
-                    mobileMenu.classList.remove('active');
-                    menuToggle.classList.remove('active');
-                }
-            });
-            
-            // Handle video error (fallback to image background)
-            if (heroVideo) {
-                heroVideo.addEventListener('error', function() {
-                    console.log('Video failed to load, using fallback image');
-                    this.style.display = 'none';
-                    fallbackBackground.style.display = 'block';
-                });
-                
-                // Try to play video (required for iOS)
-                heroVideo.muted = true;
-                heroVideo.playsInline = true;
-                
-                const playPromise = heroVideo.play();
-                if (playPromise !== undefined) {
-                    playPromise.catch(error => {
-                        console.log('Video autoplay prevented, will play on user interaction');
-                        // Play on user interaction
-                        const playVideo = () => {
-                            heroVideo.play();
-                            document.removeEventListener('click', playVideo);
-                            document.removeEventListener('touchstart', playVideo);
-                        };
-                        document.addEventListener('click', playVideo, { once: true });
-                        document.addEventListener('touchstart', playVideo, { once: true });
-                    });
-                }
-            }
-            
-            // Prevent image dragging
-            const images = document.querySelectorAll('img');
-            images.forEach(img => {
-                img.addEventListener('dragstart', function(e) {
-                    e.preventDefault();
-                });
-                
-                // Handle image errors
-                img.addEventListener('error', function() {
-                    console.log(`Image failed to load: ${this.src}`);
-                    this.src = 'https://images.unsplash.com/photo-1580273916550-e323be2ae537?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80';
-                    this.alt = 'Car Image';
-                });
-            });
-            
-            // Handle mobile back button
-            window.addEventListener('popstate', function() {
-                goBack();
-            });
-            
-            // Fix for iOS 100vh issue
-            function fixIOSHeight() {
-                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-                if (isIOS) {
-                    const vh = window.innerHeight * 0.01;
-                    document.documentElement.style.setProperty('--vh', `${vh}px`);
-                    
-                    window.addEventListener('resize', function() {
-                        const vh = window.innerHeight * 0.01;
-                        document.documentElement.style.setProperty('--vh', `${vh}px`);
-                    });
-                }
-            }
-            
-            // Initialize
-            fixIOSHeight();
-            initDateInput();
-            updatePrice();
-            
-            // Preload images
-            const imageUrls = [
-                'images/GWAGON 1 (1).jpeg',
-                'images/PRADO1 (1).jpeg',
-                'images/Audi 1 (1).jpg',
-                'https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'
-            ];
-            
-            imageUrls.forEach(url => {
-                const img = new Image();
-                img.src = url;
-            });
-        });
-    </script>
+<div class="whatsapp" onclick="order()">
+  <svg viewBox="0 0 24 24" fill="currentColor">
+    <path d="M17.507 14.307l-.009.075c-.266 1.193-.839 3.264-1.524 3.264-.487 0-.814-.303-1.175-.607-1.098-.723-2.106-1.566-2.834-2.54-.91-1.2-1.639-2.708-1.639-3.393 0-.319.183-.638.455-.638.134 0 .318.075.471.319.488.638.781 1.027 1.239 1.632.134.224.269.303.134.606-.154.303-.154.303-.318.454-.154.15-.303.301-.472.15-.134-.075-.471-.224-.914-.606-.488-.454-.839-1.04-1.098-1.566-.133-.319.066-.638.399-.638.134 0 .318.076.471.076.154 0 .244-.076.377-.076.488-.075.814-.527 1.098-.527.266 0 .839.303 1.175.454.224.076.318 0 .471-.15.154-.15.711-.688.914-.914.224-.224.134-.376 0-.454-.066-.076-.183-.076-.318-.151-.184-.076-.471-.224-.914-.224-.488 0-1.098.15-1.524.15-.839 0-1.239-.15-1.715-.15-1.098 0-2.106.607-2.834 1.566-.487.607-.914 1.566-1.098 2.525-.134 1.566.839 4.029 2.106 5.155.815.839 1.89 1.566 3.24 1.566.839 0 1.098-.15 1.715-.15.839 0 1.239.15 1.715.15 1.353 0 2.428-.726 3.243-1.565.839-.839 1.098-1.791 1.098-2.004 0-.15-.134-.224-.318-.224zM12 0C5.373 0 0 5.373 0 12c0 2.126.66 4.1 1.789 5.729L.057 23.106c-.134.454.066.914.488 1.098.134.075.318.075.471.075.318 0 .638-.15.839-.454l4.382-5.729C7.775 19.087 9.812 20 12 20c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
+  </svg>
+  WhatsApp Order
+</div>
+
+<footer>© 2025 DELUNA LUXURY CAR — Premium Mobility Solutions</footer>
+
+<script>
+// Initialize cart as EMPTY - FIXED THE ISSUE
+let cart = [];
+
+function showSection(id){
+  document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  window.scrollTo(0,0);
+}
+
+function toggleCart(){
+  const cartElement = document.getElementById("cart");
+  const overlay = document.getElementById("cartOverlay");
+  
+  cartElement.classList.toggle("active");
+  overlay.classList.toggle("active");
+  
+  // Prevent body scrolling when cart is open
+  if(cartElement.classList.contains("active")){
+    document.body.style.overflow = "hidden";
+    updateCartCalculations();
+  } else {
+    document.body.style.overflow = "auto";
+  }
+}
+
+function calculatePrice(carId, dailyPrice){
+  const pickup = document.getElementById(`${carId}-pickup`).value;
+  const returnDate = document.getElementById(`${carId}-return`).value;
+  
+  if(!pickup || !returnDate){
+    document.getElementById(`${carId}-days`).textContent = 'Select dates to calculate';
+    document.getElementById(`${carId}-total`).textContent = '';
+    return null;
+  }
+  
+  const pickupDate = new Date(pickup);
+  const returnDateObj = new Date(returnDate);
+  
+  if(returnDateObj <= pickupDate){
+    document.getElementById(`${carId}-days`).textContent = 'Return must be after pickup';
+    document.getElementById(`${carId}-total`).textContent = '';
+    return null;
+  }
+  
+  // Calculate difference in days
+  const timeDiff = returnDateObj.getTime() - pickupDate.getTime();
+  const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+  const totalPrice = daysDiff * dailyPrice;
+  
+  document.getElementById(`${carId}-days`).textContent = `${daysDiff} day${daysDiff !== 1 ? 's' : ''}`;
+  document.getElementById(`${carId}-total`).textContent = `KES ${totalPrice.toLocaleString()}`;
+  
+  return {days: daysDiff, total: totalPrice, pickup, returnDate};
+}
+
+function addToCart(carName, dailyPrice, carId){
+  const priceData = calculatePrice(carId, dailyPrice);
+  
+  if(!priceData || priceData.days === 0){
+    showNotification('Please select valid rental dates first');
+    return;
+  }
+  
+  // Check if dates are in the future
+  const pickupDate = new Date(priceData.pickup);
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  
+  if(pickupDate < today){
+    showNotification('Pickup date must be today or in the future');
+    return;
+  }
+  
+  // Add to cart
+  cart.push({
+    name: carName,
+    dailyPrice: dailyPrice,
+    pickup: priceData.pickup,
+    returnDate: priceData.returnDate,
+    days: priceData.days,
+    total: priceData.total,
+    id: Date.now() + Math.random()
+  });
+  
+  // Show notification
+  showNotification(`Added ${carName} for ${priceData.days} days`);
+  
+  // Glow effect on cart icon
+  const cartIcon = document.querySelector('.cart-icon');
+  cartIcon.classList.add('glow');
+  setTimeout(() => cartIcon.classList.remove('glow'), 1500);
+  
+  // Update cart display
+  renderCart();
+  updateCartCalculations();
+}
+
+function removeItem(index){
+  const itemName = cart[index].name;
+  cart.splice(index, 1);
+  showNotification(`Removed ${itemName} from cart`);
+  renderCart();
+  updateCartCalculations();
+}
+
+function renderCart(){
+  // Update cart count
+  document.getElementById("count").innerText = cart.length;
+  
+  const itemsDiv = document.getElementById("items");
+  
+  if(cart.length === 0){
+    itemsDiv.innerHTML = '<p style="opacity:0.7;text-align:center;padding:20px;">Your cart is empty</p>';
+    return;
+  }
+  
+  let html = '';
+  cart.forEach((item, index) => {
+    html += `
+      <div class="cart-item">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+          <div>
+            <div><strong>${item.name}</strong></div>
+            <div style="font-size:12px;opacity:0.8">${formatDate(item.pickup)} to ${formatDate(item.returnDate)}</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-weight:600">KES ${item.total.toLocaleString()}</div>
+            <div style="font-size:12px;opacity:0.8">${item.days} day${item.days !== 1 ? 's' : ''}</div>
+          </div>
+        </div>
+        <button onclick="removeItem(${index})">Remove</button>
+      </div>
+    `;
+  });
+  
+  itemsDiv.innerHTML = html;
+}
+
+function updateCartCalculations(){
+  let subtotal = 0;
+  let totalDays = 0;
+  
+  cart.forEach(item => {
+    subtotal += item.total;
+    if(item.days > totalDays) totalDays = item.days;
+  });
+  
+  const insurance = Math.round(subtotal * 0.05);
+  const total = subtotal + insurance;
+  
+  document.getElementById('cartSubtotal').textContent = `KES ${subtotal.toLocaleString()}`;
+  document.getElementById('cartDays').textContent = `${totalDays} day${totalDays !== 1 ? 's' : ''}`;
+  document.getElementById('cartInsurance').textContent = `KES ${insurance.toLocaleString()}`;
+  document.getElementById('cartTotal').textContent = `KES ${total.toLocaleString()}`;
+  
+  // Update rental period display
+  if(cart.length > 0){
+    const firstItem = cart[0];
+    document.getElementById('cartDates').innerHTML = `
+      ${formatDate(firstItem.pickup)} to ${formatDate(firstItem.returnDate)}<br>
+      <small style="opacity:0.7">${totalDays} day rental period</small>
+    `;
+  } else {
+    document.getElementById('cartDates').textContent = 'Select dates to see total';
+  }
+}
+
+function formatDate(dateString){
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', { 
+    month: 'short', 
+    day: 'numeric', 
+    year: 'numeric' 
+  });
+}
+
+function showNotification(message){
+  const notification = document.getElementById("notification");
+  notification.textContent = message;
+  notification.classList.add("show");
+  
+  setTimeout(() => {
+    notification.classList.remove("show");
+  }, 3000);
+}
+
+function order(){
+  if(!cart.length){
+    showNotification("Cart is empty!");
+    toggleCart();
+    return;
+  }
+  
+  // REPLACE WITH YOUR WHATSAPP NUMBER
+  const phoneNumber = "254712345678";
+  
+  let message = `Hello DELUNA Luxury Car,%0A%0AI want to rent:%0A%0A`;
+  
+  let grandTotal = 0;
+  cart.forEach((item, index) => {
+    message += `${index + 1}. ${item.name}%0A`;
+    message += `   Dates: ${formatDate(item.pickup)} to ${formatDate(item.returnDate)}%0A`;
+    message += `   Duration: ${item.days} days%0A`;
+    message += `   Price: KES ${item.total.toLocaleString()}%0A%0A`;
+    grandTotal += item.total;
+  });
+  
+  const insurance = Math.round(grandTotal * 0.05);
+  const finalTotal = grandTotal + insurance;
+  
+  message += `Subtotal: KES ${grandTotal.toLocaleString()}%0A`;
+  message += `Insurance (5%): KES ${insurance.toLocaleString()}%0A`;
+  message += `Total Amount: KES ${finalTotal.toLocaleString()}%0A%0A`;
+  message += `Please contact me to complete the booking.`;
+  
+  window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+}
+
+function slide(carId, direction){
+  const imgs = document.querySelectorAll(`.slider[data-car='${carId}'] img`);
+  if(imgs.length === 0) return;
+  
+  let activeIndex = 0;
+  imgs.forEach((img, index) => {
+    if(img.classList.contains('active')) activeIndex = index;
+  });
+  
+  imgs[activeIndex].classList.remove('active');
+  
+  let newIndex = activeIndex + direction;
+  if(newIndex < 0) newIndex = imgs.length - 1;
+  if(newIndex >= imgs.length) newIndex = 0;
+  
+  imgs[newIndex].classList.add('active');
+  updateIndicators(carId, imgs.length, newIndex);
+}
+
+function updateIndicators(carId, total, activeIndex){
+  const indicators = document.getElementById(`${carId}-indicators`);
+  if(!indicators) return;
+  
+  indicators.innerHTML = '';
+  for(let i = 0; i < total; i++){
+    const dot = document.createElement('div');
+    dot.className = `slider-dot ${i === activeIndex ? 'active' : ''}`;
+    dot.onclick = () => {
+      const imgs = document.querySelectorAll(`.slider[data-car='${carId}'] img`);
+      imgs.forEach(img => img.classList.remove("active"));
+      imgs[i].classList.add("active");
+      updateIndicators(carId, total, i);
+    };
+    indicators.appendChild(dot);
+  }
+}
+
+function setMinDates(){
+  const today = new Date();
+  const todayStr = today.toISOString().split('T')[0];
+  
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const tomorrowStr = tomorrow.toISOString().split('T')[0];
+  
+  const dayAfterTomorrow = new Date();
+  dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 2);
+  const dayAfterTomorrowStr = dayAfterTomorrow.toISOString().split('T')[0];
+  
+  // Set min dates for pickup inputs
+  document.querySelectorAll('input[type="date"]').forEach(input => {
+    if(input.id.includes('pickup') && !input.disabled){
+      input.min = todayStr;
+      // Set default to tomorrow
+      if(!input.value) input.value = tomorrowStr;
+    }
+    if(input.id.includes('return') && !input.disabled){
+      input.min = tomorrowStr;
+      // Set default to day after tomorrow
+      if(!input.value){
+        input.value = dayAfterTomorrowStr;
+      }
+    }
+  });
+}
+
+// Initialize everything when page loads
+document.addEventListener('DOMContentLoaded', function() {
+  // Hide loader quickly
+  setTimeout(() => {
+    document.getElementById('loader').style.display = 'none';
+  }, 800);
+  
+  // Initialize slider indicators
+  ['prado', 'gwagon', 'audi'].forEach(carId => {
+    const imgs = document.querySelectorAll(`.slider[data-car='${carId}'] img`);
+    if(imgs.length > 0){
+      const activeIndex = Array.from(imgs).findIndex(img => img.classList.contains('active'));
+      updateIndicators(carId, imgs.length, activeIndex);
+    }
+  });
+  
+  // Set minimum dates
+  setMinDates();
+  
+  // Render empty cart initially
+  renderCart();
+  updateCartCalculations();
+  
+  // Auto-calculate prices for available cars with default dates
+  setTimeout(() => {
+    calculatePrice('prado', 20000);
+    calculatePrice('audi', 12000);
+  }, 100);
+});
+
+// Handle Escape key to close cart
+document.addEventListener('keydown', function(e) {
+  if(e.key === 'Escape'){
+    const cartElement = document.getElementById("cart");
+    if(cartElement.classList.contains("active")){
+      toggleCart();
+    }
+  }
+});
+</script>
+
 </body>
 </html>
