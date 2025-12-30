@@ -989,15 +989,15 @@ footer {
 <header>
   <div class="logo">DELUNA LUXURY CAR</div>
   <div class="nav-container">
-    <div class="cart-icon" onclick="toggleCart()">
+    <div class="cart-icon" onclick="toggleCart()" style="display: flex;">
       🛒
       <span id="count" class="cart-count">0</span>
     </div>
     <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
     <nav id="mobileNav">
-      <a onclick="showSection('home');">Home</a>
-      <a onclick="showSection('fleet');">Fleet</a>
-      <a onclick="showSection('about');">About</a>
+      <a onclick="showSection('home'); toggleMobileMenu();">Home</a>
+      <a onclick="showSection('fleet'); toggleMobileMenu();">Fleet</a>
+      <a onclick="showSection('about'); toggleMobileMenu();">About</a>
     </nav>
   </div>
 </header>
@@ -1220,11 +1220,6 @@ function showSection(id) {
   
   // Scroll to top
   window.scrollTo({ top: 0, behavior: 'smooth' });
-  
-  // Close mobile menu if open
-  if (window.innerWidth <= 768) {
-    document.getElementById('mobileNav').classList.remove('active');
-  }
 }
 
 // ============ CART FUNCTIONS ============
