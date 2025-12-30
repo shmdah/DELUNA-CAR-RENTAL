@@ -942,7 +942,11 @@ footer {
     font-size: 16px;
   }
   
-  /* Cart */
+  /* Cart Drawer for Mobile */
+  #cart {
+    width: 100%;
+  }
+  
   .cart-header {
     padding: 15px;
   }
@@ -985,15 +989,15 @@ footer {
 <header>
   <div class="logo">DELUNA LUXURY CAR</div>
   <div class="nav-container">
+    <div class="cart-icon" onclick="toggleCart()">
+      🛒
+      <span id="count" class="cart-count">0</span>
+    </div>
     <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
     <nav id="mobileNav">
       <a onclick="showSection('home');">Home</a>
       <a onclick="showSection('fleet');">Fleet</a>
       <a onclick="showSection('about');">About</a>
-      <div class="cart-icon" onclick="toggleCart()">
-        🛒
-        <span id="count" class="cart-count">0</span>
-      </div>
     </nav>
   </div>
 </header>
