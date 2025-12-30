@@ -109,6 +109,7 @@ nav a {
   opacity: 0.8;
   transition: opacity 0.3s;
   padding: 5px 0;
+  cursor: pointer;
 }
 
 nav a:hover, nav a.active {
@@ -164,9 +165,15 @@ section {
 
 section.active {
   display: block;
+  animation: fadeIn 0.5s ease;
 }
 
-/* ============ HERO SECTION ============ */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ============ HERO SECTION (WITH VIDEO) ============ */
 .hero {
   position: relative;
   overflow: hidden;
@@ -211,18 +218,20 @@ section.active {
 }
 
 .hero h1 {
-  font-size: 32px;
+  font-size: 42px;
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: 20px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.hero p {
-  font-size: 16px;
+.hero-tagline {
+  font-size: 18px;
   opacity: 0.9;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
   padding: 0 10px;
+  font-style: italic;
+  color: #ccc;
 }
 
 /* ============ BUTTONS ============ */
@@ -265,51 +274,99 @@ section.active {
   background: rgba(0, 0, 0, 0.5);
 }
 
-/* ============ FLEET SECTION ============ */
-.section-title {
-  font-size: 28px;
-  margin-bottom: 10px;
-  font-weight: 700;
+/* ============ WHATSAPP BUTTON FIX ============ */
+.whatsapp-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #25d366;
+  color: #000;
+  padding: 15px;
+  border-radius: 50%;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.section-subtitle {
-  font-size: 16px;
+.whatsapp-btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 3px 10px rgba(37, 211, 102, 0.4);
+}
+
+.whatsapp-btn svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* ============ FLEET SECTION (SEPARATE DESIGN) ============ */
+#fleet {
+  background: linear-gradient(135deg, #0b0b0b 0%, #141414 100%);
+  padding-top: 100px;
+}
+
+/* ============ FLEET HEADER ============ */
+.fleet-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.fleet-header h2 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  background: linear-gradient(45deg, #25d366, #1ea952);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.fleet-subtitle {
+  font-size: 18px;
   opacity: 0.8;
-  margin-bottom: 30px;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 /* ============ GRID LAYOUT ============ */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 25px;
+  gap: 30px;
   margin-top: 30px;
 }
 
 /* ============ CAR CARD ============ */
 .card {
-  background: #141414;
-  border-radius: 12px;
+  background: #1a1a1a;
+  border-radius: 16px;
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid #222;
+  transition: all 0.4s ease;
+  border: 1px solid #252525;
   position: relative;
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(37, 211, 102, 0.1);
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(37, 211, 102, 0.15);
   border-color: #25d366;
 }
 
 /* ============ AVAILABILITY BADGE ============ */
 .availability {
   position: absolute;
-  top: 15px;
-  right: 15px;
-  padding: 6px 12px;
+  top: 20px;
+  right: 20px;
+  padding: 8px 16px;
   border-radius: 20px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   z-index: 2;
   backdrop-filter: blur(10px);
@@ -317,13 +374,13 @@ section.active {
 }
 
 .available {
-  background: rgba(37, 211, 102, 0.2);
+  background: rgba(37, 211, 102, 0.25);
   color: #25d366;
   border: 1px solid #25d366;
 }
 
 .unavailable {
-  background: rgba(255, 68, 68, 0.2);
+  background: rgba(255, 68, 68, 0.25);
   color: #ff4444;
   border: 1px solid #ff4444;
 }
@@ -332,9 +389,9 @@ section.active {
 .slider {
   position: relative;
   width: 100%;
-  height: 220px;
+  height: 250px;
   overflow: hidden;
-  background: #1a1a1a;
+  background: #111;
 }
 
 .slider img {
@@ -353,48 +410,53 @@ section.active {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 36px;
-  height: 36px;
-  background: rgba(0, 0, 0, 0.7);
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.8);
   border: none;
   color: white;
-  font-size: 18px;
+  font-size: 20px;
   cursor: pointer;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 2;
-  transition: background 0.3s;
+  transition: all 0.3s;
+  opacity: 0;
+}
+
+.card:hover .slider-btn {
+  opacity: 1;
 }
 
 .slider-btn:active {
-  background: rgba(37, 211, 102, 0.8);
+  background: rgba(37, 211, 102, 0.9);
   transform: translateY(-50%) scale(0.95);
 }
 
 .prev {
-  left: 10px;
+  left: 15px;
 }
 
 .next {
-  right: 10px;
+  right: 15px;
 }
 
 .slider-indicators {
   display: flex;
   justify-content: center;
-  gap: 6px;
+  gap: 8px;
   padding: 10px;
   position: absolute;
-  bottom: 10px;
+  bottom: 15px;
   left: 0;
   right: 0;
 }
 
 .slider-dot {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.3);
   cursor: pointer;
@@ -403,32 +465,41 @@ section.active {
 
 .slider-dot.active {
   background: #25d366;
-  transform: scale(1.2);
+  transform: scale(1.3);
 }
 
 /* ============ CARD CONTENT ============ */
 .card-content {
-  padding: 20px;
+  padding: 25px;
 }
 
 .card h3 {
-  font-size: 20px;
-  margin-bottom: 8px;
+  font-size: 22px;
+  margin-bottom: 10px;
   font-weight: 600;
 }
 
 .price {
   color: #25d366;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
-  margin-bottom: 12px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.price span {
+  font-size: 14px;
+  opacity: 0.7;
+  font-weight: 400;
 }
 
 .description {
-  font-size: 14px;
+  font-size: 15px;
   opacity: 0.8;
-  line-height: 1.5;
-  margin-bottom: 20px;
+  line-height: 1.6;
+  margin-bottom: 25px;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -437,17 +508,18 @@ section.active {
 
 /* ============ RENTAL DATES ============ */
 .rental-dates {
-  background: #1a1a1a;
-  border-radius: 8px;
-  padding: 15px;
-  margin: 15px 0;
+  background: #222;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px 0;
+  border: 1px solid #333;
 }
 
 .date-input-group {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-bottom: 12px;
+  gap: 15px;
+  margin-bottom: 15px;
 }
 
 .date-input {
@@ -456,42 +528,50 @@ section.active {
 
 .date-input label {
   display: block;
-  font-size: 12px;
+  font-size: 13px;
   opacity: 0.7;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
+  font-weight: 500;
 }
 
 .date-input input {
   width: 100%;
-  padding: 12px;
-  background: #222;
+  padding: 14px;
+  background: #111;
   border: 1px solid #333;
-  border-radius: 6px;
+  border-radius: 8px;
   color: #fff;
-  font-size: 14px;
-  transition: border-color 0.3s;
+  font-size: 15px;
+  transition: all 0.3s;
 }
 
 .date-input input:focus {
   outline: none;
   border-color: #25d366;
+  box-shadow: 0 0 0 2px rgba(37, 211, 102, 0.2);
 }
 
 .date-input input:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
 .days-display {
-  font-size: 13px;
+  font-size: 14px;
   opacity: 0.8;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .calculated-price {
   color: #25d366;
-  font-weight: 600;
-  font-size: 16px;
+  font-weight: 700;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 /* ============ CART DRAWER ============ */
@@ -563,17 +643,17 @@ section.active {
 
 .cart-item {
   background: #1a1a1a;
-  border-radius: 8px;
-  padding: 15px;
+  border-radius: 12px;
+  padding: 20px;
   margin-bottom: 15px;
-  border: 1px solid #222;
+  border: 1px solid #252525;
 }
 
 .cart-item-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .cart-item-name {
@@ -584,13 +664,16 @@ section.active {
 .cart-item-price {
   color: #25d366;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .cart-item-dates {
-  font-size: 12px;
+  font-size: 13px;
   opacity: 0.7;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  background: #222;
+  padding: 10px;
+  border-radius: 6px;
 }
 
 .cart-item-actions {
@@ -600,20 +683,23 @@ section.active {
 }
 
 .cart-item-days {
-  font-size: 13px;
+  font-size: 14px;
   opacity: 0.8;
+  background: #222;
+  padding: 6px 12px;
+  border-radius: 20px;
 }
 
 .remove-btn {
   background: #ff4444;
   border: none;
   color: white;
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 12px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all 0.3s;
 }
 
 .remove-btn:active {
@@ -624,24 +710,24 @@ section.active {
 .cart-summary {
   background: #141414;
   border-radius: 12px;
-  padding: 20px;
+  padding: 25px;
   margin: 20px;
-  border: 1px solid #222;
+  border: 1px solid #252525;
 }
 
 .summary-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
-  font-size: 14px;
+  margin-bottom: 15px;
+  font-size: 15px;
 }
 
 .summary-total {
-  border-top: 1px solid #333;
-  padding-top: 15px;
-  margin-top: 15px;
-  font-size: 18px;
+  border-top: 2px solid #25d366;
+  padding-top: 20px;
+  margin-top: 20px;
+  font-size: 20px;
   font-weight: 700;
 }
 
@@ -653,6 +739,9 @@ section.active {
 
 .cart-footer .btn {
   width: 100%;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 700;
 }
 
 /* ============ CART OVERLAY ============ */
@@ -699,36 +788,22 @@ section.active {
   opacity: 1;
 }
 
-/* ============ WHATSAPP BUTTON ============ */
-.whatsapp-btn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #25d366;
-  color: #000;
-  padding: 15px;
-  border-radius: 50%;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
-  z-index: 999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 60px;
-  height: 60px;
-  transition: transform 0.3s, box-shadow 0.3s;
-  -webkit-tap-highlight-color: transparent;
+/* ============ ABOUT SECTION ============ */
+#about {
+  background: linear-gradient(135deg, #0b0b0b 0%, #141414 100%);
 }
 
-.whatsapp-btn:active {
-  transform: scale(0.95);
-  box-shadow: 0 3px 10px rgba(37, 211, 102, 0.4);
+.about-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
 }
 
-.whatsapp-btn svg {
-  width: 28px;
-  height: 28px;
+.about-text {
+  opacity: 0.8;
+  line-height: 1.8;
+  margin-bottom: 25px;
+  font-size: 17px;
 }
 
 /* ============ FOOTER ============ */
@@ -793,13 +868,22 @@ footer {
   }
   
   .hero h1 {
-    font-size: 28px;
+    font-size: 32px;
     line-height: 1.3;
   }
   
-  .hero p {
-    font-size: 15px;
+  .hero-tagline {
+    font-size: 16px;
     padding: 0;
+  }
+  
+  /* Fleet Section */
+  .fleet-header h2 {
+    font-size: 28px;
+  }
+  
+  .fleet-subtitle {
+    font-size: 16px;
   }
   
   /* Sections */
@@ -807,14 +891,10 @@ footer {
     padding: 80px 15px 40px;
   }
   
-  .section-title {
-    font-size: 24px;
-  }
-  
   /* Grid */
   .grid {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 25px;
   }
   
   /* Card */
@@ -823,19 +903,23 @@ footer {
   }
   
   .slider {
-    height: 200px;
+    height: 220px;
+  }
+  
+  .slider-btn {
+    opacity: 1;
   }
   
   .card-content {
-    padding: 15px;
+    padding: 20px;
   }
   
   .card h3 {
-    font-size: 18px;
+    font-size: 20px;
   }
   
   .price {
-    font-size: 16px;
+    font-size: 18px;
   }
   
   /* Buttons */
@@ -855,7 +939,7 @@ footer {
   /* Date Inputs */
   .date-input input {
     padding: 14px;
-    font-size: 16px; /* Better for mobile keyboards */
+    font-size: 16px;
   }
   
   /* Cart */
@@ -869,7 +953,7 @@ footer {
   
   .cart-summary {
     margin: 15px;
-    padding: 15px;
+    padding: 20px;
   }
   
   .cart-footer {
@@ -884,141 +968,28 @@ footer {
     padding: 12px 15px;
     font-size: 14px;
   }
-  
-  /* WhatsApp Button */
-  .whatsapp-btn {
-    bottom: 15px;
-    right: 15px;
-    width: 55px;
-    height: 55px;
-  }
-  
-  .whatsapp-btn svg {
-    width: 24px;
-    height: 24px;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero h1 {
-    font-size: 24px;
-  }
-  
-  .hero p {
-    font-size: 14px;
-  }
-  
-  .section-title {
-    font-size: 22px;
-  }
-  
-  .slider {
-    height: 180px;
-  }
-  
-  .card h3 {
-    font-size: 17px;
-  }
-  
-  .price {
-    font-size: 15px;
-  }
-  
-  .description {
-    font-size: 13px;
-    -webkit-line-clamp: 2;
-  }
-}
-
-/* Landscape Orientation */
-@media (max-height: 500px) and (orientation: landscape) {
-  .hero {
-    min-height: 150vh;
-  }
-  
-  .hero-content {
-    padding-top: 60px;
-  }
-  
-  section {
-    min-height: 150vh;
-  }
-  
-  .slider {
-    height: 160px;
-  }
-}
-
-/* Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-  body {
-    background: #0a0a0a;
-  }
-  
-  .card, .cart-summary, .rental-dates {
-    background: #121212;
-  }
-}
-
-/* Accessibility */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* Touch Device Optimizations */
-@media (hover: none) and (pointer: coarse) {
-  .btn:hover, .card:hover {
-    transform: none;
-  }
-  
-  .btn:active, .card:active {
-    transform: scale(0.98);
-  }
-  
-  .slider-btn:hover {
-    background: rgba(0, 0, 0, 0.7);
-  }
-  
-  .slider-btn:active {
-    background: rgba(37, 211, 102, 0.8);
-  }
-}
-
-/* High Resolution Screens */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .loader-ring {
-    border-width: 2px;
-  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- LOADER -->
 <div id="loader">
   <div class="loader-ring"></div>
 </div>
 
-<!-- NOTIFICATION -->
 <div id="notification" class="notification"></div>
 
-<!-- CART OVERLAY -->
 <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
 
-<!-- HEADER -->
 <header>
   <div class="logo">DELUNA LUXURY CAR</div>
   <div class="nav-container">
     <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
     <nav id="mobileNav">
-      <a onclick="showSection('home'); toggleMobileMenu();">Home</a>
-      <a onclick="showSection('fleet'); toggleMobileMenu();">Fleet</a>
-      <a onclick="showSection('about'); toggleMobileMenu();">About</a>
+      <a onclick="showSection('home');">Home</a>
+      <a onclick="showSection('fleet');">Fleet</a>
+      <a onclick="showSection('about');">About</a>
       <div class="cart-icon" onclick="toggleCart()">
         🛒
         <span id="count" class="cart-count">0</span>
@@ -1027,27 +998,27 @@ footer {
   </div>
 </header>
 
-<!-- HOME SECTION -->
 <section id="home" class="hero active">
-  <video autoplay muted loop playsinline preload="metadata" poster="images/carbackground.jpg">
+  <video autoplay muted loop playsinline preload="metadata">
     <source src="images/carbackground.mp4" type="video/mp4">
   </video>
   <div class="hero-content">
-    <h1>Luxury Cars for People Who Don't Negotiate Energy</h1>
-    <p>Add to cart. Order on WhatsApp. Done.</p>
-    <button class="btn" onclick="showSection('fleet')">View Fleet</button>
+    <h1>Experience Unmatched Luxury</h1>
+    <p class="hero-tagline">Where Elegance Meets Performance</p>
+    <button class="btn" onclick="showSection('fleet')">Explore Our Fleet</button>
   </div>
 </section>
 
-<!-- FLEET SECTION -->
 <section id="fleet">
-  <button class="btn back-btn" onclick="showSection('home')">← Back</button>
-  <h2 class="section-title">Fleet</h2>
-  <p class="section-subtitle">Select your preferred luxury vehicle</p>
+  <button class="btn back-btn" onclick="showSection('home')">← Back to Home</button>
+  
+  <div class="fleet-header">
+    <h2>Our Premium Fleet</h2>
+    <p class="fleet-subtitle">Select from our exclusive collection of luxury vehicles</p>
+  </div>
   
   <div class="grid">
     
-    <!-- PRADO -->
     <div class="card">
       <div class="availability available">Available</div>
       <div class="slider">
@@ -1060,7 +1031,7 @@ footer {
       </div>
       <div class="card-content">
         <h3>Toyota Prado TX</h3>
-        <div class="price">KES 20,000 / day</div>
+        <div class="price">KES 20,000 <span>/ day</span></div>
         <div class="description">
           Premium SUV with advanced off-road capabilities, leather interior, 
           and cutting-edge technology. Perfect for both city drives and adventures.
@@ -1085,7 +1056,6 @@ footer {
       </div>
     </div>
 
-    <!-- GWAGON -->
     <div class="card">
       <div class="availability unavailable">Unavailable</div>
       <div class="slider">
@@ -1098,7 +1068,7 @@ footer {
       </div>
       <div class="card-content">
         <h3>Mercedes G-Wagon</h3>
-        <div class="price">KES 40,000 / day</div>
+        <div class="price">KES 40,000 <span>/ day</span></div>
         <div class="description">
           Iconic luxury SUV with unparalleled presence. Features handcrafted interiors, 
           premium sound system, and superior performance.
@@ -1123,7 +1093,6 @@ footer {
       </div>
     </div>
 
-    <!-- AUDI -->
     <div class="card">
       <div class="availability available">Available</div>
       <div class="slider">
@@ -1135,7 +1104,7 @@ footer {
       </div>
       <div class="card-content">
         <h3>Audi A4</h3>
-        <div class="price">KES 12,000 / day</div>
+        <div class="price">KES 12,000 <span>/ day</span></div>
         <div class="description">
           Elegant sedan with sporty performance, luxurious interiors, 
           and advanced driver assistance systems. Ideal for business and leisure.
@@ -1163,25 +1132,22 @@ footer {
   </div>
 </section>
 
-<!-- ABOUT SECTION -->
 <section id="about">
-  <button class="btn back-btn" onclick="showSection('home')">← Back</button>
-  <h2 class="section-title">About DELUNA</h2>
-  <div style="max-width: 700px; margin: 0 auto;">
-    <p style="opacity: 0.8; line-height: 1.8; margin-bottom: 20px; font-size: 16px;">
-      DELUNA Luxury Car is for discerning individuals who value comfort, presence, 
-      and zero stress. We don't oversell - we deliver excellence. Each vehicle in 
-      our fleet is meticulously maintained to ensure the highest standards of luxury 
-      and reliability.
+  <button class="btn back-btn" onclick="showSection('home')">← Back to Home</button>
+  <div class="about-content">
+    <h2 class="section-title">About DELUNA</h2>
+    <p class="about-text">
+      At DELUNA Luxury Car, we redefine premium mobility. We understand that luxury isn't just about the vehicle—it's about the entire experience. From the moment you select your car to the final handover, we ensure every detail is perfect.
     </p>
-    <p style="opacity: 0.8; line-height: 1.8; font-size: 16px;">
-      Our mission is simple: provide premium vehicles with seamless service. 
-      From selection to delivery, we handle everything so you can focus on what matters.
+    <p class="about-text">
+      Our fleet consists of meticulously maintained luxury vehicles, each selected for its performance, comfort, and style. We serve discerning clients who value excellence and appreciate the finer things in life.
+    </p>
+    <p class="about-text">
+      Whether for business, special occasions, or personal indulgence, we provide seamless service that matches the quality of our vehicles. At DELUNA, we don't just rent cars—we deliver experiences.
     </p>
   </div>
 </section>
 
-<!-- CART DRAWER -->
 <div id="cart">
   <div class="cart-header">
     <h3>Your Cart 🛒</h3>
@@ -1221,73 +1187,57 @@ footer {
   </div>
 </div>
 
-<!-- WHATSAPP BUTTON -->
-<div class="whatsapp-btn" onclick="order()">
-  <svg viewBox="0 0 24 24" fill="currentColor">
-    <path d="M17.507 14.307l-.009.075c-.266 1.193-.839 3.264-1.524 3.264-.487 0-.814-.303-1.175-.607-1.098-.723-2.106-1.566-2.834-2.54-.91-1.2-1.639-2.708-1.639-3.393 0-.319.183-.638.455-.638.134 0 .318.075.471.319.488.638.781 1.027 1.239 1.632.134.224.269.303.134.606-.154.303-.154.303-.318.454-.154.15-.303.301-.472.15-.134-.075-.471-.224-.914-.606-.488-.454-.839-1.04-1.098-1.566-.133-.319.066-.638.399-.638.134 0 .318.076.471.076.154 0 .244-.076.377-.076.488-.075.814-.527 1.098-.527.266 0 .839.303 1.175.454.224.076.318 0 .471-.15.154-.15.711-.688.914-.914.224-.224.134-.376 0-.454-.066-.076-.183-.076-.318-.151-.184-.076-.471-.224-.914-.224-.488 0-1.098.15-1.524.15-.839 0-1.239-.15-1.715-.15-1.098 0-2.106.607-2.834 1.566-.487.607-.914 1.566-1.098 2.525-.134 1.566.839 4.029 2.106 5.155.815.839 1.89 1.566 3.24 1.566.839 0 1.098-.15 1.715-.15.839 0 1.239.15 1.715.15 1.353 0 2.428-.726 3.243-1.565.839-.839 1.098-1.791 1.098-2.004 0-.15-.134-.224-.318-.224zM12 0C5.373 0 0 5.373 0 12c0 2.126.66 4.1 1.789 5.729L.057 23.106c-.134.454.066.914.488 1.098.134.075.318.075.471.075.318 0 .638-.15.839-.454l4.382-5.729C7.775 19.087 9.812 20 12 20c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
-  </svg>
-</div>
-
 <footer>© 2025 DELUNA LUXURY CAR — Premium Mobility Solutions</footer>
 
 <script>
-// ============ MOBILE MENU ============
-function toggleMobileMenu() {
-  const nav = document.getElementById('mobileNav');
-  nav.classList.toggle('active');
-}
-
-// Close mobile menu when clicking outside
-document.addEventListener('click', function(event) {
-  const nav = document.getElementById('mobileNav');
-  const menuBtn = document.querySelector('.mobile-menu-btn');
-  
-  if (nav.classList.contains('active') && 
-      !nav.contains(event.target) && 
-      !menuBtn.contains(event.target)) {
-    nav.classList.remove('active');
-  }
-});
-
 // ============ GLOBAL VARIABLES ============
 let cart = [];
 
+// ============ MOBILE MENU ============
+function toggleMobileMenu() {
+  if (window.innerWidth <= 768) {
+    const nav = document.getElementById('mobileNav');
+    nav.classList.toggle('active');
+  }
+}
+
 // ============ SECTION NAVIGATION ============
 function showSection(id) {
-  // Hide all sections
+  // Hide all sections completely first
   document.querySelectorAll('section').forEach(section => {
     section.classList.remove('active');
+    section.style.display = 'none';
   });
   
-  // Show selected section
-  document.getElementById(id).classList.add('active');
+  // Show selected section directly
+  const targetSection = document.getElementById(id);
+  targetSection.style.display = 'block';
+  targetSection.classList.add('active');
   
   // Scroll to top
   window.scrollTo({ top: 0, behavior: 'smooth' });
   
   // Close mobile menu if open
-  document.getElementById('mobileNav').classList.remove('active');
+  if (window.innerWidth <= 768) {
+    document.getElementById('mobileNav').classList.remove('active');
+  }
 }
 
 // ============ CART FUNCTIONS ============
 function toggleCart() {
-  const cart = document.getElementById('cart');
+  const cartElement = document.getElementById('cart');
   const overlay = document.getElementById('cartOverlay');
   const body = document.body;
   
-  cart.classList.toggle('active');
+  cartElement.classList.toggle('active');
   overlay.classList.toggle('active');
   
-  // Prevent body scrolling when cart is open
-  if (cart.classList.contains('active')) {
+  if (cartElement.classList.contains('active')) {
     body.style.overflow = 'hidden';
     updateCartCalculations();
   } else {
     body.style.overflow = 'auto';
   }
-  
-  // Close mobile menu if open
-  document.getElementById('mobileNav').classList.remove('active');
 }
 
 // ============ PRICE CALCULATION ============
@@ -1300,11 +1250,7 @@ function calculatePrice(carId, dailyPrice) {
   const pickup = pickupInput.value;
   const returnDate = returnInput.value;
   
-  if (!pickup || !returnDate) {
-    document.getElementById(`${carId}-days`).textContent = 'Select dates to calculate';
-    document.getElementById(`${carId}-total`).textContent = '';
-    return null;
-  }
+  if (!pickup || !returnDate) return null;
   
   const pickupDate = new Date(pickup);
   const returnDateObj = new Date(returnDate);
@@ -1315,7 +1261,6 @@ function calculatePrice(carId, dailyPrice) {
     return null;
   }
   
-  // Calculate difference in days
   const timeDiff = returnDateObj.getTime() - pickupDate.getTime();
   const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
   const totalPrice = daysDiff * dailyPrice;
@@ -1323,12 +1268,7 @@ function calculatePrice(carId, dailyPrice) {
   document.getElementById(`${carId}-days`).textContent = `${daysDiff} day${daysDiff !== 1 ? 's' : ''}`;
   document.getElementById(`${carId}-total`).textContent = `KES ${totalPrice.toLocaleString()}`;
   
-  return {
-    days: daysDiff,
-    total: totalPrice,
-    pickup: pickup,
-    returnDate: returnDate
-  };
+  return { days: daysDiff, total: totalPrice, pickup, returnDate };
 }
 
 // ============ ADD TO CART ============
@@ -1340,17 +1280,6 @@ function addToCart(carName, dailyPrice, carId) {
     return;
   }
   
-  // Check if dates are in the future
-  const pickupDate = new Date(priceData.pickup);
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  
-  if (pickupDate < today) {
-    showNotification('Pickup date must be today or in the future');
-    return;
-  }
-  
-  // Add to cart
   cart.push({
     name: carName,
     dailyPrice: dailyPrice,
@@ -1361,38 +1290,24 @@ function addToCart(carName, dailyPrice, carId) {
     id: Date.now() + Math.random()
   });
   
-  // Show notification
   showNotification(`✓ Added ${carName} for ${priceData.days} days`);
+  document.querySelector('.cart-icon').classList.add('glow');
+  setTimeout(() => document.querySelector('.cart-icon').classList.remove('glow'), 1500);
   
-  // Glow effect on cart icon
-  const cartIcon = document.querySelector('.cart-icon');
-  cartIcon.classList.add('glow');
-  setTimeout(() => cartIcon.classList.remove('glow'), 1500);
-  
-  // Update cart display
   renderCart();
   updateCartCalculations();
-  
-  // Auto-open cart on mobile
-  if (window.innerWidth <= 768) {
-    setTimeout(() => toggleCart(), 500);
-  }
 }
 
 // ============ REMOVE FROM CART ============
 function removeItem(index) {
-  const itemName = cart[index].name;
   cart.splice(index, 1);
-  showNotification(`✗ Removed ${itemName} from cart`);
   renderCart();
   updateCartCalculations();
 }
 
 // ============ RENDER CART ============
 function renderCart() {
-  // Update cart count
   document.getElementById('count').textContent = cart.length;
-  
   const itemsDiv = document.getElementById('items');
   
   if (cart.length === 0) {
@@ -1408,7 +1323,7 @@ function renderCart() {
           <div class="cart-item-name">${item.name}</div>
           <div class="cart-item-price">KES ${item.total.toLocaleString()}</div>
         </div>
-        <div class="cart-item-dates">${formatDate(item.pickup)} → ${formatDate(item.returnDate)}</div>
+        <div class="cart-item-dates">${item.pickup} → ${item.returnDate}</div>
         <div class="cart-item-actions">
           <div class="cart-item-days">${item.days} day${item.days !== 1 ? 's' : ''}</div>
           <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
@@ -1416,11 +1331,10 @@ function renderCart() {
       </div>
     `;
   });
-  
   itemsDiv.innerHTML = html;
 }
 
-// ============ UPDATE CART CALCULATIONS ============
+// ============ UPDATE CALCULATIONS ============
 function updateCartCalculations() {
   let subtotal = 0;
   let totalDays = 0;
@@ -1437,94 +1351,35 @@ function updateCartCalculations() {
   document.getElementById('cartDays').textContent = `${totalDays} day${totalDays !== 1 ? 's' : ''}`;
   document.getElementById('cartInsurance').textContent = `KES ${insurance.toLocaleString()}`;
   document.getElementById('cartTotal').textContent = `KES ${total.toLocaleString()}`;
-  
-  // Update rental period display
-  if (cart.length > 0) {
-    const firstItem = cart[0];
-    document.getElementById('cartDates').innerHTML = `
-      ${formatDate(firstItem.pickup)} to ${formatDate(firstItem.returnDate)}<br>
-      <small style="opacity:0.7">${totalDays} day rental period</small>
-    `;
-  } else {
-    document.getElementById('cartDates').textContent = 'Select dates to see total';
-  }
-}
-
-// ============ FORMAT DATE ============
-function formatDate(dateString) {
-  const date = new Date(dateString);
-  return date.toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric'
-  });
 }
 
 // ============ NOTIFICATION ============
 function showNotification(message) {
-  const notification = document.getElementById('notification');
-  notification.textContent = message;
-  notification.classList.add('show');
-  
-  setTimeout(() => {
-    notification.classList.remove('show');
-  }, 3000);
+  const n = document.getElementById('notification');
+  n.textContent = message;
+  n.classList.add('show');
+  setTimeout(() => n.classList.remove('show'), 3000);
 }
 
-// ============ ORDER VIA WHATSAPP ============
+// ============ WHATSAPP ORDER ============
 function order() {
-  if (!cart.length) {
-    showNotification('Cart is empty!');
-    if (window.innerWidth <= 768) {
-      setTimeout(() => toggleCart(), 300);
-    }
-    return;
-  }
-  
-  // REPLACE WITH YOUR WHATSAPP NUMBER
+  if (!cart.length) return;
   const phoneNumber = '254712345678';
-  
   let message = `Hello DELUNA Luxury Car,%0A%0AI want to rent:%0A%0A`;
-  
-  let grandTotal = 0;
   cart.forEach((item, index) => {
-    message += `${index + 1}. ${item.name}%0A`;
-    message += `   Dates: ${formatDate(item.pickup)} to ${formatDate(item.returnDate)}%0A`;
-    message += `   Duration: ${item.days} days%0A`;
-    message += `   Price: KES ${item.total.toLocaleString()}%0A%0A`;
-    grandTotal += item.total;
+    message += `${index + 1}. ${item.name}%0A   Dates: ${item.pickup} to ${item.returnDate}%0A   Price: KES ${item.total.toLocaleString()}%0A%0A`;
   });
-  
-  const insurance = Math.round(grandTotal * 0.05);
-  const finalTotal = grandTotal + insurance;
-  
-  message += `Subtotal: KES ${grandTotal.toLocaleString()}%0A`;
-  message += `Insurance (5%): KES ${insurance.toLocaleString()}%0A`;
-  message += `Total Amount: KES ${finalTotal.toLocaleString()}%0A%0A`;
-  message += `Please contact me to complete the booking.`;
-  
   window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
 }
 
-// ============ IMAGE SLIDER ============
+// ============ SLIDER ============
 function slide(carId, direction) {
-  const slider = document.querySelector(`.card:has(#${carId}-pickup) .slider`);
-  if (!slider) return;
-  
-  const imgs = slider.querySelectorAll('img');
-  if (imgs.length === 0) return;
-  
-  let activeIndex = 0;
-  imgs.forEach((img, index) => {
-    if (img.classList.contains('active')) activeIndex = index;
-  });
+  const card = document.querySelector(`.card:has(#${carId}-pickup)`);
+  const imgs = card.querySelectorAll('.slider img');
+  let activeIndex = Array.from(imgs).findIndex(img => img.classList.contains('active'));
   
   imgs[activeIndex].classList.remove('active');
-  
-  let newIndex = activeIndex + direction;
-  if (newIndex < 0) newIndex = imgs.length - 1;
-  if (newIndex >= imgs.length) newIndex = 0;
-  
+  let newIndex = (activeIndex + direction + imgs.length) % imgs.length;
   imgs[newIndex].classList.add('active');
   updateIndicators(carId, imgs.length, newIndex);
 }
@@ -1532,132 +1387,22 @@ function slide(carId, direction) {
 function updateIndicators(carId, total, activeIndex) {
   const indicators = document.getElementById(`${carId}-indicators`);
   if (!indicators) return;
-  
   indicators.innerHTML = '';
   for (let i = 0; i < total; i++) {
     const dot = document.createElement('div');
     dot.className = `slider-dot ${i === activeIndex ? 'active' : ''}`;
-    dot.onclick = () => {
-      const slider = document.querySelector(`.card:has(#${carId}-pickup) .slider`);
-      const imgs = slider.querySelectorAll('img');
-      imgs.forEach(img => img.classList.remove('active'));
-      imgs[i].classList.add('active');
-      updateIndicators(carId, total, i);
-    };
     indicators.appendChild(dot);
   }
 }
 
-// ============ SET MINIMUM DATES ============
-function setMinDates() {
-  const today = new Date();
-  const todayStr = today.toISOString().split('T')[0];
-  
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  const tomorrowStr = tomorrow.toISOString().split('T')[0];
-  
-  const dayAfterTomorrow = new Date();
-  dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 2);
-  const dayAfterTomorrowStr = dayAfterTomorrow.toISOString().split('T')[0];
-  
-  // Set min dates for all date inputs
-  document.querySelectorAll('input[type="date"]').forEach(input => {
-    if (input.id.includes('pickup') && !input.disabled) {
-      input.min = todayStr;
-      if (!input.value) input.value = tomorrowStr;
-    }
-    if (input.id.includes('return') && !input.disabled) {
-      input.min = tomorrowStr;
-      if (!input.value) input.value = dayAfterTomorrowStr;
-    }
+// ============ INITIALIZE ============
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => document.getElementById('loader').style.display = 'none', 500);
+  ['prado', 'gwagon', 'audi'].forEach(id => {
+    const card = document.querySelector(`.card:has(#${id}-pickup)`);
+    if (card) updateIndicators(id, card.querySelectorAll('.slider img').length, 0);
   });
-}
-
-// ============ INITIALIZE ON LOAD ============
-document.addEventListener('DOMContentLoaded', function() {
-  // Hide loader
-  setTimeout(() => {
-    document.getElementById('loader').style.display = 'none';
-  }, 500);
-  
-  // Initialize slider indicators
-  ['prado', 'gwagon', 'audi'].forEach(carId => {
-    const slider = document.querySelector(`.card:has(#${carId}-pickup) .slider`);
-    if (slider) {
-      const imgs = slider.querySelectorAll('img');
-      const activeIndex = Array.from(imgs).findIndex(img => img.classList.contains('active'));
-      updateIndicators(carId, imgs.length, activeIndex);
-    }
-  });
-  
-  // Set minimum dates
-  setMinDates();
-  
-  // Render empty cart
-  renderCart();
-  updateCartCalculations();
-  
-  // Auto-calculate prices for available cars
-  setTimeout(() => {
-    calculatePrice('prado', 20000);
-    calculatePrice('audi', 12000);
-  }, 100);
-  
-  // Handle Escape key to close cart
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-      const cart = document.getElementById('cart');
-      if (cart.classList.contains('active')) {
-        toggleCart();
-      }
-    }
-  });
-  
-  // Handle back button (Android)
-  window.addEventListener('popstate', function() {
-    const cart = document.getElementById('cart');
-    if (cart.classList.contains('active')) {
-      toggleCart();
-    }
-  });
-});
-
-// ============ TOUCH EVENTS FOR MOBILE ============
-let touchStartX = 0;
-let touchEndX = 0;
-
-document.addEventListener('touchstart', function(e) {
-  touchStartX = e.changedTouches[0].screenX;
-});
-
-document.addEventListener('touchend', function(e) {
-  touchEndX = e.changedTouches[0].screenX;
-  handleSwipe();
-});
-
-function handleSwipe() {
-  const swipeThreshold = 50;
-  const diff = touchStartX - touchEndX;
-  
-  // Swipe right to close cart
-  if (diff > swipeThreshold) {
-    const cart = document.getElementById('cart');
-    if (cart.classList.contains('active')) {
-      toggleCart();
-    }
-  }
-}
-
-// ============ ORIENTATION CHANGE HANDLER ============
-window.addEventListener('orientationchange', function() {
-  // Force redraw to fix any layout issues
-  document.body.style.display = 'none';
-  setTimeout(() => {
-    document.body.style.display = 'block';
-  }, 10);
 });
 </script>
-
 </body>
 </html>
