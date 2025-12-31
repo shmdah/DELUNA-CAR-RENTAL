@@ -84,7 +84,6 @@ header {
   display: flex;
   align-items: center;
   gap: 15px;
-  /* Fixed order for mobile header components */
   flex-direction: row; 
   width: 100%;
 }
@@ -97,7 +96,6 @@ header {
   font-size: 24px;
   cursor: pointer;
   padding: 5px;
-  /* Explicitly positioned to top-left */
   order: -1; 
 }
 
@@ -111,8 +109,8 @@ header {
 nav {
   position: fixed;
   top: 0;
-  left: -100%; /* Slide from left */
-  width: 50%;  /* Half screen width */
+  left: -100%; 
+  width: 50%;  
   height: 100vh;
   background: #111;
   display: flex;
@@ -612,7 +610,7 @@ section.active {
   width: 100%;
   height: 100vh;
   background: #0f0f0f;
-  z-index: 3001; /* Higher than nav */
+  z-index: 3001; 
   transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
@@ -663,6 +661,7 @@ section.active {
   overflow-y: auto;
   padding: 20px;
   -webkit-overflow-scrolling: touch;
+  padding-bottom: 100px; /* Space for the fixed footer */
 }
 
 .cart-empty {
@@ -675,7 +674,7 @@ section.active {
 .cart-item {
   background: #1a1a1a;
   border-radius: 12px;
-  padding: 20px;
+  padding: 15px;
   margin-bottom: 15px;
   border: 1px solid #252525;
 }
@@ -684,26 +683,26 @@ section.active {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .cart-item-name {
   font-weight: 600;
-  font-size: 16px;
+  font-size: 15px;
 }
 
 .cart-item-price {
   color: #25d366;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .cart-item-dates {
-  font-size: 13px;
+  font-size: 12px;
   opacity: 0.7;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   background: #222;
-  padding: 10px;
+  padding: 8px;
   border-radius: 6px;
 }
 
@@ -714,10 +713,10 @@ section.active {
 }
 
 .cart-item-days {
-  font-size: 14px;
+  font-size: 13px;
   opacity: 0.8;
   background: #222;
-  padding: 6px 12px;
+  padding: 4px 10px;
   border-radius: 20px;
 }
 
@@ -725,24 +724,19 @@ section.active {
   background: #ff4444;
   border: none;
   color: white;
-  padding: 8px 16px;
+  padding: 6px 12px;
   border-radius: 8px;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s;
 }
 
-.remove-btn:active {
-  background: #ff2222;
-  transform: scale(0.95);
-}
-
 .cart-summary {
   background: #141414;
   border-radius: 12px;
-  padding: 25px;
-  margin-bottom: 15px;
+  padding: 20px;
+  margin-bottom: 20px;
   border: 1px solid #252525;
 }
 
@@ -750,24 +744,27 @@ section.active {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
-  font-size: 15px;
+  margin-bottom: 10px;
+  font-size: 14px;
 }
 
 .summary-total {
   border-top: 2px solid #25d366;
-  padding-top: 20px;
-  margin-top: 20px;
-  font-size: 20px;
+  padding-top: 15px;
+  margin-top: 15px;
+  font-size: 18px;
   font-weight: 700;
 }
 
 .cart-footer {
-  padding: 20px;
+  padding: 15px 20px;
   background: #141414;
   border-top: 1px solid #222;
   flex-shrink: 0;
-  position: relative;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   z-index: 10;
 }
 
@@ -776,6 +773,9 @@ section.active {
   padding: 16px;
   font-size: 16px;
   font-weight: 700;
+  background: #25d366;
+  color: #000;
+  border: none;
 }
 
 /* ============ CART OVERLAY ============ */
@@ -852,7 +852,6 @@ footer {
 
 /* ============ MEDIA QUERIES ============ */
 @media (max-width: 768px) {
-  /* Mobile Header Adjustments */
   header {
     padding: 12px 15px;
     justify-content: space-between;
@@ -876,7 +875,7 @@ footer {
 
   .mobile-menu-btn {
     display: block;
-    order: -1; /* Far left */
+    order: -1; 
   }
 
   .header-right-tools {
@@ -885,7 +884,7 @@ footer {
   }
   
   nav {
-    width: 50%; /* Half screen */
+    width: 50%; 
     left: -100%;
     right: auto;
     box-shadow: 10px 0 30px rgba(0,0,0,0.5);
@@ -896,20 +895,22 @@ footer {
     right: auto;
   }
   
-  /* Sections */
   section {
     padding: 80px 15px 40px;
   }
   
-  /* Grid */
   .grid {
     grid-template-columns: 1fr;
     gap: 25px;
   }
   
-  /* Cart Drawer for Mobile */
   #cart {
     width: 100%;
+  }
+
+  /* Prevent price text from exploding on mobile */
+  .cart-item-price, .calculated-price {
+    font-size: 16px !important;
   }
 }
 </style>
@@ -1135,7 +1136,7 @@ footer {
   </div>
 </div>
 
-<footer>© 2025 DELUNA LUXURY CAR — Premium Mobility Solutions</footer>
+<footer>© 2026 DELUNA LUXURY CAR — Premium Mobility Solutions</footer>
 
 <script>
 // ============ GLOBAL VARIABLES ============
@@ -1149,18 +1150,15 @@ function toggleMobileMenu() {
 
 // ============ SECTION NAVIGATION ============
 function showSection(id) {
-  // Hide all sections completely first
   document.querySelectorAll('section').forEach(section => {
     section.classList.remove('active');
     section.style.display = 'none';
   });
   
-  // Show selected section directly
   const targetSection = document.getElementById(id);
   targetSection.style.display = 'block';
   targetSection.classList.add('active');
   
-  // Scroll to top
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
