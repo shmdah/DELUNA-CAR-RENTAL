@@ -661,7 +661,7 @@ section.active {
   overflow-y: auto;
   padding: 20px;
   -webkit-overflow-scrolling: touch;
-  padding-bottom: 100px; /* Space for the fixed footer */
+  padding-bottom: 120px; /* FIXED VISIBILITY FOR BUTTON */
 }
 
 .cart-empty {
@@ -761,12 +761,16 @@ section.active {
   font-weight: 700;
 }
 
+/* FIXED CART FOOTER FOR MOBILE */
 .cart-footer {
   padding: 20px;
   background: #141414;
   border-top: 1px solid #222;
   flex-shrink: 0;
-  position: relative;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   z-index: 10;
 }
 
@@ -899,6 +903,15 @@ section.active {
   opacity: 0.6;
 }
 
+.location-info {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(37, 211, 102, 0.2);
+  color: #25d366;
+  font-weight: 600;
+  font-size: 15px;
+}
+
 .about-text-content {
   text-align: center;
   max-width: 800px;
@@ -987,7 +1000,6 @@ footer {
     width: 100%;
   }
 
-  /* CEO Mobile Layout */
   .ceo-profile {
     flex-direction: column;
     padding: 30px 20px;
@@ -1008,7 +1020,6 @@ footer {
     font-size: 16px;
   }
 
-  /* Prevent price text from exploding on mobile */
   .cart-item-price, .calculated-price {
     font-size: 16px !important;
   }
@@ -1200,6 +1211,7 @@ footer {
         <div class="ceo-info">
           <p class="ceo-name">The CEO</p>
           <p class="ceo-title">Founder of DELUNA Luxury Car</p>
+          <p class="location-info">LOCATION: Thika Road, Lumumba Drive</p>
         </div>
       </div>
     </div>
@@ -1207,9 +1219,6 @@ footer {
     <div class="about-text-content">
       <p class="about-description">
         At DELUNA Luxury Car, we redefine premium mobility. We understand that luxury isn't just about the vehicle—it's about the entire experience. From the moment you select your car to the final handover, we ensure every detail is perfect.
-      </p>
-      <p class="about-description">
-        Whether for business, special occasions, or personal indulgence, we provide seamless service that matches the quality of our vehicles. At DELUNA, we don't just rent cars—we deliver experiences.
       </p>
     </div>
   </div>
