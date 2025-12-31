@@ -84,7 +84,6 @@ header {
   display: flex;
   align-items: center;
   gap: 15px;
-  /* Fixed order for mobile header components */
   flex-direction: row; 
   width: 100%;
 }
@@ -97,7 +96,6 @@ header {
   font-size: 24px;
   cursor: pointer;
   padding: 5px;
-  /* Explicitly positioned to top-left */
   order: -1; 
 }
 
@@ -111,8 +109,8 @@ header {
 nav {
   position: fixed;
   top: 0;
-  left: -100%; /* Slide from left */
-  width: 50%;  /* Half screen width */
+  left: -100%; 
+  width: 50%;  
   height: 100vh;
   background: #111;
   display: flex;
@@ -676,7 +674,7 @@ section.active {
 .cart-item {
   background: #1a1a1a;
   border-radius: 12px;
-  padding: 15px;
+  padding: 20px;
   margin-bottom: 15px;
   border: 1px solid #252525;
 }
@@ -685,26 +683,26 @@ section.active {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .cart-item-name {
   font-weight: 600;
-  font-size: 15px;
+  font-size: 16px;
 }
 
 .cart-item-price {
   color: #25d366;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .cart-item-dates {
-  font-size: 12px;
+  font-size: 13px;
   opacity: 0.7;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   background: #222;
-  padding: 8px;
+  padding: 10px;
   border-radius: 6px;
 }
 
@@ -715,10 +713,10 @@ section.active {
 }
 
 .cart-item-days {
-  font-size: 13px;
+  font-size: 14px;
   opacity: 0.8;
   background: #222;
-  padding: 4px 10px;
+  padding: 6px 12px;
   border-radius: 20px;
 }
 
@@ -726,19 +724,24 @@ section.active {
   background: #ff4444;
   border: none;
   color: white;
-  padding: 6px 12px;
+  padding: 8px 16px;
   border-radius: 8px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s;
 }
 
+.remove-btn:active {
+  background: #ff2222;
+  transform: scale(0.95);
+}
+
 .cart-summary {
   background: #141414;
   border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 20px;
+  padding: 25px;
+  margin: 20px;
   border: 1px solid #252525;
 }
 
@@ -746,27 +749,24 @@ section.active {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
-  font-size: 14px;
+  margin-bottom: 15px;
+  font-size: 15px;
 }
 
 .summary-total {
   border-top: 2px solid #25d366;
-  padding-top: 15px;
-  margin-top: 15px;
-  font-size: 18px;
+  padding-top: 20px;
+  margin-top: 20px;
+  font-size: 20px;
   font-weight: 700;
 }
 
 .cart-footer {
-  padding: 15px 20px;
+  padding: 20px;
   background: #141414;
   border-top: 1px solid #222;
   flex-shrink: 0;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
+  position: relative;
   z-index: 10;
 }
 
@@ -775,9 +775,6 @@ section.active {
   padding: 16px;
   font-size: 16px;
   font-weight: 700;
-  background: #25d366;
-  color: #000;
-  border: none;
 }
 
 /* ============ CART OVERLAY ============ */
@@ -824,18 +821,98 @@ section.active {
   opacity: 1;
 }
 
-/* ============ ABOUT SECTION ============ */
+/* ============ ABOUT SECTION (CEO DESIGN) ============ */
 #about {
   background: linear-gradient(135deg, #0b0b0b 0%, #141414 100%);
+  padding-top: 120px;
 }
 
-.about-content {
-  max-width: 800px;
+.about-container {
+  max-width: 1000px;
   margin: 0 auto;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  align-items: center;
 }
 
-.about-text {
+.ceo-profile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 40px;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 40px;
+  border-radius: 24px;
+  border: 1px solid #222;
+}
+
+.ceo-image-wrapper {
+  flex-shrink: 0;
+  width: 250px;
+  height: 350px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 2px solid #25d366;
+  box-shadow: 0 0 20px rgba(37, 211, 102, 0.2);
+}
+
+.ceo-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ceo-message {
+  text-align: left;
+}
+
+.ceo-quote {
+  font-size: 20px;
+  font-style: italic;
+  color: #fff;
+  line-height: 1.8;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.ceo-quote::before {
+  content: '"';
+  font-size: 60px;
+  color: #25d366;
+  position: absolute;
+  top: -30px;
+  left: -20px;
+  opacity: 0.3;
+}
+
+.ceo-name {
+  font-weight: 700;
+  font-size: 18px;
+  color: #25d366;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.ceo-title {
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+.about-text-content {
+  text-align: center;
+  max-width: 800px;
+}
+
+.about-title {
+  font-size: 32px;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #fff;
+}
+
+.about-description {
   opacity: 0.8;
   line-height: 1.8;
   margin-bottom: 25px;
@@ -908,6 +985,27 @@ footer {
   
   #cart {
     width: 100%;
+  }
+
+  /* CEO Mobile Layout */
+  .ceo-profile {
+    flex-direction: column;
+    padding: 30px 20px;
+    text-align: center;
+  }
+
+  .ceo-image-wrapper {
+    width: 100%;
+    max-width: 280px;
+    height: 320px;
+  }
+
+  .ceo-message {
+    text-align: center;
+  }
+
+  .ceo-quote {
+    font-size: 16px;
   }
 
   /* Prevent price text from exploding on mobile */
@@ -1085,17 +1183,35 @@ footer {
 
 <section id="about">
   <button class="btn back-btn" onclick="showSection('home')">← Back to Home</button>
-  <div class="about-content">
-    <h2 class="section-title">About DELUNA</h2>
-    <p class="about-text">
-      At DELUNA Luxury Car, we redefine premium mobility. We understand that luxury isn't just about the vehicle—it's about the entire experience. From the moment you select your car to the final handover, we ensure every detail is perfect.
-    </p>
-    <p class="about-text">
-      Our fleet consists of meticulously maintained luxury vehicles, each selected for its performance, comfort, and style. We serve discerning clients who value excellence and appreciate the finer things in life.
-    </p>
-    <p class="about-text">
-      Whether for business, special occasions, or personal indulgence, we provide seamless service that matches the quality of our vehicles. At DELUNA, we don't just rent cars—we deliver experiences.
-    </p>
+  
+  <div class="about-container">
+    <h2 class="about-title">About DELUNA</h2>
+    
+    <div class="ceo-profile">
+      <div class="ceo-image-wrapper">
+        <img src="images/CEO.jpg" alt="Deluna CEO">
+      </div>
+      <div class="ceo-message">
+        <p class="ceo-quote">
+          We started this company with one goal: to make car rentals simple and reliable. 
+          No hidden fees, no complications—just well-maintained vehicles and honest service. 
+          We respect your time, your trust, and your journey. Wherever you’re headed, we’re here to help you get there.
+        </p>
+        <div class="ceo-info">
+          <p class="ceo-name">The CEO</p>
+          <p class="ceo-title">Founder of DELUNA Luxury Car</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-text-content">
+      <p class="about-description">
+        At DELUNA Luxury Car, we redefine premium mobility. We understand that luxury isn't just about the vehicle—it's about the entire experience. From the moment you select your car to the final handover, we ensure every detail is perfect.
+      </p>
+      <p class="about-description">
+        Whether for business, special occasions, or personal indulgence, we provide seamless service that matches the quality of our vehicles. At DELUNA, we don't just rent cars—we deliver experiences.
+      </p>
+    </div>
   </div>
 </section>
 
@@ -1134,7 +1250,7 @@ footer {
   </div>
   
   <div class="cart-footer">
-    <button class="btn" onclick="order()">Order via WhatsApp</button>
+    <button class="btn" onclick="order()" style="background:#25d366; color:#000;">Order via WhatsApp</button>
   </div>
 </div>
 
@@ -1152,18 +1268,15 @@ function toggleMobileMenu() {
 
 // ============ SECTION NAVIGATION ============
 function showSection(id) {
-  // Hide all sections completely first
   document.querySelectorAll('section').forEach(section => {
     section.classList.remove('active');
     section.style.display = 'none';
   });
   
-  // Show selected section directly
   const targetSection = document.getElementById(id);
   targetSection.style.display = 'block';
   targetSection.classList.add('active');
   
-  // Scroll to top
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
