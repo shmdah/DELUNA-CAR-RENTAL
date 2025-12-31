@@ -84,6 +84,7 @@ header {
   display: flex;
   align-items: center;
   gap: 15px;
+  /* Fixed order for mobile header components */
   flex-direction: row; 
   width: 100%;
 }
@@ -96,6 +97,7 @@ header {
   font-size: 24px;
   cursor: pointer;
   padding: 5px;
+  /* Explicitly positioned to top-left */
   order: -1; 
 }
 
@@ -109,8 +111,8 @@ header {
 nav {
   position: fixed;
   top: 0;
-  left: -100%; 
-  width: 50%;  
+  left: -100%; /* Slide from left */
+  width: 50%;  /* Half screen width */
   height: 100vh;
   background: #111;
   display: flex;
@@ -1132,11 +1134,11 @@ footer {
   </div>
   
   <div class="cart-footer">
-    <button class="btn" onclick="order()" style="background:#25d366; color:#000;">Order via WhatsApp</button>
+    <button class="btn" onclick="order()">Order via WhatsApp</button>
   </div>
 </div>
 
-<footer>© 2026 DELUNA LUXURY CAR — Premium Mobility Solutions</footer>
+<footer>@2026 DELUNA LUXURY CAR</footer>
 
 <script>
 // ============ GLOBAL VARIABLES ============
@@ -1150,15 +1152,18 @@ function toggleMobileMenu() {
 
 // ============ SECTION NAVIGATION ============
 function showSection(id) {
+  // Hide all sections completely first
   document.querySelectorAll('section').forEach(section => {
     section.classList.remove('active');
     section.style.display = 'none';
   });
   
+  // Show selected section directly
   const targetSection = document.getElementById(id);
   targetSection.style.display = 'block';
   targetSection.classList.add('active');
   
+  // Scroll to top
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
