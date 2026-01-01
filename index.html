@@ -911,6 +911,12 @@ footer {
   border-top: 1px solid #222;
 }
 
+/* ============ WHATSAPP ORDER BUTTON STYLES ============ */
+/* These styles ensure the WhatsApp order button is only in the cart */
+.whatsapp-order-btn {
+  display: none !important; /* Hide any WhatsApp button outside cart */
+}
+
 /* ============ MEDIA QUERIES ============ */
 @media (max-width: 768px) {
   header {
@@ -1030,6 +1036,13 @@ footer {
   .cart-item-price { font-size: 14px !important; }
   .summary-row { font-size: 13px; }
   .summary-total { font-size: 16px; }
+  
+  /* Ensure no WhatsApp button appears outside cart on mobile */
+  .whatsapp-order-btn,
+  .whatsapp-button,
+  .order-whatsapp {
+    display: none !important;
+  }
 }
 
 /* Extra small devices */
@@ -1046,6 +1059,32 @@ footer {
   
   .cart-content {
     padding-bottom: 110px;
+  }
+  
+  /* Footer text adjustment for mobile */
+  footer {
+    font-size: 13px;
+    padding: 25px 15px;
+  }
+}
+
+/* Mobile-specific adjustments to ensure no WhatsApp button appears outside cart */
+@media (hover: none) and (pointer: coarse) {
+  /* This targets touch devices */
+  .whatsapp-order-btn,
+  .whatsapp-button,
+  .order-whatsapp,
+  .whatsapp-floating,
+  .floating-whatsapp {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+  
+  /* Ensure only the cart has the WhatsApp button */
+  #cart .cart-footer .btn {
+    display: block !important;
   }
 }
 </style>
@@ -1290,7 +1329,7 @@ footer {
   </div>
 </div>
 
-<footer>@2026 DELUNA LUXURY CAR</footer>
+<footer>2026@delunaluxury</footer>
 
 <script>
 // ============ GLOBAL VARIABLES ============
