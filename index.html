@@ -714,7 +714,7 @@ section.active {
 
 /* FIXED CART FOOTER - ALWAYS VISIBLE AT BOTTOM */
 .cart-footer {
-  position: absolute;
+  position: absolute; /* Set to absolute so it stays inside the parent #cart */
   bottom: 0;
   left: 0;
   right: 0;
@@ -722,7 +722,6 @@ section.active {
   background: #141414;
   border-top: 1px solid #222;
   z-index: 10;
-  /* Ensure it stays on top of content */
   box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
 }
 
@@ -731,7 +730,6 @@ section.active {
   padding: 16px;
   font-size: 16px;
   font-weight: 700;
-  /* Make button more tappable on mobile */
   min-height: 56px;
   background: #25d366;
   color: #000;
@@ -907,39 +905,10 @@ footer {
   border-top: 1px solid #222;
 }
 
-/* ============ CRITICAL FIX: REMOVE ANY FLOATING WHATSAPP BUTTON ============ */
-/* This will hide any floating/fixed WhatsApp button anywhere on the page */
-.floating-whatsapp,
-.whatsapp-float,
-.whatsapp-chat,
-.whatsapp-button,
-.whatsapp-icon,
-.whatsapp-cta,
-[class*="whatsapp"],
-[class*="WhatsApp"],
-[class*="whatsapp"]:not(#cart .cart-footer .btn),
-[href*="whatsapp"]:not(#cart .cart-footer .btn),
-[onclick*="whatsapp"]:not(#cart .cart-footer .btn) {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-  position: static !important;
-}
-
-/* Specific rule for any button with text containing "WhatsApp" or "whatsapp" outside cart */
-button:not(#cart .cart-footer .btn):contains("WhatsApp"),
-button:not(#cart .cart-footer .btn):contains("whatsapp"),
-a:not(#cart .cart-footer .btn):contains("WhatsApp"),
-a:not(#cart .cart-footer .btn):contains("whatsapp") {
-  display: none !important;
-}
-
-/* Ensure only the cart has the WhatsApp button */
-#cart .cart-footer .btn {
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
+/* ============ WHATSAPP ORDER BUTTON STYLES ============ */
+/* These styles ensure the WhatsApp order button is only in the cart */
+.whatsapp-order-btn {
+  display: none !important; /* Hide any WhatsApp button outside cart */
 }
 
 /* ============ MEDIA QUERIES ============ */
@@ -1000,9 +969,9 @@ a:not(#cart .cart-footer .btn):contains("whatsapp") {
     width: 100%;
   }
 
-  /* FIXED CART FOOTER FOR MOBILE - THIS WAS THE FIX */
+  /* FIXED CART FOOTER FOR MOBILE - ENSURES IT STAYS INSIDE CART */
   .cart-footer {
-    position: absolute; /* Changed from fixed to absolute */
+    position: absolute; /* Kept absolute so it doesn't float on homepage */
     bottom: 0;
     left: 0;
     right: 0;
@@ -1010,7 +979,6 @@ a:not(#cart .cart-footer .btn):contains("whatsapp") {
     background: #141414;
     border-top: 2px solid #222;
     z-index: 10;
-    /* Safe area for notches */
     padding-bottom: max(15px, env(safe-area-inset-bottom, 15px));
   }
   
@@ -1019,7 +987,6 @@ a:not(#cart .cart-footer .btn):contains("whatsapp") {
     padding: 18px;
     font-size: 17px;
     font-weight: 700;
-    /* Larger touch target */
     min-height: 60px;
     background: #25d366;
     color: #000;
@@ -1056,22 +1023,16 @@ a:not(#cart .cart-footer .btn):contains("whatsapp") {
     font-size: 16px;
   }
 
-  /* PREVENT EXPLODING FONTS */
   .cart-item-name { font-size: 14px; }
   .cart-item-price { font-size: 14px !important; }
   .summary-row { font-size: 13px; }
   .summary-total { font-size: 16px; }
   
-  /* Ensure no WhatsApp button appears outside cart on mobile */
-  .floating-whatsapp,
-  .whatsapp-float,
-  .whatsapp-chat,
+  /* SAFETY: Ensure no WhatsApp button appears outside cart on mobile */
+  .whatsapp-order-btn,
   .whatsapp-button,
-  .whatsapp-icon {
+  .order-whatsapp {
     display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
   }
 }
 
@@ -1091,24 +1052,19 @@ a:not(#cart .cart-footer .btn):contains("whatsapp") {
     padding-bottom: 110px;
   }
   
-  /* Footer text adjustment for mobile */
   footer {
     font-size: 13px;
     padding: 25px 15px;
   }
 }
 
-/* Mobile-specific adjustments to ensure no WhatsApp button appears outside cart */
+/* SAFETY: Mobile-specific adjustments to ensure no WhatsApp button appears outside cart */
 @media (hover: none) and (pointer: coarse) {
-  /* This targets touch devices */
-  .floating-whatsapp,
-  .whatsapp-float,
-  .whatsapp-chat,
+  .whatsapp-order-btn,
   .whatsapp-button,
-  .whatsapp-icon,
-  .whatsapp-cta,
-  [class*="whatsapp"],
-  [class*="WhatsApp"] {
+  .order-whatsapp,
+  .whatsapp-floating,
+  .floating-whatsapp {
     display: none !important;
     visibility: hidden !important;
     opacity: 0 !important;
@@ -1161,7 +1117,6 @@ a:not(#cart .cart-footer .btn):contains("whatsapp") {
   <div class="hero-content">
     <h1>Experience Unmatched Luxury</h1>
     <p class="hero-tagline">Where Elegance Meets Performance</p>
-    <!-- ONLY ONE BUTTON: Explore Our Fleet -->
     <button class="btn" onclick="showSection('fleet')">Explore Our Fleet</button>
   </div>
 </section>
@@ -1586,19 +1541,6 @@ document.addEventListener('DOMContentLoaded', () => {
       input.value = today;
     }
   });
-  
-  // Additional safety: Remove any WhatsApp button that might have been added dynamically
-  setTimeout(() => {
-    document.querySelectorAll('button, a').forEach(element => {
-      const text = element.textContent || element.innerText;
-      if (text.includes('WhatsApp') || text.includes('whatsapp')) {
-        if (!element.closest('#cart')) {
-          element.style.display = 'none';
-          element.remove();
-        }
-      }
-    });
-  }, 1000);
 });
 </script>
 </body>
