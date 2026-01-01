@@ -630,7 +630,7 @@ section.active {
 .cart-item {
   background: #1a1a1a;
   border-radius: 12px;
-  padding: 15px;
+  padding: 12px; /* Reduced padding */
   margin-bottom: 15px;
   border: 1px solid #252525;
 }
@@ -639,26 +639,27 @@ section.active {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
+/* REDUCED FONT SIZES FOR DETAILS */
 .cart-item-name {
   font-weight: 600;
-  font-size: 14px;
+  font-size: 13px; /* Smaller */
 }
 
 .cart-item-price {
   color: #25d366;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 13px; /* Smaller */
 }
 
 .cart-item-dates {
-  font-size: 12px;
+  font-size: 11px; /* Smaller */
   opacity: 0.7;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   background: #222;
-  padding: 10px;
+  padding: 6px 10px;
   border-radius: 6px;
 }
 
@@ -669,7 +670,7 @@ section.active {
 }
 
 .cart-item-days {
-  font-size: 13px;
+  font-size: 11px; /* Smaller */
   opacity: 0.8;
   background: #222;
   padding: 4px 10px;
@@ -680,9 +681,9 @@ section.active {
   background: #ff4444;
   border: none;
   color: white;
-  padding: 6px 12px;
-  border-radius: 8px;
-  font-size: 12px;
+  padding: 4px 10px; /* Smaller button */
+  border-radius: 6px;
+  font-size: 11px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s;
@@ -704,36 +705,52 @@ section.active {
   font-size: 13px;
 }
 
-.summary-total {
-  border-top: 2px solid #25d366;
-  padding-top: 15px;
-  margin-top: 15px;
-  font-size: 16px;
-  font-weight: 700;
-}
-
-/* FIXED CART FOOTER - ALWAYS VISIBLE AT BOTTOM */
+/* FIXED CART FOOTER - REDESIGNED SIDE-BY-SIDE */
 .cart-footer {
-  position: absolute; /* Set to absolute so it stays inside the parent #cart */
+  position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 20px;
+  padding: 12px 20px;
   background: #141414;
   border-top: 1px solid #222;
   z-index: 10;
   box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
+  display: flex; /* Flex layout */
+  justify-content: space-between; /* Space between amount and button */
+  align-items: center;
+  gap: 15px;
+}
+
+.cart-footer-total-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-footer-label {
+  font-size: 11px;
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cart-footer-amount {
+  font-size: 18px;
+  font-weight: 700;
+  color: #25d366;
 }
 
 .cart-footer .btn {
-  width: 100%;
-  padding: 16px;
-  font-size: 16px;
-  font-weight: 700;
-  min-height: 56px;
+  width: auto; /* Allow button to shrink */
+  min-height: auto;
+  padding: 10px 20px; /* Compact padding */
+  font-size: 14px; /* Smaller text */
   background: #25d366;
   color: #000;
   border: 2px solid #25d366;
+  border-radius: 8px;
+  margin: 0;
+  flex-shrink: 0; /* Prevent button from shrinking too much */
 }
 
 .cart-footer .btn:hover, .cart-footer .btn:active {
@@ -969,33 +986,29 @@ footer {
     width: 100%;
   }
 
-  /* FIXED CART FOOTER FOR MOBILE - ENSURES IT STAYS INSIDE CART */
+  /* MOBILE CART FOOTER ADJUSTMENTS */
   .cart-footer {
     position: absolute; /* Kept absolute so it doesn't float on homepage */
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 15px 20px;
+    padding: 10px 15px; /* Compact padding for mobile */
     background: #141414;
     border-top: 2px solid #222;
     z-index: 10;
-    padding-bottom: max(15px, env(safe-area-inset-bottom, 15px));
+    padding-bottom: max(10px, env(safe-area-inset-bottom, 10px));
   }
   
+  /* Ensure button doesn't get too big on mobile */
   .cart-footer .btn {
-    width: 100%;
-    padding: 18px;
-    font-size: 17px;
-    font-weight: 700;
-    min-height: 60px;
-    background: #25d366;
-    color: #000;
-    border: 2px solid #25d366;
+    padding: 10px 16px;
+    font-size: 14px;
+    width: auto;
+    min-height: auto;
   }
-  
-  .cart-footer .btn:hover, .cart-footer .btn:active {
-    background: #1ea952;
-    border-color: #1ea952;
+
+  .cart-footer-amount {
+    font-size: 16px; /* Slightly smaller on mobile */
   }
   
   /* Adjust cart content to not hide behind fixed footer */
@@ -1023,10 +1036,9 @@ footer {
     font-size: 16px;
   }
 
-  .cart-item-name { font-size: 14px; }
-  .cart-item-price { font-size: 14px !important; }
-  .summary-row { font-size: 13px; }
-  .summary-total { font-size: 16px; }
+  .cart-item-name { font-size: 13px; }
+  .cart-item-price { font-size: 13px !important; }
+  .summary-row { font-size: 12px; }
   
   /* SAFETY: Ensure no WhatsApp button appears outside cart on mobile */
   .whatsapp-order-btn,
@@ -1039,13 +1051,13 @@ footer {
 /* Extra small devices */
 @media (max-width: 480px) {
   .cart-footer {
-    padding: 12px 15px;
+    padding: 10px 15px;
+    padding-bottom: max(10px, env(safe-area-inset-bottom, 10px));
   }
   
   .cart-footer .btn {
-    padding: 16px;
-    font-size: 16px;
-    min-height: 54px;
+    padding: 10px 14px;
+    font-size: 13px;
   }
   
   .cart-content {
@@ -1306,14 +1318,14 @@ footer {
         <span>Insurance (5%):</span>
         <span id="cartInsurance">KES 0</span>
       </div>
-      <div class="summary-row summary-total">
-        <span>Total Amount:</span>
-        <span id="cartTotal">KES 0</span>
       </div>
-    </div>
   </div>
   
   <div class="cart-footer">
+    <div class="cart-footer-total-group">
+      <span class="cart-footer-label">Total Amount</span>
+      <span id="cartFooterTotal" class="cart-footer-amount">KES 0</span>
+    </div>
     <button class="btn" onclick="order()">Order via WhatsApp</button>
   </div>
 </div>
@@ -1479,7 +1491,9 @@ function updateCartCalculations() {
   document.getElementById('cartSubtotal').textContent = `KES ${subtotal.toLocaleString()}`;
   document.getElementById('cartDays').textContent = `${totalDays} day${totalDays !== 1 ? 's' : ''}`;
   document.getElementById('cartInsurance').textContent = `KES ${insurance.toLocaleString()}`;
-  document.getElementById('cartTotal').textContent = `KES ${total.toLocaleString()}`;
+  
+  // UPDATE FOOTER TOTAL
+  document.getElementById('cartFooterTotal').textContent = `KES ${total.toLocaleString()}`;
 }
 
 // ============ NOTIFICATION ============
