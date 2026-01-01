@@ -79,7 +79,7 @@ header {
   color: #25d366;
 }
 
-/* ============ MOBILE NAVIGATION ============ */
+/* ============ MOBILE NAVIGATION (HALF SCREEN LEFT) ============ */
 .nav-container {
   display: flex;
   align-items: center;
@@ -334,7 +334,7 @@ section.active {
   height: 28px;
 }
 
-/* ============ FLEET SECTION ============ */
+/* ============ FLEET SECTION (SEPARATE DESIGN) ============ */
 #fleet {
   background: linear-gradient(135deg, #0b0b0b 0%, #141414 100%);
   padding-top: 100px;
@@ -591,7 +591,7 @@ section.active {
   gap: 10px;
 }
 
-/* ============ CART DRAWER (FIXED) ============ */
+/* ============ CART DRAWER (FIXED STICKY FOOTER) ============ */
 #cart {
   position: fixed;
   top: 0;
@@ -672,7 +672,7 @@ section.active {
 
 .cart-item-name {
   font-weight: 600;
-  font-size: 14px; /* OPTIMIZED SIZE */
+  font-size: 14px; 
 }
 
 .cart-item-price {
@@ -740,7 +740,7 @@ section.active {
   font-weight: 700;
 }
 
-/* FIXED CART FOOTER (NO GLITCH) */
+/* FIXED CART FOOTER (PINNED TO BOTTOM) */
 .cart-footer {
   padding: 20px;
   background: #141414;
@@ -988,15 +988,10 @@ footer {
     height: 320px;
   }
 
-  .ceo-message {
-    text-align: center;
-  }
+  .ceo-message { text-align: center; }
+  .ceo-quote { font-size: 16px; }
 
-  .ceo-quote {
-    font-size: 16px;
-  }
-
-  /* PREVENT EXPLODING FONTS */
+  /* SCALING FIX */
   .cart-item-name { font-size: 14px; }
   .cart-item-price { font-size: 14px !important; }
   .summary-row { font-size: 13px; }
@@ -1056,7 +1051,6 @@ footer {
   </div>
   
   <div class="grid">
-    
     <div class="card">
       <div class="availability available">Available</div>
       <div class="slider">
@@ -1070,11 +1064,7 @@ footer {
       <div class="card-content">
         <h3>Toyota Prado TX</h3>
         <div class="price">KES 20,000 <span>/ day</span></div>
-        <div class="description">
-          Premium SUV with advanced off-road capabilities, leather interior, 
-          and cutting-edge technology. Perfect for both city drives and adventures.
-        </div>
-        
+        <div class="description">Premium SUV with leather interior and cutting-edge technology.</div>
         <div class="rental-dates">
           <div class="date-input-group">
             <div class="date-input">
@@ -1089,7 +1079,6 @@ footer {
           <div class="days-display" id="prado-days">Select dates to calculate</div>
           <div class="calculated-price" id="prado-total"></div>
         </div>
-        
         <button class="btn" onclick="addToCart('Toyota Prado TX', 20000, 'prado')">Add to Cart</button>
       </div>
     </div>
@@ -1098,8 +1087,6 @@ footer {
       <div class="availability unavailable">Unavailable</div>
       <div class="slider">
         <img src="images/GWAGON 1 (1).jpeg" class="active" alt="Mercedes G-Wagon">
-        <img src="images/GWAGON 1 (2).jpeg" alt="Mercedes G-Wagon Side View">
-        <img src="images/GWAGON 1 (3).jpeg" alt="Mercedes G-Wagon Interior">
         <button class="slider-btn prev" onclick="slide('gwagon', -1)">‹</button>
         <button class="slider-btn next" onclick="slide('gwagon', 1)">›</button>
         <div class="slider-indicators" id="gwagon-indicators"></div>
@@ -1107,27 +1094,8 @@ footer {
       <div class="card-content">
         <h3>Mercedes G-Wagon</h3>
         <div class="price">KES 40,000 <span>/ day</span></div>
-        <div class="description">
-          Iconic luxury SUV with unparalleled presence. Features handcrafted interiors, 
-          premium sound system, and superior performance.
-        </div>
-        
-        <div class="rental-dates">
-          <div class="date-input-group">
-            <div class="date-input">
-              <label>Pick-up Date</label>
-              <input type="date" id="gwagon-pickup" disabled>
-            </div>
-            <div class="date-input">
-              <label>Return Date</label>
-              <input type="date" id="gwagon-return" disabled>
-            </div>
-          </div>
-          <div class="days-display" id="gwagon-days">Currently unavailable</div>
-          <div class="calculated-price" id="gwagon-total"></div>
-        </div>
-        
-        <button class="btn" disabled onclick="addToCart('Mercedes G-Wagon', 40000, 'gwagon')">Unavailable</button>
+        <div class="description">Iconic luxury SUV with unparalleled presence.</div>
+        <button class="btn" disabled>Unavailable</button>
       </div>
     </div>
 
@@ -1135,7 +1103,6 @@ footer {
       <div class="availability available">Available</div>
       <div class="slider">
         <img src="images/Audi 1 (1).jpg" class="active" alt="Audi A4">
-        <img src="images/Audi 1 (2).jpg" alt="Audi A4 Side View">
         <button class="slider-btn prev" onclick="slide('audi', -1)">‹</button>
         <button class="slider-btn next" onclick="slide('audi', 1)">›</button>
         <div class="slider-indicators" id="audi-indicators"></div>
@@ -1143,11 +1110,7 @@ footer {
       <div class="card-content">
         <h3>Audi A4</h3>
         <div class="price">KES 12,000 <span>/ day</span></div>
-        <div class="description">
-          Elegant sedan with sporty performance, luxurious interiors, 
-          and advanced driver assistance systems. Ideal for business and leisure.
-        </div>
-        
+        <div class="description">Elegant sedan with sporty performance.</div>
         <div class="rental-dates">
           <div class="date-input-group">
             <div class="date-input">
@@ -1162,29 +1125,23 @@ footer {
           <div class="days-display" id="audi-days">Select dates to calculate</div>
           <div class="calculated-price" id="audi-total"></div>
         </div>
-        
         <button class="btn" onclick="addToCart('Audi A4', 12000, 'audi')">Add to Cart</button>
       </div>
     </div>
-    
   </div>
 </section>
 
 <section id="about">
   <button class="btn back-btn" onclick="showSection('home')">← Back to Home</button>
-  
   <div class="about-container">
     <h2 class="about-title">About DELUNA</h2>
-    
     <div class="ceo-profile">
       <div class="ceo-image-wrapper">
         <img src="images/CEO.jpg" alt="Deluna CEO">
       </div>
       <div class="ceo-message">
         <p class="ceo-quote">
-          We started this company with one goal: to make car rentals simple and reliable. 
-          No hidden fees, no complications—just well-maintained vehicles and honest service. 
-          We respect your time, your trust, and your journey. Wherever you’re headed, we’re here to help you get there.
+          We started this company with one goal: to make car rentals simple and reliable. Wherever you’re headed, we’re here to help you get there.
         </p>
         <div class="ceo-info">
           <p class="ceo-name">The CEO</p>
@@ -1193,14 +1150,8 @@ footer {
         </div>
       </div>
     </div>
-
     <div class="about-text-content">
-      <p class="about-description">
-        Our fleet consists of meticulously maintained luxury vehicles, each selected for its performance, comfort, and style. We serve discerning clients who value excellence and appreciate the finer things in life.
-      </p>
-      <p class="about-description">
-        Whether for business, special occasions, or personal indulgence, we provide seamless service that matches the quality of our vehicles. At DELUNA, we don't just rent cars—we deliver experiences.
-      </p>
+      <p class="about-description">Our fleet consists of meticulously maintained luxury vehicles, each selected for its performance, comfort, and style.</p>
     </div>
   </div>
 </section>
@@ -1210,35 +1161,14 @@ footer {
     <h3>Your Cart 🛒</h3>
     <button class="close-cart" onclick="toggleCart()">×</button>
   </div>
-  
   <div class="cart-content">
-    <div class="cart-item" id="cartDatesSection" style="background: #1a1a1a; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-      <div style="font-weight: 600; margin-bottom: 5px;">Rental Period</div>
-      <div id="cartDates" style="font-size: 14px; opacity: 0.8;">Select dates to see total</div>
-    </div>
-    
     <div id="items"></div>
-    
     <div class="cart-summary">
-      <div class="summary-row">
-        <span>Subtotal:</span>
-        <span id="cartSubtotal">KES 0</span>
-      </div>
-      <div class="summary-row">
-        <span>Rental Days:</span>
-        <span id="cartDays">0 days</span>
-      </div>
-      <div class="summary-row">
-        <span>Insurance (5%):</span>
-        <span id="cartInsurance">KES 0</span>
-      </div>
-      <div class="summary-row summary-total">
-        <span>Total Amount:</span>
-        <span id="cartTotal">KES 0</span>
-      </div>
+      <div class="summary-row"><span>Subtotal:</span><span id="cartSubtotal">KES 0</span></div>
+      <div class="summary-row"><span>Insurance (5%):</span><span id="cartInsurance">KES 0</span></div>
+      <div class="summary-row summary-total"><span>Total Amount:</span><span id="cartTotal">KES 0</span></div>
     </div>
   </div>
-  
   <div class="cart-footer">
     <button class="btn" onclick="order()" style="background:#25d366; color:#000;">Order via WhatsApp</button>
   </div>
@@ -1247,160 +1177,93 @@ footer {
 <footer>@2026 DELUNA LUXURY CAR</footer>
 
 <script>
-// ============ GLOBAL VARIABLES ============
 let cart = [];
 
-// ============ MOBILE MENU ============
 function toggleMobileMenu() {
     const nav = document.getElementById('mobileNav');
     nav.classList.toggle('active');
 }
 
-// ============ SECTION NAVIGATION ============
 function showSection(id) {
   document.querySelectorAll('section').forEach(section => {
     section.classList.remove('active');
     section.style.display = 'none';
   });
-  
   const targetSection = document.getElementById(id);
   targetSection.style.display = 'block';
   targetSection.classList.add('active');
-  
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ============ CART FUNCTIONS ============
 function toggleCart() {
   const cartElement = document.getElementById('cart');
   const overlay = document.getElementById('cartOverlay');
-  const body = document.body;
-  
   cartElement.classList.toggle('active');
   overlay.classList.toggle('active');
-  
-  if (cartElement.classList.contains('active')) {
-    body.style.overflow = 'hidden';
-    updateCartCalculations();
-  } else {
-    body.style.overflow = 'auto';
-  }
+  document.body.style.overflow = cartElement.classList.contains('active') ? 'hidden' : 'auto';
+  if (cartElement.classList.contains('active')) updateCartCalculations();
 }
 
-// ============ PRICE CALCULATION ============
 function calculatePrice(carId, dailyPrice) {
   const pickupInput = document.getElementById(`${carId}-pickup`);
   const returnInput = document.getElementById(`${carId}-return`);
-  
   if (!pickupInput || !returnInput) return null;
-  
-  const pickup = pickupInput.value;
-  const returnDate = returnInput.value;
-  
-  if (!pickup || !returnDate) return null;
-  
-  const pickupDate = new Date(pickup);
-  const returnDateObj = new Date(returnDate);
-  
+  const pickupDate = new Date(pickupInput.value);
+  const returnDateObj = new Date(returnInput.value);
   if (returnDateObj <= pickupDate) {
-    document.getElementById(`${carId}-days`).textContent = 'Return must be after pickup';
-    document.getElementById(`${carId}-total`).textContent = '';
+    document.getElementById(`${carId}-days`).textContent = 'Invalid Dates';
     return null;
   }
-  
-  const timeDiff = returnDateObj.getTime() - pickupDate.getTime();
-  const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
-  const totalPrice = daysDiff * dailyPrice;
-  
-  document.getElementById(`${carId}-days`).textContent = `${daysDiff} day${daysDiff !== 1 ? 's' : ''}`;
-  document.getElementById(`${carId}-total`).textContent = `KES ${totalPrice.toLocaleString()}`;
-  
-  return { days: daysDiff, total: totalPrice, pickup, returnDate };
+  const daysDiff = Math.ceil((returnDateObj - pickupDate) / (1000 * 3600 * 24));
+  const total = daysDiff * dailyPrice;
+  document.getElementById(`${carId}-days`).textContent = `${daysDiff} day(s)`;
+  document.getElementById(`${carId}-total`).textContent = `KES ${total.toLocaleString()}`;
+  return { days: daysDiff, total: total, pickup: pickupInput.value, returnDate: returnInput.value };
 }
 
-// ============ ADD TO CART ============
 function addToCart(carName, dailyPrice, carId) {
   const priceData = calculatePrice(carId, dailyPrice);
-  
-  if (!priceData) {
-    showNotification('Please select valid rental dates first');
-    return;
-  }
-  
-  cart.push({
-    name: carName,
-    dailyPrice: dailyPrice,
-    pickup: priceData.pickup,
-    returnDate: priceData.returnDate,
-    days: priceData.days,
-    total: priceData.total,
-    id: Date.now() + Math.random()
-  });
-  
-  showNotification(`✓ Added ${carName} for ${priceData.days} days`);
-  document.querySelector('.cart-icon').classList.add('glow');
-  setTimeout(() => document.querySelector('.cart-icon').classList.remove('glow'), 1500);
-  
+  if (!priceData) return showNotification('Select valid dates first');
+  cart.push({ name: carName, ...priceData });
+  showNotification(`✓ Added ${carName}`);
   renderCart();
   updateCartCalculations();
 }
 
-// ============ REMOVE FROM CART ============
 function removeItem(index) {
   cart.splice(index, 1);
   renderCart();
   updateCartCalculations();
 }
 
-// ============ RENDER CART ============
 function renderCart() {
   document.getElementById('count').textContent = cart.length;
   const itemsDiv = document.getElementById('items');
-  
   if (cart.length === 0) {
     itemsDiv.innerHTML = '<div class="cart-empty">Your cart is empty</div>';
     return;
   }
-  
   let html = '';
   cart.forEach((item, index) => {
     html += `
       <div class="cart-item">
-        <div class="cart-item-header">
-          <div class="cart-item-name">${item.name}</div>
-          <div class="cart-item-price">KES ${item.total.toLocaleString()}</div>
-        </div>
+        <div class="cart-item-header"><div class="cart-item-name">${item.name}</div><div class="cart-item-price">KES ${item.total.toLocaleString()}</div></div>
         <div class="cart-item-dates">${item.pickup} → ${item.returnDate}</div>
-        <div class="cart-item-actions">
-          <div class="cart-item-days">${item.days} day${item.days !== 1 ? 's' : ''}</div>
-          <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
-        </div>
-      </div>
-    `;
+        <div class="cart-item-actions"><div class="cart-item-days">${item.days} day(s)</div><button class="remove-btn" onclick="removeItem(${index})">Remove</button></div>
+      </div>`;
   });
   itemsDiv.innerHTML = html;
 }
 
-// ============ UPDATE CALCULATIONS ============
 function updateCartCalculations() {
   let subtotal = 0;
-  let totalDays = 0;
-  
-  cart.forEach(item => {
-    subtotal += item.total;
-    if (item.days > totalDays) totalDays = item.days;
-  });
-  
+  cart.forEach(item => subtotal += item.total);
   const insurance = Math.round(subtotal * 0.05);
-  const total = subtotal + insurance;
-  
   document.getElementById('cartSubtotal').textContent = `KES ${subtotal.toLocaleString()}`;
-  document.getElementById('cartDays').textContent = `${totalDays} day${totalDays !== 1 ? 's' : ''}`;
   document.getElementById('cartInsurance').textContent = `KES ${insurance.toLocaleString()}`;
-  document.getElementById('cartTotal').textContent = `KES ${total.toLocaleString()}`;
+  document.getElementById('cartTotal').textContent = `KES ${(subtotal + insurance).toLocaleString()}`;
 }
 
-// ============ NOTIFICATION ============
 function showNotification(message) {
   const n = document.getElementById('notification');
   n.textContent = message;
@@ -1408,23 +1271,20 @@ function showNotification(message) {
   setTimeout(() => n.classList.remove('show'), 3000);
 }
 
-// ============ WHATSAPP ORDER ============
 function order() {
   if (!cart.length) return;
-  const phoneNumber = '254712345678';
   let message = `Hello DELUNA Luxury Car,%0A%0AI want to rent:%0A%0A`;
   cart.forEach((item, index) => {
-    message += `${index + 1}. ${item.name}%0A   Dates: ${item.pickup} to ${item.returnDate}%0A   Price: KES ${item.total.toLocaleString()}%0A%0A`;
+    message += `${index + 1}. ${item.name}%0A Dates: ${item.pickup} to ${item.returnDate}%0A Price: KES ${item.total.toLocaleString()}%0A%0A`;
   });
-  window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+  window.open(`https://wa.me/254712345678?text=${message}`, '_blank');
 }
 
-// ============ SLIDER ============
 function slide(carId, direction) {
   const card = document.querySelector(`.card:has(#${carId}-pickup)`);
+  if(!card) return;
   const imgs = card.querySelectorAll('.slider img');
   let activeIndex = Array.from(imgs).findIndex(img => img.classList.contains('active'));
-  
   imgs[activeIndex].classList.remove('active');
   let newIndex = (activeIndex + direction + imgs.length) % imgs.length;
   imgs[newIndex].classList.add('active');
@@ -1442,11 +1302,10 @@ function updateIndicators(carId, total, activeIndex) {
   }
 }
 
-// ============ INITIALIZE ============
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => document.getElementById('loader').style.display = 'none', 500);
   ['prado', 'gwagon', 'audi'].forEach(id => {
-    const card = document.querySelector(`.card:has(#${id}-pickup)`);
+    const card = document.querySelector(`.card:has(#${id}-pickup)`) || document.querySelector(`.card:has(h3:contains('${id}'))`);
     if (card) updateIndicators(id, card.querySelectorAll('.slider img').length, 0);
   });
 });
