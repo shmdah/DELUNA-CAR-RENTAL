@@ -559,25 +559,28 @@ section.active {
   gap: 10px;
 }
 
-/* ============ CART DRAWER (FIXED FOR MOBILE) ============ */
+/* ============ CART DRAWER (REBUILT FOR STABILITY) ============ */
 #cart {
   position: fixed;
   top: 0;
   right: -100%;
   width: 100%;
+  /* Use dvh for mobile browsers to properly account for address bars */
   height: 100vh;
+  height: 100dvh;
   background: #0f0f0f;
   z-index: 3001;
   transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  /* FLEX LAYOUT: This is the key to fixing the scroll issue */
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 }
 
 #cart.active {
   right: 0;
 }
 
+/* 1. Header is static at top */
 .cart-header {
   padding: 20px;
   background: #141414;
@@ -585,7 +588,7 @@ section.active {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-shrink: 0;
+  flex-shrink: 0; /* Prevents shrinking */
   min-height: 70px;
 }
 
@@ -610,14 +613,12 @@ section.active {
   transition: background 0.3s;
 }
 
-/* FIXED CART CONTENT LAYOUT */
+/* 2. Content is flexible and scrolls internally */
 .cart-content {
-  flex: 1;
-  overflow-y: auto;
+  flex: 1; /* Grow to fill available space */
+  overflow-y: auto; /* Scroll ONLY inside this area */
   padding: 20px;
   -webkit-overflow-scrolling: touch;
-  /* Prevent content from going behind fixed footer */
-  padding-bottom: 100px; /* Space for the fixed footer */
 }
 
 .cart-empty {
@@ -630,7 +631,7 @@ section.active {
 .cart-item {
   background: #1a1a1a;
   border-radius: 12px;
-  padding: 12px; /* Reduced padding */
+  padding: 12px;
   margin-bottom: 15px;
   border: 1px solid #252525;
 }
@@ -642,20 +643,20 @@ section.active {
   margin-bottom: 8px;
 }
 
-/* REDUCED FONT SIZES FOR DETAILS */
+/* REDUCED FONT SIZES FOR CART ITEMS */
 .cart-item-name {
   font-weight: 600;
-  font-size: 13px; /* Smaller */
+  font-size: 13px;
 }
 
 .cart-item-price {
   color: #25d366;
   font-weight: 700;
-  font-size: 13px; /* Smaller */
+  font-size: 13px;
 }
 
 .cart-item-dates {
-  font-size: 11px; /* Smaller */
+  font-size: 11px;
   opacity: 0.7;
   margin-bottom: 8px;
   background: #222;
@@ -670,7 +671,7 @@ section.active {
 }
 
 .cart-item-days {
-  font-size: 11px; /* Smaller */
+  font-size: 11px;
   opacity: 0.8;
   background: #222;
   padding: 4px 10px;
@@ -681,7 +682,7 @@ section.active {
   background: #ff4444;
   border: none;
   color: white;
-  padding: 4px 10px; /* Smaller button */
+  padding: 4px 10px;
   border-radius: 6px;
   font-size: 11px;
   font-weight: 600;
@@ -705,21 +706,20 @@ section.active {
   font-size: 13px;
 }
 
-/* FIXED CART FOOTER - REDESIGNED SIDE-BY-SIDE */
+/* 3. Footer is static at bottom (No Position Absolute) */
 .cart-footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 12px 20px;
+  flex-shrink: 0; /* Prevents shrinking */
+  padding: 15px 20px;
   background: #141414;
   border-top: 1px solid #222;
   z-index: 10;
   box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
-  display: flex; /* Flex layout */
-  justify-content: space-between; /* Space between amount and button */
+  display: flex; 
+  justify-content: space-between; 
   align-items: center;
   gap: 15px;
+  /* Safe area for iPhone home bar */
+  padding-bottom: max(15px, env(safe-area-inset-bottom));
 }
 
 .cart-footer-total-group {
@@ -741,16 +741,16 @@ section.active {
 }
 
 .cart-footer .btn {
-  width: auto; /* Allow button to shrink */
+  width: auto;
   min-height: auto;
-  padding: 10px 20px; /* Compact padding */
-  font-size: 14px; /* Smaller text */
+  padding: 10px 20px;
+  font-size: 14px;
   background: #25d366;
   color: #000;
   border: 2px solid #25d366;
   border-radius: 8px;
   margin: 0;
-  flex-shrink: 0; /* Prevent button from shrinking too much */
+  flex-shrink: 0;
 }
 
 .cart-footer .btn:hover, .cart-footer .btn:active {
@@ -986,34 +986,20 @@ footer {
     width: 100%;
   }
 
-  /* MOBILE CART FOOTER ADJUSTMENTS */
+  /* MOBILE ADJUSTMENTS */
   .cart-footer {
-    position: absolute; /* Kept absolute so it doesn't float on homepage */
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 10px 15px; /* Compact padding for mobile */
-    background: #141414;
-    border-top: 2px solid #222;
-    z-index: 10;
+    padding: 10px 15px;
+    /* Extra safe area for bottom swipe bar */
     padding-bottom: max(10px, env(safe-area-inset-bottom, 10px));
   }
   
-  /* Ensure button doesn't get too big on mobile */
   .cart-footer .btn {
     padding: 10px 16px;
     font-size: 14px;
-    width: auto;
-    min-height: auto;
   }
 
   .cart-footer-amount {
-    font-size: 16px; /* Slightly smaller on mobile */
-  }
-  
-  /* Adjust cart content to not hide behind fixed footer */
-  .cart-content {
-    padding-bottom: 120px; /* Extra space for fixed footer */
+    font-size: 16px; 
   }
 
   .ceo-profile {
@@ -1060,10 +1046,7 @@ footer {
     font-size: 13px;
   }
   
-  .cart-content {
-    padding-bottom: 110px;
-  }
-  
+  /* Footer text adjustment for mobile */
   footer {
     font-size: 13px;
     padding: 25px 15px;
