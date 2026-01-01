@@ -79,7 +79,7 @@ header {
   color: #25d366;
 }
 
-/* ============ MOBILE NAVIGATION (HALF SCREEN LEFT) ============ */
+/* ============ MOBILE NAVIGATION ============ */
 .nav-container {
   display: flex;
   align-items: center;
@@ -334,13 +334,12 @@ section.active {
   height: 28px;
 }
 
-/* ============ FLEET SECTION (SEPARATE DESIGN) ============ */
+/* ============ FLEET SECTION ============ */
 #fleet {
   background: linear-gradient(135deg, #0b0b0b 0%, #141414 100%);
   padding-top: 100px;
 }
 
-/* ============ FLEET HEADER ============ */
 .fleet-header {
   text-align: center;
   margin-bottom: 50px;
@@ -387,7 +386,6 @@ section.active {
   border-color: #25d366;
 }
 
-/* ============ AVAILABILITY BADGE ============ */
 .availability {
   position: absolute;
   top: 20px;
@@ -463,13 +461,8 @@ section.active {
   transform: translateY(-50%) scale(0.95);
 }
 
-.prev {
-  left: 15px;
-}
-
-.next {
-  right: 15px;
-}
+.prev { left: 15px; }
+.next { right: 15px; }
 
 .slider-indicators {
   display: flex;
@@ -550,10 +543,6 @@ section.active {
   margin-bottom: 15px;
 }
 
-.date-input {
-  flex: 1;
-}
-
 .date-input label {
   display: block;
   font-size: 13px;
@@ -602,7 +591,7 @@ section.active {
   gap: 10px;
 }
 
-/* ============ CART DRAWER (FIXED GLITCH) ============ */
+/* ============ CART DRAWER (FIXED) ============ */
 #cart {
   position: fixed;
   top: 0;
@@ -652,10 +641,6 @@ section.active {
   transition: background 0.3s;
 }
 
-.close-cart:active {
-  background: rgba(255, 68, 68, 0.2);
-}
-
 .cart-content {
   flex: 1;
   overflow-y: auto;
@@ -682,7 +667,7 @@ section.active {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .cart-item-name {
@@ -697,9 +682,9 @@ section.active {
 }
 
 .cart-item-dates {
-  font-size: 13px;
+  font-size: 12px;
   opacity: 0.7;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   background: #222;
   padding: 10px;
   border-radius: 6px;
@@ -712,10 +697,10 @@ section.active {
 }
 
 .cart-item-days {
-  font-size: 14px;
+  font-size: 13px;
   opacity: 0.8;
   background: #222;
-  padding: 6px 12px;
+  padding: 4px 10px;
   border-radius: 20px;
 }
 
@@ -723,17 +708,12 @@ section.active {
   background: #ff4444;
   border: none;
   color: white;
-  padding: 8px 16px;
+  padding: 6px 12px;
   border-radius: 8px;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s;
-}
-
-.remove-btn:active {
-  background: #ff2222;
-  transform: scale(0.95);
 }
 
 .cart-summary {
@@ -821,7 +801,7 @@ section.active {
   opacity: 1;
 }
 
-/* ============ ABOUT SECTION ============ */
+/* ============ ABOUT SECTION (CEO DESIGN) ============ */
 #about {
   background: linear-gradient(135deg, #0b0b0b 0%, #141414 100%);
   padding-top: 120px;
@@ -1015,6 +995,12 @@ footer {
   .ceo-quote {
     font-size: 16px;
   }
+
+  /* PREVENT EXPLODING FONTS */
+  .cart-item-name { font-size: 14px; }
+  .cart-item-price { font-size: 14px !important; }
+  .summary-row { font-size: 13px; }
+  .summary-total { font-size: 16px; }
 }
 </style>
 </head>
