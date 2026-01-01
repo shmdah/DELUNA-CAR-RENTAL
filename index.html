@@ -714,7 +714,7 @@ section.active {
 
 /* FIXED CART FOOTER - ALWAYS VISIBLE AT BOTTOM */
 .cart-footer {
-  position: absolute;
+  position: absolute; /* Set to absolute so it stays inside the parent #cart */
   bottom: 0;
   left: 0;
   right: 0;
@@ -722,7 +722,6 @@ section.active {
   background: #141414;
   border-top: 1px solid #222;
   z-index: 10;
-  /* Ensure it stays on top of content */
   box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
 }
 
@@ -731,7 +730,6 @@ section.active {
   padding: 16px;
   font-size: 16px;
   font-weight: 700;
-  /* Make button more tappable on mobile */
   min-height: 56px;
   background: #25d366;
   color: #000;
@@ -971,9 +969,9 @@ footer {
     width: 100%;
   }
 
-  /* FIXED CART FOOTER FOR MOBILE - THIS WAS THE FIX */
+  /* FIXED CART FOOTER FOR MOBILE - ENSURES IT STAYS INSIDE CART */
   .cart-footer {
-    position: absolute; /* Changed from fixed to absolute */
+    position: absolute; /* Kept absolute so it doesn't float on homepage */
     bottom: 0;
     left: 0;
     right: 0;
@@ -981,7 +979,6 @@ footer {
     background: #141414;
     border-top: 2px solid #222;
     z-index: 10;
-    /* Safe area for notches */
     padding-bottom: max(15px, env(safe-area-inset-bottom, 15px));
   }
   
@@ -990,7 +987,6 @@ footer {
     padding: 18px;
     font-size: 17px;
     font-weight: 700;
-    /* Larger touch target */
     min-height: 60px;
     background: #25d366;
     color: #000;
@@ -1027,13 +1023,12 @@ footer {
     font-size: 16px;
   }
 
-  /* PREVENT EXPLODING FONTS */
   .cart-item-name { font-size: 14px; }
   .cart-item-price { font-size: 14px !important; }
   .summary-row { font-size: 13px; }
   .summary-total { font-size: 16px; }
   
-  /* Ensure no WhatsApp button appears outside cart on mobile */
+  /* SAFETY: Ensure no WhatsApp button appears outside cart on mobile */
   .whatsapp-order-btn,
   .whatsapp-button,
   .order-whatsapp {
@@ -1057,16 +1052,14 @@ footer {
     padding-bottom: 110px;
   }
   
-  /* Footer text adjustment for mobile */
   footer {
     font-size: 13px;
     padding: 25px 15px;
   }
 }
 
-/* Mobile-specific adjustments to ensure no WhatsApp button appears outside cart */
+/* SAFETY: Mobile-specific adjustments to ensure no WhatsApp button appears outside cart */
 @media (hover: none) and (pointer: coarse) {
-  /* This targets touch devices */
   .whatsapp-order-btn,
   .whatsapp-button,
   .order-whatsapp,
