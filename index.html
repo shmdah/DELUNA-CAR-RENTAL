@@ -302,37 +302,9 @@ section.active {
   z-index: 10;
 }
 
-/* ============ WHATSAPP BUTTON FIX ============ */
-.whatsapp-btn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #25d366;
-  color: #000;
-  padding: 15px;
-  border-radius: 50%;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
-  z-index: 999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 60px;
-  height: 60px;
-  transition: transform 0.3s, box-shadow 0.3s;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.whatsapp-btn:active {
-  transform: scale(0.95);
-  box-shadow: 0 3px 10px rgba(37, 211, 102, 0.4);
-}
-
-.whatsapp-btn svg {
-  width: 28px;
-  height: 28px;
-}
+/* ============ REMOVED FLOATING WHATSAPP BUTTON ============ */
+/* The floating WhatsApp button CSS has been removed */
+/* The "Order via WhatsApp" button is now ONLY in the cart */
 
 /* ============ FLEET SECTION ============ */
 #fleet {
@@ -765,6 +737,17 @@ section.active {
   font-weight: 700;
   /* Make button more tappable on mobile */
   min-height: 56px;
+  background: #25d366;
+  color: #000;
+  border: 2px solid #25d366;
+}
+
+.cart-footer .btn:hover, .cart-footer .btn:active {
+  background: #1ea952;
+  border-color: #1ea952;
+  color: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
 }
 
 /* ============ CART OVERLAY ============ */
@@ -1007,6 +990,14 @@ footer {
     font-weight: 700;
     /* Larger touch target */
     min-height: 60px;
+    background: #25d366;
+    color: #000;
+    border: 2px solid #25d366;
+  }
+  
+  .cart-footer .btn:hover, .cart-footer .btn:active {
+    background: #1ea952;
+    border-color: #1ea952;
   }
   
   /* Adjust cart content to not hide behind fixed footer */
@@ -1295,7 +1286,7 @@ footer {
   </div>
   
   <div class="cart-footer">
-    <button class="btn" onclick="order()" style="background:#25d366; color:#000;">Order via WhatsApp</button>
+    <button class="btn" onclick="order()">Order via WhatsApp</button>
   </div>
 </div>
 
